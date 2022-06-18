@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Address;
 use App\Models\User;
+use App\Models\Address;
 use App\Models\Product;
+use App\Models\ProductRating;
+use App\Models\ProductReview;
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder {
   /**
@@ -71,6 +73,7 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 8,
       "stock" => 12,
       "user_id" => 1,
+      "total_reviews" => 24
     ]);
 
     Product::create([
@@ -98,6 +101,30 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 1,
       "stock" => 998,
       "user_id" => 2,
+    ]);
+
+    ProductRating::create([
+      "user_id" => 2,
+      "product_id" => 1,
+      "rate" => 4
+    ]);
+
+    ProductRating::create([
+      "user_id" => 2,
+      "product_id" => 1,
+      "rate" => 5
+    ]);
+
+    ProductRating::create([
+      "user_id" => 2,
+      "product_id" => 1,
+      "rate" => 3
+    ]);
+
+    ProductReview::create([
+      "user_id" => 2,
+      "product_id" => 1,
+      "review" => "Product ini sangat bagus"
     ]);
   }
 }
