@@ -105,3 +105,72 @@
     color: #855F35;
     font-weight: bold;
 }
+
+.footer {
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFEFE5;
+    margin-top: 1rem;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%
+}
+
+.logofooter {
+    height: 100%;
+    margin-left: 5px;
+    width: 210px;
+}
+
+.about {
+    margin-left: 50px;
+    color: #EDA27C;
+    text-decoration: underline;
+}
+
+.footer2 {
+    margin-left: 150px;
+    color: #EDA27C;
+    margin-top: 0;
+}
+
+.follow {
+    line-height: normal;
+    font-weight: bold;
+}
+
+.sosmed {
+    text-decoration: underline;
+    line-height: 22px;
+}
+
+.footer3 {
+    margin-left: 150px;
+    color: #EDA27C;
+    margin-top: 0;
+}
+
+.barcode {
+    width: 80px;
+    display: flex;
+    margin-top: 5px;
+}
+
+.link {
+    text-decoration: underline;
+    line-height: 25px;
+    margin-right: 50px;
+    color: #EDA27C;
+    margin-top: 25px;
+    margin-left: 10px;
+    display: flex;
+}
+
+.download {
+    margin-right: 200px;
+    font-weight: bold;
+}

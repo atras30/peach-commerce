@@ -36,6 +36,29 @@ export default function LandingPage() {
             <p className='categories'>Category 8</p>
             <p className='categories'>Category 9</p>
             <p className='categories'>Category 10</p>
+        </div>
+
+        <div className='footer'>
+            <div className='footer1'>
+                <img className='logofooter' src='./assets/img/logo.png'/>
+                <p className='about'>ABOUT PEACH</p>
+            </div>
+            <div className='footer2'>
+                <p className='follow'>FOLLOW US:</p> <br/>
+                <p className='sosmed'>INSTAGRAM</p>
+                <p className='sosmed'>TWITTER</p>
+                <p className='sosmed'>TIKTOK</p>
+            </div>
+            <div className='footer3'>
+                <p className='download'>DOWNLOAD PEACH HERE:</p>
+                <img className='barcode' src='./assets/img/barcode.png'/>
+            </div>
+            <div className='link'>
+                <div className='downloadlink'>
+                    <p>PLAYSTORE</p>
+                    <p>APPSTORE</p>
+                </div>
+            </div>
             </div>
         </div>
   )
