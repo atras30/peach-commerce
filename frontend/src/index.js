@@ -8,5 +8,5 @@ root.render(
     <link rel="stylesheet" href="./assets/css/style.css"/>
     
     <App />
-  </div>
+    </div>
 );
