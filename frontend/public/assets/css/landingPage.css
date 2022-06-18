@@ -1,0 +1,67 @@
+.header {
+    height: 80px;
+}
+
+.logo {
+    height: 100%;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.search {
+    height: 32px;
+    width: 22%;
+    border-radius: 50px;
+    border-style: solid;
+    background-color: #ffefe5 ;
+    border-color: #ffefe5;
+    padding-left: 10px;
+    outline: none;
+    color: #eda27c;
+}
+
+.search:focus{
+    color: #eda27c;
+}
+
+::placeholder {
+    color: #eda27c;
+    font-weight: bold;
+}
+
+.searchbar {
+    position: relative;
+}
+
+.logosearch {
+    position: absolute;
+    height: 100%;
+    right: 995px;
+}
+
+.logofaq {
+    height: 40px;
+}
+
+.faqq {
+    font-weight: bold;
+    font-size: x-large;
+    display: inline-block;
+    color: #855F35;
+}
+
+.faq {
+    display: flex;
+    align-items: center;
+}
+
+.login {
+    height: 35px;
+    width: 70px;
+    background-color: #eda27c;
+    border-color: #eda27c;
+    border-radius: 7px;
+    color:#855F35;
+    font-weight: bold;
+    font-size: 15px;
+}
