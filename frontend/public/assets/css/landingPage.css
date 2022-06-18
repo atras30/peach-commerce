@@ -1,5 +1,9 @@
 .header {
     height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 3%;
 }
 
 .logo {
@@ -9,45 +13,46 @@
 }
 
 .search {
-    height: 32px;
-    width: 22%;
+    height: 40px;
+    width: 100%;
     border-radius: 50px;
     border-style: solid;
-    background-color: #ffefe5 ;
-    border-color: #ffefe5;
+    background-color: #FACBA7;
+    border-color: #FACBA7;
     padding-left: 10px;
     outline: none;
-    color: #eda27c;
+    color: #855F35;
 }
 
 .search:focus{
-    color: #eda27c;
+    color: #855F35;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 ::placeholder {
-    color: #eda27c;
+    color: #855F35;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .searchbar {
     position: relative;
+    width: 32.5%;
+    top: 10px;
 }
 
 .logosearch {
     position: absolute;
-    height: 100%;
-    right: 995px;
+    height: 88%;
+    right: -5px;
+    top: -4.9px;
 }
 
 .logofaq {
-    height: 40px;
-}
-
-.faqq {
-    font-weight: bold;
-    font-size: x-large;
-    display: inline-block;
-    color: #855F35;
+    height: 55px;
+    right: 0px;
+    margin-top: 2.5px;
 }
 
 .faq {
@@ -56,12 +61,24 @@
 }
 
 .login {
-    height: 35px;
-    width: 70px;
-    background-color: #eda27c;
+    height: 40px;
+    width: 80px;
+    background-color: #FACBA7;
     border-color: #eda27c;
     border-radius: 7px;
     color:#855F35;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.flexitem {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.img-container {
+    height: 100%;
 }
