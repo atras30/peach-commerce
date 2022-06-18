@@ -82,3 +82,26 @@
 .img-container {
     height: 100%;
 }
+
+.category {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFDAB9;
+    margin-top: 15px;
+}
+
+.categories {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFDAB9;
+    text-indent: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+    font-size: large;
+    color: #855F35;
+    font-weight: bold;
+}

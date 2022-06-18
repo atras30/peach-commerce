@@ -24,6 +24,19 @@ export default function LandingPage() {
                 </div>
             </div>
         </div>
-    </div>
+
+        <div className='category'>
+            <p className='categories'>Category 1</p>
+            <p className='categories'>Category 2</p>
+            <p className='categories'>Category 3</p>
+            <p className='categories'>Category 4</p>
+            <p className='categories'>Category 5</p>
+            <p className='categories'>Category 6</p>
+            <p className='categories'>Category 7</p>
+            <p className='categories'>Category 8</p>
+            <p className='categories'>Category 9</p>
+            <p className='categories'>Category 10</p>
+            </div>
+        </div>
   )
 }
