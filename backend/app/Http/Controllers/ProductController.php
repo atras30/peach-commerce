@@ -63,7 +63,10 @@ class ProductController extends Controller {
    */
   public function show($id) {
     $product = Product::findOrFail($id);
-    return response()->json($product, Response::HTTP_OK);
+    return response()->json([
+      "message" => "Sucessfully fetched one product",
+      "product" => $product
+    ], Response::HTTP_OK);
   }
 
   /**
