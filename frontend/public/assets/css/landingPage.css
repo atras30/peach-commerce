@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "test";
+    src: url("http://localhost:3000/assets/fonts/test.tff") format('truetype');
+}
+
 .header {
     height: 80px;
     display: flex;
@@ -12,6 +17,10 @@
     margin-top: 5px;
 }
 
+.img-logo-wrapper {
+    height: 100%;
+}
+
 .search {
     height: 40px;
     width: 100%;
@@ -22,6 +31,8 @@
     padding-left: 10px;
     outline: none;
     color: #855F35;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .search:focus{
@@ -29,7 +40,6 @@
     font-weight: bold;
     font-size: 16px;
 }
-
 ::placeholder {
     color: #855F35;
     font-weight: bold;
@@ -44,9 +54,14 @@
 
 .logosearch {
     position: absolute;
-    height: 88%;
-    right: -5px;
-    top: -4.9px;
+    height: 70%;
+    right: 0;
+    top: -1px;
+    cursor: pointer;
+}
+
+.logosearch:hover {
+    transform: scale(.9);
 }
 
 .logofaq {
@@ -58,6 +73,11 @@
 .faq {
     display: flex;
     align-items: center;
+}
+
+a {
+    color: #EDA27C;
+    display: block;
 }
 
 .login {
@@ -98,6 +118,7 @@
     font-size: large;
     color: #855F35;
     font-weight: bold;
+    font-family: 'test';
 }
 
 .footer {
@@ -116,20 +137,18 @@
 
 .logofooter {
     height: 100%;
-    margin-left: 5px;
     width: 210px;
 }
 
 .about {
-    margin-left: 50px;
-    color: #EDA27C;
-    text-decoration: underline;
+    text-align: center;
 }
 
 .footer2 {
-    margin-left: 150px;
     color: #EDA27C;
     margin-top: 0;
+    margin-left: auto;
+    margin-right: 6em;
 }
 
 .follow {
@@ -138,24 +157,26 @@
 }
 
 .sosmed {
-    text-decoration: underline;
     line-height: 22px;
 }
 
 .footer3 {
-    margin-left: 150px;
     color: #EDA27C;
-    margin-top: 0;
+    margin-right: 2em;
+}
+
+.footer4 {
+    display: flex;
+    gap: 1em;
+    margin-top: 1.5em;
 }
 
 .barcode {
     width: 80px;
     display: flex;
-    margin-top: 5px;
 }
 
 .link {
-    text-decoration: underline;
     line-height: 25px;
     margin-right: 50px;
     color: #EDA27C;
@@ -165,6 +186,5 @@
 }
 
 .download {
-    margin-right: 200px;
     font-weight: bold;
 }
