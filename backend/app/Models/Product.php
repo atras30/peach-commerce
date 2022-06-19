@@ -11,15 +11,12 @@ class Product extends Model {
   protected $guarded = [
     "id",
     "created_at",
-    "updated_at"
+    "updated_at",
+    "total_sales"
   ];
 
   public function owner() {
     return $this->belongsTo(User::class);
-  }
-
-  public function ratings() {
-    return $this->hasMany(ProductRating::class);
   }
 
   public function reviews() {
@@ -27,6 +24,10 @@ class Product extends Model {
   }
 
   public function getAverageRating() {
-    return $this->ratings();
+    return number_format($this->reviews()->where("product_id", $this->id)->pluck("rating")->avg(), 1);
+  }
+
+  public function getTotalReviews() {
+    return $this->reviews()->get()->count();
   }
 }

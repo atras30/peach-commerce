@@ -73,13 +73,12 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 8,
       "stock" => 12,
       "user_id" => 1,
-      "total_reviews" => 24
     ]);
 
     Product::create([
       "title" => "LED Bulb 7W ECO, Putih - MEVAL",
       "price" => 20000,
-      "discount" => 0.05,
+      "discount" => 5,
       "total_sales" => 256,
       "stock" => 4804,
       "user_id" => 1,
@@ -97,34 +96,38 @@ class DatabaseSeeder extends Seeder {
     Product::create([
       "title" => "XIA| 28inch Simulated Chameleon Animal Model Doll Plush Stuffed Toy",
       "price" => 242307,
-      "discount" => 0,
+      "discount" => 20,
       "total_sales" => 1,
       "stock" => 998,
       "user_id" => 2,
     ]);
 
-    ProductRating::create([
+    ProductReview::create([
       "user_id" => 2,
       "product_id" => 1,
-      "rate" => 4
+      "review" => "Product ini sangat bagus",
+      "rating" => 5
     ]);
 
-    ProductRating::create([
-      "user_id" => 2,
+    ProductReview::create([
+      "user_id" => 1,
       "product_id" => 1,
-      "rate" => 5
+      "review" => "Produk Sesuai",
+      "rating" => 4
     ]);
 
-    ProductRating::create([
+    ProductReview::create([
       "user_id" => 2,
-      "product_id" => 1,
-      "rate" => 3
+      "product_id" => 2,
+      "review" => "",
+      "rating" => 4
     ]);
 
     ProductReview::create([
       "user_id" => 2,
       "product_id" => 1,
-      "review" => "Product ini sangat bagus"
+      "review" => "",
+      "rating" => 2
     ]);
   }
 }
