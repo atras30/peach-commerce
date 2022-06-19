@@ -38,14 +38,15 @@ returned response :\
 "product" => $product (object)
 
 ### /api/products/{id} - PUT
-Update data product berdasarkan ID dengan ketentuan :
+Update data product berdasarkan ID.\
+data yang bisa diubah : *{title, discount, price, total_sales, stock}*
+
+ketentuan data :
 
 discount : harus integer, diantara 0-100 (tidak wajib ada)\
 price : harus integer minimal 0          (tidak wajib ada)\
 total_sales : harus integer minimal 0    (tidak wajib ada)\
 stock : harus integer minimal 1          (tidak wajib ada)\
-
-data yang bisa diubah : *{title, discount, price, total_sales, stock}*
 
 response status : 200 - OK
 
