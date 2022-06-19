@@ -1,8 +1,7 @@
 # peach-commerce
 
 
-# API Documentation
-## Product
+## Product API Documentation
 
 ### /api/products - GET
 Menampilkan semua data product
