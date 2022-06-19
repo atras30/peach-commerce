@@ -1,6 +1,8 @@
-"# peach-commerce" 
+# peach-commerce
 
-## Product API
+
+# API Documentation
+## Product
 
 ### /api/products - GET
 Menampilkan semua data product
