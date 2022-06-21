@@ -25,7 +25,7 @@ class UserController extends Controller {
 
     return response()->json([
       "message" => "Successfully fetched data",
-      "user" => $users
+      "users" => $users
     ], Response::HTTP_OK);
   }
 

@@ -3,6 +3,9 @@
 
 ## Product API Documentation
 
+### /api/products/search - GET
+Menampilkan data berdasarkan filter input user
+
 ### /api/products - GET
 Menampilkan semua data product
 
@@ -61,4 +64,36 @@ response status : 200 - OK
 
 returned response :\
 "message": "Product was successfully deleted",\
-"deleted_product": $product (object)\
+"deleted_product": $product (object)
+
+## User API Documentation
+
+### /api/users - GET
+Menampilkan semua data user
+
+response status : 200 - OK
+
+returned response : 
+"message" => "Successfully fetched data",\
+"users" => $users (array of object)
+
+### /api/users/{id} - GET
+Menampilkan semua data user berdasarkan ID
+
+response status : 200 - OK
+
+returned response :\
+"message" => "Sucessfully fetched one user",\
+"user" => $user (object)
+
+### /api/users/{id} - GET
+GET ONE USER
+
+### /api/users/{id} - POST
+CREATE ONE USER
+
+### /api/users/{id} - PUT
+EDIT ONE USER
+
+### /api/users/{id} - delete
+DELETE ONE USER
