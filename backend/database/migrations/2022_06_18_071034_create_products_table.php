@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer("user_id");
             $table->integer("stock");
             $table->string("location");
+            $table->string("img_link");
             $table->timestamps();
         });
     }

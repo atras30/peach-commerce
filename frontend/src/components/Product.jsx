@@ -3,7 +3,7 @@ import React from 'react';
 export default function Product({product}) {
   return (
     <div className='product'>
-        <img className='productimg' src='' alt='product image'></img>
+        <img className='productimg' src={`assets/img/product/${product.img_link}`} alt='product image' />
         <div className='producttitle'>
             {product.title}
         </div>

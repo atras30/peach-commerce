@@ -67,6 +67,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "oppo-reno.jpg",
       "title" => "Oppo Reno 4 8/128",
       "price" => 3200000,
       "discount" => 0,
@@ -77,6 +78,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "bardi-lamp.jpg",
       "title" => "LED Bulb 7W ECO, Putih - MEVAL",
       "price" => 20000,
       "discount" => 5,
@@ -87,6 +89,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "kuromi.jpg",
       "title" => "Cute Kuromi My Melody KT Plush Toy Pendant Cinnamoroll Stuffed Doll",
       "price" => 163200,
       "discount" => 0,
@@ -97,6 +100,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "chamelleon.jpg",
       "title" => "XIA| 28inch Simulated Chameleon Animal Model Doll Plush Stuffed Toy",
       "price" => 242307,
       "discount" => 20,
@@ -107,6 +111,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "mikhadou.jpg",
       "title" => "Mikhadou Doudou Doll (boneka anak)",
       "price" => 124000,
       "discount" => 0,
@@ -117,6 +122,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "baju-pink.jpg",
       "title" => "Cherry Blossom Pink One Set / ff183",
       "price" => 375000,
       "discount" => 0,
@@ -127,6 +133,7 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     Product::create([
+      "img_link" => "smiski.jpg",
       "title" => "Smiski Bed Series [Blind Box]",
       "price" => 129000,
       "discount" => 0,
