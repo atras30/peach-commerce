@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("total_sales")->default(0);
             $table->integer("user_id");
             $table->integer("stock");
+            $table->string("location");
             $table->timestamps();
         });
     }

@@ -73,6 +73,7 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 8,
       "stock" => 12,
       "user_id" => 1,
+      "location" => "Tangerang Kota"
     ]);
 
     Product::create([
@@ -82,6 +83,7 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 256,
       "stock" => 4804,
       "user_id" => 1,
+      "location" => "Jakarta Barat"
     ]);
 
     Product::create([
@@ -91,6 +93,7 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 1,
       "stock" => 8458,
       "user_id" => 2,
+      "location" => "Bogor"
     ]);
 
     Product::create([
@@ -100,6 +103,37 @@ class DatabaseSeeder extends Seeder {
       "total_sales" => 1,
       "stock" => 998,
       "user_id" => 2,
+      "location" => "Jambi"
+    ]);
+
+    Product::create([
+      "title" => "Mikhadou Doudou Doll (boneka anak)",
+      "price" => 124000,
+      "discount" => 0,
+      "total_sales" => 0,
+      "stock" => 24,
+      "user_id" => 2,
+      "location" => "Sulawesi"
+    ]);
+
+    Product::create([
+      "title" => "Cherry Blossom Pink One Set / ff183",
+      "price" => 375000,
+      "discount" => 0,
+      "total_sales" => 0,
+      "stock" => 17,
+      "user_id" => 2,
+      "location" => "Unknown"
+    ]);
+
+    Product::create([
+      "title" => "Smiski Bed Series [Blind Box]",
+      "price" => 129000,
+      "discount" => 0,
+      "total_sales" => 0,
+      "stock" => 7,
+      "user_id" => 2,
+      "location" => "Jakarta Selatan"
     ]);
 
     ProductReview::create([
