@@ -15,7 +15,7 @@ export default function Product({product}) {
             <div className='totalsells'>{product.total_sales}</div>
         </div>
         <div className='productlocation'>
-            <div className='lokasi'>INI LOKASI</div>
+            <div className='lokasi'>{product.location}</div>
             <div className='buttonbuy'>
                 <button>add to cart</button>
             </div>
