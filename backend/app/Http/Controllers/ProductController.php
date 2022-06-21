@@ -28,6 +28,25 @@ class ProductController extends Controller {
   }
 
   /**
+   * Display a listing of the resource based on string query.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function search($query) {
+    $products = Product::where("title", "like", "%".$query."%")->get();
+
+    foreach ($products as $product) {
+      $product["rating"] = $product->getAverageRating();
+      $product["totalReviews"] = $product->getTotalReviews();
+    }
+
+    return response()->json([
+      "message" => "Successfully fetched data",
+      "products" => $products
+    ], Response::HTTP_OK);
+  }
+
+  /**
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
