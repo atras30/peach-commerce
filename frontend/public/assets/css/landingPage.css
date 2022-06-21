@@ -188,3 +188,19 @@ a {
 .download {
     font-weight: bold;
 }
+
+.product {
+    background-color: #eda27c;
+    width: 175px;
+    height: 250px;
+}
+
+.productContainer {
+    padding: 20px;
+    display: flex;
+    gap: 1.5em;
+}
+
+.productrating, .productlocation {
+    display: flex;
+}

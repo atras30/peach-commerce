@@ -1,9 +1,32 @@
-import React, {useRef} from 'react';
+import React, {useRef,useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
+import Product from './Product.jsx';
 
 export default function LandingPage() {
     const inputSearch = useRef(null);
+    const [products,setProducts] = useState([]);
+
+    useEffect(
+        function () {
+            Axios.get('http://127.0.0.1:8000/api/products')
+            .then(function (response) {
+                // handle success
+                setProducts(response.data.products);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log (error);
+            });
+            
+        },[]
+    )
+
+    useEffect(
+        function () {
+            console.log(products);
+        },[products]
+    )
     
     // Filter produk berdasarkan input user (search input)
     function handleSearch() {
@@ -14,15 +37,15 @@ export default function LandingPage() {
 
     // Fetch data API Product
     function getAllProducts() {
-        Axios.get('http://127.0.0.1:8000/api/products')
-        .then(function (response) {
-            // handle success
-            console.log(response);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        });
+        // Axios.get('http://127.0.0.1:8000/api/products')
+        // .then(function (response) {
+        //     // handle success
+        //     return response.data.products;
+        // })
+        // .catch(function (error) {
+        //     // handle error
+        //     return error;
+        // });
     }
     
   return (
@@ -65,7 +88,9 @@ export default function LandingPage() {
         </div>
 
         <div className='productContainer'>
-            <button onClick={getAllProducts}>get all products</button>
+            {products.map(function(eachProduct){
+                return <Product product={eachProduct}/>
+            })}
         </div>
         
         <div className='footer'>
