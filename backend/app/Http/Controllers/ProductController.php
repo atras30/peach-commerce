@@ -33,7 +33,7 @@ class ProductController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function search($query) {
-    $products = Product::where("title", "like", "%".$query."%")->get();
+    $products = Product::where("title", "like", "%" . $query . "%")->get();
 
     foreach ($products as $product) {
       $product["rating"] = $product->getAverageRating();

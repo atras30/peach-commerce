@@ -32,7 +32,8 @@ export default function LandingPage() {
     function handleSearch() {
         let text = inputSearch.current.value;
 
-        Axios.get('http://127.0.0.1:8000/api/products/search/'+text)
+        if(text == "") {
+          Axios.get(`http://127.0.0.1:8000/api/products`)
             .then(function (response) {
                 // handle success
                 setProducts(response.data.products);
@@ -41,6 +42,17 @@ export default function LandingPage() {
                 // handle error
                 console.log (error);
             });
+        } else {
+          Axios.get(`http://127.0.0.1:8000/api/products/search/${text}`)
+            .then(function (response) {
+                // handle success
+                setProducts(response.data.products);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log (error);
+            });
+        }
     }
 
     // Fetch data API Product

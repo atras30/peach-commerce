@@ -3,7 +3,7 @@
 
 ## Product API Documentation
 
-### /api/products/search - GET
+### /api/products/search/{filter} - GET
 Menampilkan data berdasarkan filter input user
 
 ### /api/products - GET
