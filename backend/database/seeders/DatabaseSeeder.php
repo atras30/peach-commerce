@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder {
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder {
       "full_name" => "Atras Shalhan",
       "username" => "beowulf",
       "email" => "atrasshalhan@gmail.com",
-      "password" => "testing12345",
+      "password" => Hash::make("testing12345"),
       "phone_number" => "081287318166",
       "peach_coin" => 500000
     ]);
@@ -41,7 +42,7 @@ class DatabaseSeeder extends Seeder {
       "full_name" => "Kelsha Aira Meylie",
       "username" => "ludovica",
       "email" => "kelshairaa@gmail.com",
-      "password" => "testing12345",
+      "password" => Hash::make("testing12345"),
       "phone_number" => "0812873846577",
       "peach_coin" => 500000
     ]);
