@@ -145,7 +145,7 @@ export default function LandingPage() {
                         <label for="username">Username:</label><br/>
                         <input type="text" class="input" id="username" name="username"/><br/><br/>
                         <label for="password">Password:</label><br/>
-                        <input type="text" class="input" id="password" name="password"/>
+                        <input type="password" class="input" id="password" name="password"/>
                     </div>
                     <div class="modal-footer">
                         <div className='buttonfooter'>
