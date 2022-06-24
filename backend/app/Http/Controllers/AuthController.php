@@ -9,10 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller {
   public function login(Request $request) {
-    return response()->json([
-      "data" => $request->all()
-    ], Response::HTTP_OK);
-
     $user = User::firstWhere("email", $request->email);
 
     if($user == null) {
