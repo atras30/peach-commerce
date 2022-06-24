@@ -59,6 +59,8 @@ class ProductController extends Controller {
       'price' => 'required|numeric|min:0',
       'user_id' => 'required',
       'stock' => 'required|numeric|min:1',
+      'location' => 'required|string',
+      'img_link' => 'required|string'
     ]);
 
     if (User::find($validated["user_id"]) == null) {

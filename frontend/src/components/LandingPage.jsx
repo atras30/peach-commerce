@@ -1,6 +1,7 @@
 import React, {useRef,useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
+import axios from 'axios';
 import Product from './Product.jsx';
 
 export default function LandingPage() {
@@ -33,22 +34,14 @@ export default function LandingPage() {
         let username = inputUsername.current.value;
         let password = inputPassword.current.value;
 
-        console.log(username);
-        console.log(password);
+        let data = {
+          email: "atrasshalhan@gmail.com",
+          password: "testing12345"
+        }
 
         // Send a POST request
-        try {
-            Axios({
-                method: 'post',
-                url: 'http://127.0.0.1:8000/api/auth/login',
-                data: {
-                    email: username,
-                    password: password
-                }
-            }).then(response => console.log(response));
-        } catch(e) {
-            console.log(e)
-        }
+        axios.post('http://127.0.0.1:8000/api/auth/login', data)
+        .then(response => console.log(response));
     }
 
     // Filter produk berdasarkan input user (search input)
