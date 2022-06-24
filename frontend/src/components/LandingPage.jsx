@@ -40,7 +40,7 @@ export default function LandingPage() {
         try {
             Axios({
                 method: 'post',
-                url: 'http://127.0.0.1:8001/api/auth/login',
+                url: 'http://127.0.0.1:8000/api/auth/login',
                 data: {
                     email: username,
                     password: password
