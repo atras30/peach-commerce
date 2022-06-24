@@ -40,11 +40,7 @@ export default function LandingPage() {
         }
 
         // Send a POST request
-<<<<<<< Updated upstream
         axios.post('http://127.0.0.1:8000/api/auth/login', data)
-=======
-        Axios.post('http://127.0.0.1:8000/api/auth/login', data)
->>>>>>> Stashed changes
         .then(response => console.log(response));
     }
 
