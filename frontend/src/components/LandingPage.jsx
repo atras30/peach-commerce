@@ -88,10 +88,10 @@ export default function LandingPage() {
                         <img className='logofaq' src='./assets/img/faq.png' alt="Frequently Asked Questions"/>
                     </Link>
                 </div>
-                <div className='loginbutton'>
-                        <button className='login'>
-                            LOGIN
-                        </button>
+                <div>
+                    <button className='loginbutton' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Login
+                    </button>
                 </div>
             </div>
         </div>
@@ -134,6 +134,28 @@ export default function LandingPage() {
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">LOGIN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="username">Username:</label><br/>
+                    <input type="text" id="username" name="username"/><br/><br/>
+                    <label for="password">Password:</label><br/>
+                    <input type="text" id="password" name="password"/>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Register</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Login</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
     </div>
   )
 }
