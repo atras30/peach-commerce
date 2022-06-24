@@ -193,9 +193,11 @@ a {
     background-color:#FACBA7;
     width: 175px;
     height: 300px;
-    position: relative;
     border-radius: 6px;
     padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .productContainer {
@@ -203,6 +205,7 @@ a {
     display: flex;
     gap: 1.5em;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .productrating {
@@ -220,8 +223,6 @@ a {
     width: 80%;
     margin-left: 8px;
     height: 30px;
-    margin-top: 100px;
-    position: absolute;
     bottom: 10px;
     border-radius: 6px;
     border-color:antiquewhite;

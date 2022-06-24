@@ -16,8 +16,9 @@ export default function Product({product}) {
         </div>
         <div className='productlocation'>
             <div className='lokasi'>{product.location}</div>
-            <button className='buttonbuy'>add to cart</button>
         </div>
+        
+        <button className='buttonbuy'>add to cart</button>
     </div>
   )
 }
