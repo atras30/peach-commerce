@@ -22,9 +22,14 @@ Route::resource("users", UserController::class);
 
 Route::get("/products/search/{query}", [ProductController::class, "search"]);
 
-Route::get("/auth/login", [AuthController::class, "login"]);
-Route::get("/auth/logout", [AuthController::class, "login"]);
-Route::get("/auth/register", [AuthController::class, "register"]);
+Route::post("/auth/login", [AuthController::class, "login"]);
+Route::post("/auth/register", [AuthController::class, "register"]);
+
+Route::group(["middleware" => ["auth:sanctum"]], function () {
+  Route::post("/auth/logout", [AuthController::class, "logout"]);
+  Route::get("/auth/user", [AuthController::class, "getUser"]);
+});
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
