@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 export default function Product({product}) {
+    useEffect(function() {
+        console.log(product);
+      },[]);
+
   return (
     <div className='product'>
         <img className='productimg' src={`assets/img/product/${product.img_link}`} alt='product image' />

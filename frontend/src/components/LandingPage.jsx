@@ -89,11 +89,9 @@ export default function LandingPage() {
                     </Link>
                 </div>
                 <div className='loginbutton'>
-                    <Link to="/Login">
                         <button className='login'>
-                            <p className='loginn'>LOGIN</p>
+                            LOGIN
                         </button>
-                    </Link>
                 </div>
             </div>
         </div>
