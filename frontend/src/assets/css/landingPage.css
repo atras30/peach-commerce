@@ -246,19 +246,20 @@ a {
 }
 
 .modal-body, .modal-header, .modal-footer{
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
 }
 
 .modal-header {
-    justify-content: center;
+    justify-content: center !important;
+
 }
 
 .modal-footer {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .buttonfooter {
@@ -299,19 +300,19 @@ a {
 }
 
 .modal-faq {
-    text-align: justify;
-    padding-left: 50px;
-    padding-right: 50px;
+    text-align: justify !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
 }
 
 .button-close-faq {
-    height: 40px;
-    width: 80px;
-    background-color: #FACBA7;
-    border-color: #eda27c;
-    border-radius: 7px;
-    color:#855F35;
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 10px;
+    height: 40px !important;
+    width: 80px !important;
+    background-color: #FACBA7 !important;
+    border-color: #eda27c !important;
+    border-radius: 7px !important;
+    color:#855F35 !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+    margin-top: 10px !important;
 }

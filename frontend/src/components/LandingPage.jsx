@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import axios from 'axios';
 import Product from './Product.jsx';
+import "../assets/css/landingPage.css";
 
 export default function LandingPage() {
     const inputSearch = useRef(null);
