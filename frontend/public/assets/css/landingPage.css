@@ -297,3 +297,21 @@ a {
     height: 35px;
     width: 35px;
 }
+
+.modal-faq {
+    text-align: justify;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.button-close-faq {
+    height: 40px;
+    width: 80px;
+    background-color: #FACBA7;
+    border-color: #eda27c;
+    border-radius: 7px;
+    color:#855F35;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+}

@@ -87,9 +87,7 @@ export default function LandingPage() {
                     <img onClick={handleSearch} className='logosearch' src='./assets/img/search-icon.png' alt="Search Icon"/>
                 </div>
                 <div className='faq'>
-                    <Link to="/FAQ">
-                        <img className='logofaq' src='./assets/img/faq.png' alt="Frequently Asked Questions"/>
-                    </Link>
+                    <img className='logofaq' src='./assets/img/faq.png' alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable"/>
                 </div>
                 <div>
                     <button className='loginbutton' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -167,6 +165,21 @@ export default function LandingPage() {
             </div>
         </div>
 
+        <div class="modal fade" id="faqModalScrollable" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="faqModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="faqModalScrollableTitle">FAQ</h5>
+                    </div>
+                    <div class="modal-body modal-faq">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod dolorum ratione neque, consectetur ducimus iste similique illum ea, in quisquam a quo enim ut provident dicta commodi eaque alias. Placeat quaerat laborum quis quos labore error deleniti nulla natus dolorem, animi eos esse accusantium possimus minima impedit minus. Eveniet numquam, ipsam dolor quod explicabo beatae? Dolore, ipsum natus voluptatum magni vero excepturi repudiandae. Odio nisi error dolorem deleniti quaerat nesciunt esse tenetur minus tempore qui placeat, ad expedita aliquid explicabo laborum ab molestiae quisquam, ullam voluptas. Iusto officiis facilis perferendis maxime debitis odit quo aliquam, sit beatae! Tempore at illo numquam, modi incidunt mollitia? Aspernatur explicabo tempora ad quam! Fugiat adipisci porro optio rerum ipsam illum ducimus vitae, cupiditate, consequatur provident architecto id consequuntur nulla, quisquam sint. Ducimus autem quos exercitationem iusto fugiat id quam consectetur, perferendis dolore aspernatur quis unde quas repellendus delectus deleniti eligendi molestias eveniet quo quisquam eos praesentium, similique minus sed! Similique fuga dignissimos, qui deserunt, molestiae quo eos veniam unde repellat corporis tenetur porro corrupti ratione temporibus non alias. Quod possimus dicta illo, ullam deleniti fuga unde vero at non labore veniam, tenetur cupiditate explicabo et architecto similique facere earum voluptas alias adipisci nam. Nisi corporis alias velit facilis esse saepe earum deserunt minima delectus! Voluptate deleniti ipsum voluptates earum eum dignissimos atque fugiat ipsam? Quis tempora distinctio libero deserunt quae itaque vel accusantium voluptatum ad voluptate, asperiores nemo similique unde sapiente doloribus quasi, voluptatibus non fugit ipsa. Error hic doloribus perferendis nostrum architecto? Molestiae ducimus, ipsa, doloremque quia aliquid aut deleniti culpa expedita enim incidunt commodi. Nisi tempora nam quam a dolorum tenetur facilis quisquam magni itaque atque corrupti consequuntur molestias est, mollitia sit soluta labore porro laudantium eos nemo doloremque sunt? Ad repudiandae velit obcaecati molestiae veritatis consequuntur? Accusantium dolor eius reiciendis pariatur unde voluptate laborum nulla sed, hic quas explicabo accusamus rerum perferendis nihil illo error repellat ut. Nesciunt laboriosam, vitae qui possimus magni hic. Officiis similique iste voluptatibus recusandae nostrum impedit tenetur, nisi nemo doloremque veritatis, accusamus expedita optio voluptatem ea dolor commodi assumenda magnam eius error a architecto. Dolor molestias vel iste, explicabo, praesentium eveniet ipsa corrupti temporibus iusto voluptatum rerum vitae ratione excepturi sapiente dolore aperiam dolorum at aliquid. Est fuga eius modi minus exercitationem minima eveniet quae reprehenderit sit. Impedit necessitatibus laborum perferendis! Vero sint doloremque, nesciunt ex nobis aliquam aut, quidem illum cumque aperiam necessitatibus unde et doloribus inventore fugit atque quod excepturi ab debitis! Consectetur quasi necessitatibus repudiandae molestiae consequuntur maxime velit animi quo, debitis iusto autem dolorem quaerat quibusdam non quidem dolore laboriosam iure optio aliquid corrupti laudantium. Non dicta earum veniam, quidem id inventore amet consectetur ut explicabo iste natus esse provident eaque perspiciatis magnam nam modi? Distinctio, reprehenderit voluptatum veniam, a sunt unde, molestias pariatur ratione cum deserunt ullam doloribus odio qui numquam illo! Eum quidem pariatur quod nulla quis repellat voluptatum repellendus exercitationem expedita cum beatae laboriosam eaque facere voluptas delectus deleniti, obcaecati id officia similique porro voluptates eius! Repudiandae, repellendus deleniti?
+                    <div class="modal-footer">
+                        <button type="button" class="button-close-faq" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   )
 }
