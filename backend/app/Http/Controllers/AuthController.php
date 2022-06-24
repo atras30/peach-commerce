@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller {
   public function login(Request $request) {
+    return response()->json([
+      "message" => "Login failed. Wrong email or password"
+    ], Response::HTTP_OK);
     $user = User::firstWhere("email", $request->email);
 
     if (Hash::check($request->password, $user->password)) {

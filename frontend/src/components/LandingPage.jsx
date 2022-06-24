@@ -32,17 +32,20 @@ export default function LandingPage() {
     function handleLogin() {
         let username = inputUsername.current.value;
         let password = inputPassword.current.value;
+        let data = [username, password];
 
-        Axios.post('http://127.0.0.1:8000/api/auth/login', {
-            email: username,
-            password: password
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        // Send a POST request
+        try {
+            Axios({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/api/auth/login',
+                data: {
+                    
+                }
+            });
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     // Filter produk berdasarkan input user (search input)
