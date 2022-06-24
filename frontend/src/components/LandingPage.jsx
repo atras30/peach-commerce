@@ -10,6 +10,7 @@ export default function LandingPage() {
     const inputUsername = useRef(null);
     const inputPassword = useRef(null);
     const [products,setProducts] = useState([]);
+    const [token,setToken] = useState("");
 
     useEffect(
         function () {
@@ -36,14 +37,23 @@ export default function LandingPage() {
         let password = inputPassword.current.value;
 
         let data = {
-          email: "atrasshalhan@gmail.com",
-          password: "testing12345"
+          email: username,
+          password: password
         }
 
         // Send a POST request
         axios.post('http://127.0.0.1:8000/api/auth/login', data)
-        .then(response => console.log(response));
+        .then(response => setToken(response.data.token));
     }
+
+    useEffect(function(){
+        axios.get("http://127.0.0.1:8000/api/auth/login",{
+            headers: {
+                Authorization: `Bearer ${token}` 
+            }
+        })
+        .then(response=>console.log(response));
+    }, [token]);
 
     // Filter produk berdasarkan input user (search input)
     function handleSearch() {
