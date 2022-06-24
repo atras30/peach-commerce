@@ -5,6 +5,8 @@ import Product from './Product.jsx';
 
 export default function LandingPage() {
     const inputSearch = useRef(null);
+    const inputUsername = useRef(null);
+    const inputPassword = useRef(null);
     const [products,setProducts] = useState([]);
 
     useEffect(
@@ -18,7 +20,6 @@ export default function LandingPage() {
                 // handle error
                 console.log (error);
             });
-            
         },[]
     )
 
@@ -28,6 +29,22 @@ export default function LandingPage() {
         },[products]
     )
     
+    function handleLogin() {
+        let username = inputUsername.current.value;
+        let password = inputPassword.current.value;
+
+        Axios.post('http://127.0.0.1:8000/api/auth/login', {
+            email: username,
+            password: password
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
     // Filter produk berdasarkan input user (search input)
     function handleSearch() {
         let text = inputSearch.current.value;
@@ -55,19 +72,6 @@ export default function LandingPage() {
         }
     }
 
-    // Fetch data API Product
-    function getAllProducts() {
-        // Axios.get('http://127.0.0.1:8000/api/products')
-        // .then(function (response) {
-        //     // handle success
-        //     return response.data.products;
-        // })
-        // .catch(function (error) {
-        //     // handle error
-        //     return error;
-        // });
-    }
-    
   return (
     <div className='landing-page'>
         <link rel="stylesheet" href='./assets/css/landingPage.css'/>
@@ -107,7 +111,7 @@ export default function LandingPage() {
 
         <div className='productContainer'>
             {products.map(function(eachProduct){
-                return <Product product={eachProduct}/>
+                return <Product key={eachProduct.id} product={eachProduct}/>
             })}
         </div>
         
@@ -135,22 +139,23 @@ export default function LandingPage() {
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-sm modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">LOGIN</h5>
                     </div>
-                    <div class="modal-body">
-                        <label for="username">Username:</label><br/>
-                        <input type="text" class="input" id="username" name="username"/><br/><br/>
-                        <label for="password">Password:</label><br/>
-                        <input type="text" class="input" id="password" name="password"/>
+                    <div className="modal-body">
+                        <label htmlFor="username">Username / Email:</label><br/>
+                        <input ref={inputUsername} type="text" className="input" id="username" name="username"/><br/><br/>
+
+                        <label htmlFor="password">Password:</label><br/>
+                        <input ref={inputPassword} type="password" className="input" id="password" name="password"/>
                     </div>
-                    <div class="modal-footer">
+                    <div className="modal-footer">
                         <div className='buttonfooter'>
-                            <button type="button" class="login" data-bs-dismiss="modal">Login</button>
-                            <button type="button" class="register" data-bs-dismiss="modal">Register</button>
+                            <button onClick={handleLogin} type="button" className="login" data-bs-dismiss="modal">Login</button>
+                            <button type="button" className="register" data-bs-dismiss="modal">Register</button>
                         </div>
                         <div className='mt-4'>
                             Or login using
