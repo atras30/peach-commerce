@@ -4,6 +4,8 @@ import Axios from 'axios';
 import axios from 'axios';
 import Product from './Product.jsx';
 import "../assets/css/landingPage.css";
+import LoginButton from './LoginButton.jsx';
+import LogoutButton from './LogoutButton.jsx';
 
 export default function LandingPage() {
     const inputSearch = useRef(null);
@@ -43,11 +45,30 @@ export default function LandingPage() {
 
         // Send a POST request
         axios.post('http://127.0.0.1:8000/api/auth/login', data)
-        .then(response => setToken(response.data.token));
+        .then(response =>{
+            if (response.data.message == "Login failed. Wrong email or password") {
+                alert("Login gagal");
+            }
+            else {
+                setToken(response.data.token);
+            }
+        });
+    }
+
+    function handleLogout() {
+        axios.post("http://127.0.0.1:8000/api/auth/logout",{
+            headers: {
+                Authorization: `Bearer ${token}` 
+            }
+        })
+        .then(response=>console.log(response));
     }
 
     useEffect(function(){
-        axios.get("http://127.0.0.1:8000/api/auth/login",{
+        if (token=='') {
+            return;
+        }
+        axios.get("http://127.0.0.1:8000/api/auth/user",{
             headers: {
                 Authorization: `Bearer ${token}` 
             }
@@ -101,9 +122,7 @@ export default function LandingPage() {
                     <img className='logofaq' src='./assets/img/faq.png' alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable"/>
                 </div>
                 <div>
-                    <button className='loginbutton' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Login
-                    </button>
+                    {token == "" ? <LoginButton/> : <LogoutButton handleLogout={handleLogout}/>}
                 </div>
             </div>
         </div>
