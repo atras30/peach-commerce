@@ -12,7 +12,7 @@ export default function LandingPage() {
     const inputUsername = useRef(null);
     const inputPassword = useRef(null);
     const [products,setProducts] = useState([]);
-    const [token,setToken] = useState("");
+    const [token,setToken] = useState(sessionStorage.getItem("token"));
 
     useEffect(
         function () {
@@ -56,16 +56,27 @@ export default function LandingPage() {
     }
 
     function handleLogout() {
-        axios.post("http://127.0.0.1:8000/api/auth/logout",{
+        axios.post("http://127.0.0.1:8000/api/auth/logout",{},{
             headers: {
                 Authorization: `Bearer ${token}` 
             }
         })
-        .then(response=>console.log(response));
+        .then(response=>{
+            if (response.data.message == "Successfully Logged Out") {
+                setToken('');
+                alert ("Logout Berhasil");
+                return
+            }
+        });
     }
 
+    useEffect (function(){
+        sessionStorage.setItem("token",token);
+    },[token])
+
     useEffect(function(){
-        if (token=='') {
+        if (token == '' || token == null) {
+            setToken("");
             return;
         }
         axios.get("http://127.0.0.1:8000/api/auth/user",{
