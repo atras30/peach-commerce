@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 export default function Profile() {
   return (
-    <div>
-      Profile Page
+    <div className='profile'>
+      <link rel="stylesheet" href='./assets/css/profile.css'/>
+      <div className='header'>
+        PROFILE
+      </div>
     </div>
   )
 }
