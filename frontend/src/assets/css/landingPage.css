@@ -242,7 +242,7 @@ a {
 }
 
 .modal-content {
-    background-color: #FFEFE5;
+    background-color: #FFEFE5 !important;
 }
 
 .modal-body, .modal-header, .modal-footer{
