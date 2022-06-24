@@ -146,9 +146,9 @@ a {
 
 .footer2 {
     color: #EDA27C;
-    margin-top: 0;
     margin-left: auto;
     margin-right: 6em;
+    padding-bottom: 12px;
 }
 
 .follow {
@@ -187,6 +187,7 @@ a {
 
 .download {
     font-weight: bold;
+    padding-top: 8px;
 }
 
 .product {

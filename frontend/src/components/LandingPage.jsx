@@ -121,17 +121,17 @@ export default function LandingPage() {
         
             <div className='footer2'>
                 <p className='follow'>FOLLOW US:</p> <br/>
-                <a href="#" className='sosmed'>INSTAGRAM</a>
-                <a href="#" className='sosmed'>TWITTER</a>
-                <a href="#" className='sosmed'>TIKTOK</a>
+                <a href="https://www.instagram.com/" target="_blank" className='sosmed'>INSTAGRAM</a>
+                <a href="https://www.twitter.com/" target="_blank" className='sosmed'>TWITTER</a>
+                <a href="https://www.tiktok.com/" target="_blank" className='sosmed'>TIKTOK</a>
             </div>
             <div className='footer3'>
                 <p className='download'>DOWNLOAD PEACH HERE:</p>
                 <div className='footer4'>
                     <img className='barcode' src='./assets/img/barcode.png' alt="Barcode"/>
                     <div className='footer5'>
-                        <a href="#">PLAYSTORE</a>
-                        <a href="#">APPSTORE</a>
+                        <a href="https://www.play.google.com/">PLAYSTORE</a>
+                        <a href="https://www.apple.com/app-store/">APPSTORE</a>
                     </div>
                 </div>
             </div>
