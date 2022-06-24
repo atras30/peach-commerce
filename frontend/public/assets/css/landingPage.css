@@ -240,3 +240,60 @@ a {
   border-radius: 2px;
   width: 100%;
 }
+
+.modal-content {
+    background-color: #FFEFE5;
+}
+
+.modal-body, .modal-header, .modal-footer{
+    border: none;
+    outline: none;
+}
+
+.modal-header {
+    justify-content: center;
+}
+
+.modal-footer {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonfooter {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-title {
+    font-size:22pt;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    color: #E1A586;
+}
+
+.register, .login {
+    height: 30px;
+    width: 120px;
+    background-color: #FACBA7;
+    border-color: #eda27c;
+    border-radius: 4px;
+    color:#855F35;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #E1A586 !important;
+    width: 100%;
+}
+
+.google {
+    height: 35px;
+    width: 35px;
+}

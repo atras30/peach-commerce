@@ -136,22 +136,29 @@ export default function LandingPage() {
         </div>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">LOGIN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="username">Username:</label><br/>
-                    <input type="text" id="username" name="username"/><br/><br/>
-                    <label for="password">Password:</label><br/>
-                    <input type="text" id="password" name="password"/>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Register</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Login</button>
-                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+                    </div>
+                    <div class="modal-body">
+                        <label for="username">Username:</label><br/>
+                        <input type="text" class="input" id="username" name="username"/><br/><br/>
+                        <label for="password">Password:</label><br/>
+                        <input type="text" class="input" id="password" name="password"/>
+                    </div>
+                    <div class="modal-footer">
+                        <div className='buttonfooter'>
+                            <button type="button" class="login" data-bs-dismiss="modal">Login</button>
+                            <button type="button" class="register" data-bs-dismiss="modal">Register</button>
+                        </div>
+                        <div className='mt-4'>
+                            Or login using
+                        </div>
+                        <div className='mb-3'>
+                            <img className='google' src='./assets/img/google.png'/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
