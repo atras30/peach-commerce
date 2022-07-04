@@ -2,14 +2,9 @@ import React from "react";
 import { useEffect } from "react";
 
 export default function ProfileButton({ handleLogout, authenticatedUser }) {
-  function logout() {
-    handleLogout();
-  }
-
-  function handleProfileDropdown() {}
-
+  //on init
   useEffect(() => {
-    console.log(authenticatedUser)
+    // console.log(authenticatedUser)
   },[]);
 
   return (

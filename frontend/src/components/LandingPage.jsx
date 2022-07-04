@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from "react";
+import React, {useRef, useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
 import Axios from "axios";
 import axios from "axios";
@@ -7,8 +7,10 @@ import "../assets/css/landingPage.css";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import Cookies from "universal-cookie";
+import {UserContext} from "../App";
+import Swal from "sweetalert2";
 
-export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
+export default function LandingPage() {
   //configurations
   axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -17,6 +19,10 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
 
   //useState hook
   const [products, setProducts] = useState([]);
+
+  //useContext hook - user context
+  const {authenticatedUser} = useContext(UserContext);
+  const {setAuthenticatedUser} = useContext(UserContext);
 
   //useRef hook
   const inputSearch = useRef(null);
@@ -29,6 +35,20 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
   const inputEmail = useRef(null);
   const inputPhoneNumber = useRef(null);
   const inputAddress = useRef(null);
+
+  //SWAL (Sweet Alert) Configuration
+  //Toast Configuration
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   //on init
   useEffect(function () {
@@ -61,7 +81,10 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
     // Send a POST request
     axios.post("/api/auth/login", data).then(async (response) => {
       if (response.data.message == "Login failed. Wrong email or password") {
-        alert(response.data.message);
+        Toast.fire({
+          icon: "error",
+          title: response.data.message,
+        });
       } else {
         cookies.set("Authorization", `Bearer ${response.data.token}`);
 
@@ -74,7 +97,10 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
           .then((response) => response.data.user);
 
         setAuthenticatedUser(user);
-        alert("Login Success, welcome " + user.full_name);
+        Toast.fire({
+          icon: "success",
+          title: `Login Success, welcome ${user.full_name}`,
+        });
       }
     });
   }
@@ -92,7 +118,10 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
       })
       .then((response) => {
         if (response.data.message == "User has been created") {
-          alert("Successfully created a user, you can now login to our app!");
+          Toast.fire({
+            icon: "success",
+            title: `Successfully created a user, you can now login to our app!`,
+          });
         }
       })
       .catch((exception) => {
@@ -101,11 +130,14 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
 
         for (let field in errors) {
           if (errors.hasOwnProperty(field)) {
-            errorList.push(errors[field].join(", "))
+            errorList.push(errors[field].join(", "));
           }
         }
 
-        alert("Oops, something went wrong, " + errorList);
+        Toast.fire({
+          icon: "success",
+          title: "Oops, something went wrong, " + errorList,
+        });
       });
   };
 
@@ -125,7 +157,10 @@ export default function LandingPage({authenticatedUser, setAuthenticatedUser}) {
         if (response.data.message == "Successfully Logged Out") {
           cookies.remove("Authorization");
           setAuthenticatedUser(null);
-          alert("Logout Berhasil");
+          Toast.fire({
+            icon: "success",
+            title: `Successfully logged out!`,
+          });
           return;
         }
       });
