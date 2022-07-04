@@ -1,0 +1,11 @@
+.profile-button {
+  height: 40px;
+  background-color: #facba7;
+  border-radius: 7px;
+  color: #855f35;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+  border: 2px solid #eda27c;
+  cursor: pointer !important;
+}

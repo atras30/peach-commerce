@@ -11,7 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller {
   public function login(Request $request) {
+    //check email
     $user = User::firstWhere("email", $request->email);
+
+    //check username
+    if($user == null) {
+      $user = User::firstWhere("username", $request->email);
+    }
 
     if($user == null || Hash::check($request->password, $user->password) == false) {
       return response()->json([
@@ -46,7 +52,7 @@ class AuthController extends Controller {
       "first_name" => "string|required",
       "last_name" => "string|required",
       "username" => "string|required|unique:users,username",
-      "email" => "string|required|unique:users,email",
+      "email" => "string|required|unique:users,email|email:rfc,dns",
       "password" => "string|required|min:8",
       "phone_number" => "string|required",
       "address" => "string|required"
