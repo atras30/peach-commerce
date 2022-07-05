@@ -16,8 +16,4 @@ class User extends Authenticatable {
     'created_at',
     'updated_at'
   ];
-
-  public function addresses() {
-    return $this->hasMany(Address::class);
-  }
 }

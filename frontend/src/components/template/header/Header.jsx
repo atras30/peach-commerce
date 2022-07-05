@@ -1,12 +1,12 @@
 //import data
 import React, {useRef, useContext, useEffect} from "react";
 import {Link} from "react-router-dom";
-import {UserContext} from "../App";
+import {UserContext} from "../../../App";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "../assets/css/header.css";
+import "../../../assets/css/header.css";
 
 export default function Header({setProducts}) {
   //useContext hook
@@ -113,6 +113,8 @@ export default function Header({setProducts}) {
           icon: "error",
           title: "Oops, Register failed...<br/>" + errorList,
         });
+
+        console.log(exception)
       });
   };
 
@@ -128,16 +130,16 @@ export default function Header({setProducts}) {
   return (
     <div className="header">
       <Link to="/" className="img-logo-wrapper">
-        <img className="logo" src={require("../assets/img/logo.png")} alt="Peach Commerce Logo" />
+        <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
       </Link>
       <div className="flexitem">
         <form className="searchbar" onSubmit={handleSearch}>
           <input ref={inputSearch} className="search" type="text" placeholder="Search here . . ." />
-          <img onClick={handleSearch} className="logosearch" src={require("../assets/img/search-icon.png")} alt="Search Icon" />
+          <img onClick={handleSearch} className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
           <button type="submit" className="d-none"></button>
         </form>
         <div className="faq">
-          <img className="logofaq" src={require("../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
+          <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
         </div>
         <div>{authenticatedUser === null ? <LoginButton /> : <ProfileButton />}</div>
       </div>
@@ -173,7 +175,7 @@ export default function Header({setProducts}) {
                 </div>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
-                  <img alt="Google" className="google" src={require("../assets/img/google.png")} />
+                  <img alt="Google" className="google" src={require("../../../assets/img/google.png")} />
                 </div>
               </div>
             </form>
@@ -233,7 +235,7 @@ export default function Header({setProducts}) {
                 </button>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
-                  <img alt="Google" className="google" src={require("../assets/img/google.png")} />
+                  <img alt="Google" className="google" src={require("../../../assets/img/google.png")} />
                 </div>
               </div>
             </form>

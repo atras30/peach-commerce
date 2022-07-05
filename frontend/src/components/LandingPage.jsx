@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Product from "./Product.jsx";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./template/header/Header";
+import Footer from "./template/footer/Footer";
 import "../assets/css/landingPage.css";
 import Loading from "./Loading";
 
@@ -42,9 +42,13 @@ export default function LandingPage() {
       </div>
 
       <div className="productContainer">
-        {!products ? <Loading description={"Loading Products..."}/> : products.map(function (eachProduct) {
-          return <Product key={eachProduct.id} product={eachProduct} />;
-        })}
+        {!products ? (
+          <Loading description={"Loading Products..."} />
+        ) : (
+          products.map(function (eachProduct) {
+            return <Product key={eachProduct.id} product={eachProduct} />;
+          })
+        )}
       </div>
 
       <Footer />

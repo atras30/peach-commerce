@@ -1,20 +1,15 @@
-import React, { useContext, useEffect, useLayoutEffect} from "react";
+import React, { useContext } from "react";
 import {Link} from "react-router-dom";
-import { UserContext } from "../App";
-import "../assets/css/profile_button.css";
+import { UserContext } from "../../App";
+import "../../assets/css/profile_button.css";
 
 export default function ProfileButton() {
-  const {authenticatedUser} = useContext(UserContext);
-  const {handleLogout} = useContext(UserContext);  
-
-  useEffect(() => {
-    console.log(authenticatedUser);
-  },[authenticatedUser])
+  const {authenticatedUser, handleLogout} = useContext(UserContext);
 
   return (
     <div className="dropdown">
       <button className="profile-button dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-123"></i> {authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}
+        <i className="bi bi-123"></i> {authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}
       </button>
       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>

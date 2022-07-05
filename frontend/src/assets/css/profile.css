@@ -28,12 +28,12 @@
 
 .profile-information {
   width: 40%;
-  background-color: #F5B98C;
+  background-color: #f5b98c;
 }
 
 .profile-transaction-history {
   width: 60%;
-  background-color: #F5B98C;
+  background-color: #f5b98c;
 }
 
 .profile-logo {
@@ -42,8 +42,9 @@
 
 .choices {
   background-color: #ffe3c8;
-  border-top-right-radius: .25rem;
-  border-top-left-radius: .25rem;
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+  height: 3em;
 }
 
 .edit-button {
@@ -58,5 +59,52 @@
 .edit-batch-button {
   width: 35px;
   right: 1%;
-  top: .5em;
+  top: 0.5em;
+}
+
+.choices-item {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .3em;
+}
+
+.choices-item.active {
+  background-color: #f5b98c;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+@media screen and (max-width: 769px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-information {
+    width: 100%;
+  }
+
+  .profile-transaction-history {
+    width: 100%;
+    min-height: 20vh;
+  }
+
+  .profile-container .choices-dropdown {
+    background-color: #ffe3c8;
+    border-radius: 0;
+    display: block !important;
+  }
+
+  .profile-container .choices {
+    display: none !important;
+  }
 }

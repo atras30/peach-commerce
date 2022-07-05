@@ -54,10 +54,11 @@ class UserController extends Controller {
       'first_name' => 'string|max:255',
       'last_name' => 'string|nullable|max:255',
       'username' => 'string|max:255|unique:users,username',
-      'email' => 'string|max:255|unique:users,email',
+      "email" => "string|required|unique:users,email|email:rfc,dns",
       'password' => 'string|max:255',
       'phone_number' => 'string|max:255',
       'peach_coin' => 'integer|min:0',
+      "address" => "string|required"
     ]);
 
     $user = User::create($request->all());
@@ -79,7 +80,7 @@ class UserController extends Controller {
       'first_name' => 'string|max:255',
       'last_name' => 'string|nullable|max:255',
       'username' => 'string|max:255|unique:users,username,' . $id,
-      'email' => 'string|max:255|unique:users,email,' . $id,
+      'email' => "string|max:255|unique:users,email,{$id}|email:rfc,dns",
       'password' => 'string|max:255',
       'phone_number' => 'string|max:255',
       'peach_coin' => 'integer|min:0',

@@ -64,13 +64,6 @@ class AuthController extends Controller {
 
     try {
       $createdUser = User::create($validatedData);
-
-      $createdUser["address"] = Address::create([
-        "user_id" => $createdUser["id"],
-        "address" => $validatedData["address"]
-      ]);
-
-      $createdUser["address"] = $createdUser["address"]["address"];
     } catch(Exception $e) {
       return response()->json($e->getMessage(), Response::HTTP_NOT_ACCEPTABLE);
     }

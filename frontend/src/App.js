@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import LandingPage from "./components/LandingPage";
 import AddProductPage from "./components/AddProductPage";
-import Profile from "./components/Profile";
+import Profile from "./components/profile/Profile";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import Cookies from "universal-cookie";
@@ -50,11 +50,8 @@ function App() {
         if (response.data.message === "Successfully Logged Out") {
           cookies.remove("Authorization");
           setAuthenticatedUser(null);
-          Toast.fire({
-            icon: "success",
-            title: `Successfully logged out!`,
-          });
-          return;
+          cookies.set("logout_status", true);
+          window.location.href = "/";
         }
       });
   };
@@ -101,18 +98,31 @@ function App() {
     if (!cookies.get("Authorization")) return;
 
     //if user already logged in, fetch user based on its token
-    await axios
+    axios
       .get("api/auth/user", {
         headers: {
           Authorization: cookies.get("Authorization"),
         },
       })
-      .then((response) => setAuthenticatedUser(response.data.user));
+      .then((response) => setAuthenticatedUser(response.data.user))
+      .catch((err) => cookies.remove("Authorization"));
   };
+
+  const checkCurrentlyLogout = () => {
+    if(!cookies.get("logout_status")) return;
+
+    Toast.fire({
+      icon: "success",
+      title: "Successfully logged out!",
+    });
+
+    return cookies.remove("logout_status");
+  }
 
   //on init
   useEffect(() => {
     checkAuthenticatedUser();
+    checkCurrentlyLogout();
   }, []);
 
   return (

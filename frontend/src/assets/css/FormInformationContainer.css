@@ -1,3 +1,17 @@
 .form-wrapper {
   width: 90%;
 }
+
+.btn.update-button {
+  background-color: bisque !important;
+  border: 2px solid rgba(209, 161, 2, 0.4);
+}
+
+.btn.update-button:hover {
+  background-color: rgb(255, 193, 118)!important;
+}
+
+.btn.update-button:active {
+  background-color: rgb(139, 107, 4) !important;
+  color: white;
+}
