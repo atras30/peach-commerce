@@ -83,6 +83,7 @@ class UserController extends Controller {
       'password' => 'string|max:255',
       'phone_number' => 'string|max:255',
       'peach_coin' => 'integer|min:0',
+      "address" => "string|max:255"
     ]);
 
     $updatedUser = User::findOrFail($id);
@@ -107,8 +108,8 @@ class UserController extends Controller {
     }
 
     return response()->json([
-      "message" => "Product was successfully updated",
-      "product" => $updatedUser
+      "message" => "User was successfully updated",
+      "user" => $updatedUser
     ], Response::HTTP_OK);
   }
 

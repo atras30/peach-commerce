@@ -1,22 +1,18 @@
 //import data
-import React, {useRef, useContext} from "react";
+import React, {useRef, useContext, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {UserContext} from "../App";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
-import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "../assets/css/header.css";
 
-export default function Header({handleSearch, setProducts}) {
-  //misc
-  const cookies = new Cookies();
-
+export default function Header({setProducts}) {
   //useContext hook
   const inputSearch = useRef(null);
   const {authenticatedUser} = useContext(UserContext);
-  const {setAuthenticatedUser} = useContext(UserContext);
+  const {handleLogin} = useContext(UserContext);
 
   //{ useRef hook }
   //register
@@ -32,10 +28,12 @@ export default function Header({handleSearch, setProducts}) {
   const inputLoginUsername = useRef(null);
   const inputLoginPassword = useRef(null);
 
+  //modals
+  const loginModal = useRef(null);
+
   //{End useRef hook}
 
-  //{ SWAL (Sweet Alert) Configuration }
-  //Toast Configuration
+  //Toast SWAL Configuration
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -47,13 +45,13 @@ export default function Header({handleSearch, setProducts}) {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-  //{ End SWAL (Sweet Alert) Configuration }
 
   // Filter produk berdasarkan input user (search input)
-  function handleSearch() {
+  function handleSearch(e) {
+    e.preventDefault();
     let text = inputSearch.current.value;
 
-    if (text == "") {
+    if (text === "") {
       axios
         .get(`/api/products`)
         .then(function (response) {
@@ -78,69 +76,6 @@ export default function Header({handleSearch, setProducts}) {
     }
   }
 
-  //function to handle logout logic
-  function handleLogout() {
-    axios
-      .post(
-        "/api/auth/logout",
-        {},
-        {
-          headers: {
-            Authorization: cookies.get("Authorization"),
-          },
-        }
-      )
-      .then((response) => {
-        if (response.data.message == "Successfully Logged Out") {
-          cookies.remove("Authorization");
-          setAuthenticatedUser(null);
-          Toast.fire({
-            icon: "success",
-            title: `Successfully logged out!`,
-          });
-          return;
-        }
-      });
-  }
-
-  //function to handle login logic
-  async function handleLoginUser(e) {
-    e.preventDefault();
-    let username = inputLoginUsername.current.value;
-    let password = inputLoginPassword.current.value;
-
-    let data = {
-      email: username,
-      password: password,
-    };
-
-    // Send a POST request
-    axios.post("/api/auth/login", data).then(async (response) => {
-      if (response.data.message == "Login failed. Wrong email or password") {
-        Toast.fire({
-          icon: "error",
-          title: response.data.message,
-        });
-      } else {
-        cookies.set("Authorization", `Bearer ${response.data.token}`);
-
-        let user = await axios
-          .get("api/auth/user", {
-            headers: {
-              Authorization: cookies.get("Authorization"),
-            },
-          })
-          .then((response) => response.data.user);
-
-        setAuthenticatedUser(user);
-        Toast.fire({
-          icon: "success",
-          title: `Login Success, welcome ${user.full_name}`,
-        });
-      }
-    });
-  }
-
   const handleRegisterUser = (e) => {
     e.preventDefault();
 
@@ -155,7 +90,7 @@ export default function Header({handleSearch, setProducts}) {
         address: inputAddress.current.value,
       })
       .then((response) => {
-        if (response.data.message == "User has been created") {
+        if (response.data.message === "User has been created") {
           Toast.fire({
             icon: "success",
             title: `Successfully created a user, you can now login to our app!`,
@@ -181,23 +116,33 @@ export default function Header({handleSearch, setProducts}) {
       });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const username = inputLoginUsername.current.value;
+    const password = inputLoginPassword.current.value;
+
+    handleLogin(username, password);
+  };
+
   return (
     <div className="header">
       <Link to="/" className="img-logo-wrapper">
-        <img className="logo" src="./assets/img/logo.png" alt="Peach Commerce Logo" />
+        <img className="logo" src={require("../assets/img/logo.png")} alt="Peach Commerce Logo" />
       </Link>
       <div className="flexitem">
-        <div className="searchbar">
+        <form className="searchbar" onSubmit={handleSearch}>
           <input ref={inputSearch} className="search" type="text" placeholder="Search here . . ." />
-          <img onClick={handleSearch} className="logosearch" src="./assets/img/search-icon.png" alt="Search Icon" />
-        </div>
+          <img onClick={handleSearch} className="logosearch" src={require("../assets/img/search-icon.png")} alt="Search Icon" />
+          <button type="submit" className="d-none"></button>
+        </form>
         <div className="faq">
-          <img className="logofaq" src="./assets/img/faq.png" alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
+          <img className="logofaq" src={require("../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
         </div>
-        <div>{authenticatedUser == null ? <LoginButton /> : <ProfileButton handleLogout={handleLogout} authenticatedUser={authenticatedUser} />}</div>
+        <div>{authenticatedUser === null ? <LoginButton /> : <ProfileButton />}</div>
       </div>
 
-      <div className="modal fade" id="login-modal" tabIndex="-1">
+      <div ref={loginModal} className="modal fade" id="login-modal" tabIndex="-1">
         <div className="modal-dialog modal-sm modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
@@ -205,7 +150,7 @@ export default function Header({handleSearch, setProducts}) {
                 LOGIN
               </h5>
             </div>
-            <form onSubmit={handleLoginUser}>
+            <form onSubmit={handleSubmit}>
               <div className="modal-body">
                 <div className="form-container mb-3">
                   <label htmlFor="username">Username / Email:</label>
@@ -219,7 +164,7 @@ export default function Header({handleSearch, setProducts}) {
               </div>
               <div className="modal-footer">
                 <div className="buttonfooter">
-                  <button onClick={handleLoginUser} type="submit" className="login" data-bs-dismiss="modal">
+                  <button type="submit" className="login" data-bs-dismiss="modal">
                     Login
                   </button>
                   <button type="button" className="register" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#register-modal">
@@ -228,7 +173,7 @@ export default function Header({handleSearch, setProducts}) {
                 </div>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
-                  <img className="google" src="./assets/img/google.png" />
+                  <img alt="Google" className="google" src={require("../assets/img/google.png")} />
                 </div>
               </div>
             </form>
@@ -288,7 +233,7 @@ export default function Header({handleSearch, setProducts}) {
                 </button>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
-                  <img className="google" src="./assets/img/google.png" />
+                  <img alt="Google" className="google" src={require("../assets/img/google.png")} />
                 </div>
               </div>
             </form>

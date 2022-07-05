@@ -18,6 +18,7 @@ return new class extends Migration {
       $table->string('full_name')->default("");
       $table->string('username')->unique()->default("");
       $table->string('email')->unique()->default("");
+      $table->string('address')->default("");
       $table->string('password')->default("");
       $table->string('phone_number')->nullable()->default("");
       $table->integer('peach_coin')->default(0);

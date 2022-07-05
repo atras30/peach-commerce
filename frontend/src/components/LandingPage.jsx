@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Product from "./Product.jsx";
 import Header from "./Header";
 import Footer from "./Footer";
 import "../assets/css/landingPage.css";
+import Loading from "./Loading";
 
 export default function LandingPage() {
   //useState hook
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
 
   //on init
   useEffect(function () {
@@ -16,7 +17,8 @@ export default function LandingPage() {
 
   //function to get all product in the server
   const getProducts = () => {
-    axios.get("/api/products")
+    axios
+      .get("/api/products")
       .then(function (response) {
         // handle success
         setProducts(response.data.products);
@@ -26,10 +28,9 @@ export default function LandingPage() {
         console.log(error);
       });
   };
-
-    return (
+  return (
     <div className="landing-page">
-      <Header setProducts={setProducts}/>
+      <Header setProducts={setProducts} />
 
       <div className="category-container d-flex justify-content-evenly align-items-stretch">
         <div className="category-item d-flex justify-content-center align-items-center px-2">Pakaian</div>
@@ -41,12 +42,12 @@ export default function LandingPage() {
       </div>
 
       <div className="productContainer">
-        {products.map(function (eachProduct) {
+        {!products ? <Loading description={"Loading Products..."}/> : products.map(function (eachProduct) {
           return <Product key={eachProduct.id} product={eachProduct} />;
         })}
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

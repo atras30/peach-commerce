@@ -1,8 +1,3 @@
-.landing-page {
-  position: relative;
-  padding-bottom: 200px;
-}
-
 .flexitem {
   display: flex;
   width: 100%;
@@ -15,6 +10,8 @@
   background-color: #ffdab9;
   padding-left: 2em;
   padding-right: 2em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .category-item {
@@ -30,4 +27,13 @@
   background-color: #e8a265 !important;
   cursor: pointer;
   color: rgb(72, 46, 11);
+}
+
+.productContainer {
+  padding: 20px;
+  display: flex;
+  gap: 1.5em;
+  justify-content: center;
+  min-height: 400px;
+  flex-wrap: wrap;
 }

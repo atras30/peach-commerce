@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import "../assets/css/product.css";
 
 export default function Product({product}) {
   const handleAddToCart = () => {
@@ -23,7 +23,7 @@ export default function Product({product}) {
 
   return (
     <div className="product">
-      <img className="productimg" src={`./assets/img/product/${product.img_link}`} alt="product image" />
+      <img className="productimg" src={require(`../assets/img/product/${product.img_link}`)} alt="product" />
       <div className="producttitle">{product.title.split(" ").length > 5 ? product.title.split(" ").slice(0, 5).join(" ") + "..." : product.title}</div>
       <div className="productprice">{formatRupiah(product.price)}</div>
       <div className="productrating">

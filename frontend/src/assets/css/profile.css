@@ -1,12 +1,62 @@
 .profile-header {
-    background-color: #FFEFE5;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 2em;
-    align-items: center;
-    font-weight: bold;
-    letter-spacing: .2em;
-    font-size: 1.6rem;
+  --padding: 2em;
+  background-color: #ffefe5;
+  width: 100%;
+  height: 70px;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+}
+
+.profile-brand {
+  width: 200px;
+}
+
+.peach-coin-logo {
+  width: 60px;
+}
+
+.peach-coin-amount {
+  font-weight: 750;
+  font-size: larger;
+  line-height: 1.2em;
+}
+
+.peach-coin-description {
+  font-weight: 500;
+  line-height: 1.2em;
+}
+
+.profile-information {
+  width: 40%;
+  background-color: #F5B98C;
+}
+
+.profile-transaction-history {
+  width: 60%;
+  background-color: #F5B98C;
+}
+
+.profile-logo {
+  width: 130px;
+}
+
+.choices {
+  background-color: #ffe3c8;
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+
+.edit-button {
+  position: absolute;
+  width: 35px;
+  top: 70%;
+  right: 7%;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.edit-batch-button {
+  width: 35px;
+  right: 1%;
+  top: .5em;
 }

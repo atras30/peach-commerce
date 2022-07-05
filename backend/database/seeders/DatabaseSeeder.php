@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder {
       "email" => "atrasshalhan@gmail.com",
       "password" => Hash::make("testing12345"),
       "phone_number" => "081287318166",
-      "peach_coin" => 500000
+      "peach_coin" => 500000,
+      "address" => "Kota Sutera, Blossom Ville c7/20"
     ]);
 
     User::create([
@@ -44,27 +45,8 @@ class DatabaseSeeder extends Seeder {
       "email" => "kelshairaa@gmail.com",
       "password" => Hash::make("testing12345"),
       "phone_number" => "0812873846577",
-      "peach_coin" => 500000
-    ]);
-
-    Address::create([
-      "user_id" => 1,
-      "address" => "Villa Mutiara Pluit C5/14"
-    ]);
-
-    Address::create([
-      "user_id" => 1,
-      "address" => "Kota Sutera, Blossom Ville c7/20"
-    ]);
-
-    Address::create([
-      "user_id" => 2,
+      "peach_coin" => 500000,
       "address" => "Tegal Alur 1"
-    ]);
-
-    Address::create([
-      "user_id" => 2,
-      "address" => "Tegal Alur 2"
     ]);
 
     Product::create([

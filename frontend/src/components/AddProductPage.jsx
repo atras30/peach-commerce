@@ -13,25 +13,25 @@ export default function AddProductPage() {
   const inputImageLink = useRef(null);
 
   function handleAddProduct() {
-    let title = inputTitle.current.value;
-    let discount = inputDiscount.current.value;
-    let price = inputPrice.current.value;
-    let userId = inputUserId.current.value;
-    let stock = inputStock.current.value;
-    let location = inputLocation.current.value;
-    let imageLink = inputImageLink.current.value;
+    // let title = inputTitle.current.value;
+    // let discount = inputDiscount.current.value;
+    // let price = inputPrice.current.value;
+    // let userId = inputUserId.current.value;
+    // let stock = inputStock.current.value;
+    // let location = inputLocation.current.value;
+    // let imageLink = inputImageLink.current.value;
   }
 
   useEffect(function() {
-    let data = {
-      title: "Testing Product",
-      discount: 40,
-      price: 200000,
-      user_id: 1,
-      stock: 20,
-      location: "Tangerang",
-      img_link: "testing.jpg",
-    }
+    // let data = {
+    //   title: "Testing Product",
+    //   discount: 40,
+    //   price: 200000,
+    //   user_id: 1,
+    //   stock: 20,
+    //   location: "Tangerang",
+    //   img_link: "testing.jpg",
+    // }
 
     // axios.post("http://127.0.0.1:8000/api/products", data)
     //   .then(function (response) {

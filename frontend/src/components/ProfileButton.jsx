@@ -1,26 +1,31 @@
-import React from "react";
-import {useEffect} from "react";
+import React, { useContext, useEffect, useLayoutEffect} from "react";
 import {Link} from "react-router-dom";
+import { UserContext } from "../App";
 import "../assets/css/profile_button.css";
 
-export default function ProfileButton({handleLogout, authenticatedUser}) {
+export default function ProfileButton() {
+  const {authenticatedUser} = useContext(UserContext);
+  const {handleLogout} = useContext(UserContext);  
+
+  useEffect(() => {
+    console.log(authenticatedUser);
+  },[authenticatedUser])
+
   return (
     <div className="dropdown">
       <button className="profile-button dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Welcome, {authenticatedUser.first_name}
+        <i class="bi bi-123"></i> {authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}
       </button>
       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
-          <Link to="/user/profile">
-            <a className="dropdown-item" href="#">
+          <Link to="/user/profile" className="dropdown-item">
               Profile
-            </a>
           </Link>
         </li>
         <li>
-          <a className="dropdown-item" href="#">
-            Your Products
-          </a>
+          <Link to="/user/product" className="dropdown-item">
+              Your Products
+          </Link>
         </li>
         <li>
           <hr className="dropdown-divider" />
