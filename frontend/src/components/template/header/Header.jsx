@@ -1,7 +1,7 @@
 //import data
 import React, {useRef, useContext, useEffect} from "react";
 import {Link} from "react-router-dom";
-import {UserContext} from "../../../App";
+import {useUserContext} from "../../../provider/ContextProvider";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
@@ -11,8 +11,7 @@ import "../../../assets/css/header.css";
 export default function Header({setProducts}) {
   //useContext hook
   const inputSearch = useRef(null);
-  const {authenticatedUser} = useContext(UserContext);
-  const {handleLogin} = useContext(UserContext);
+  const {authenticatedUser, handleLogin} = useUserContext();
 
   //{ useRef hook }
   //register

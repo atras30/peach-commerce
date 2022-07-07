@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import {Link} from "react-router-dom";
-import { UserContext } from "../../../App";
+import {useUserContext} from "../../../provider/ContextProvider";
 import "../../../assets/css/profile_button.css";
 
 export default function ProfileButton() {
-  const {authenticatedUser, handleLogout} = useContext(UserContext);
+  const {authenticatedUser, handleLogout} = useUserContext();
 
   return (
     <div className="dropdown">

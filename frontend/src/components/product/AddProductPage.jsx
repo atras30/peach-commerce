@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import "../assets/css/add_product.css";
+import "../../assets/css/add_product.css";
 
 export default function AddProductPage() {
   const inputTitle = useRef(null);

@@ -1,5 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
-import {UserContext} from "../../App";
+import React, {useEffect, useState} from "react";
 import Footer from "../template/footer/Footer";
 import ProfileHeader from "./ProfileHeader";
 import InformationContainer from "./InformationContainer";
@@ -8,14 +7,17 @@ import UserOrder from "./UserOrder";
 import UserReview from "./UserReview";
 import UserHistory from "./UserHistory";
 import "../../assets/css/profile.css";
+import {useUserContext} from "../../provider/ContextProvider";
+import {useMiddlewareContext} from "../../provider/ContextProvider";
 
 export default function Profile() {
   const [selectedOption, setSelectedOption] = useState("pesanan");
-  const {authenticatedUser} = useContext(UserContext);
+  const {authenticatedUser} = useUserContext();
   const [isEditing, setIsEditing] = useState(false);
+  const setMiddleware = useMiddlewareContext();
 
-  useEffect(() => {
-    if (!authenticatedUser) window.location.href = "/";
+  useEffect(function() {
+    setMiddleware(['auth']);
   }, []);
 
   const toggleIsEditing = () => {

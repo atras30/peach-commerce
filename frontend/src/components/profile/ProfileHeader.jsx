@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useLayoutEffect} from "react";
+import React from "react";
 import ProfileButton from "./ProfileButton";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../App";
+import {useUserContext} from "../../provider/ContextProvider";
 
 export default function ProfileHeader() {
-  const {authenticatedUser} = useContext(UserContext);
+  const {authenticatedUser} = useUserContext();
 
   return (
     <div className="profile-header d-flex justify-content-between align-items-center">      

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Product from "./Product.jsx";
-import Header from "./template/header/Header";
-import Footer from "./template/footer/Footer";
-import "../assets/css/landingPage.css";
-import Loading from "./Loading";
+import Product from "../template/ProductCard";
+import Header from "../template/header/Header";
+import Footer from "../template/footer/Footer";
+import "../../assets/css/landingPage.css";
+import Loading from "../template/Loading";
 
 export default function LandingPage() {
   //useState hook
