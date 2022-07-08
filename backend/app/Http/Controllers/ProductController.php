@@ -16,11 +16,6 @@ class ProductController extends Controller {
   public function index() {
     $products = Product::all();
 
-    foreach ($products as $product) {
-      $product["rating"] = $product->getAverageRating();
-      $product["totalReviews"] = $product->getTotalReviews();
-    }
-
     return response()->json([
       "message" => "Successfully fetched data",
       "products" => $products
@@ -35,11 +30,13 @@ class ProductController extends Controller {
   public function search($query) {
     $products = Product::where("title", "like", "%" . $query . "%")->get();
 
-    foreach ($products as $product) {
-      $product["rating"] = $product->getAverageRating();
-      $product["totalReviews"] = $product->getTotalReviews();
+    if (count($products) == 0) {
+      return response()->json([
+        "message" => "No data was found",
+        "products" => []
+      ], Response::HTTP_OK);
     }
-
+    
     return response()->json([
       "message" => "Successfully fetched data",
       "products" => $products
@@ -84,6 +81,7 @@ class ProductController extends Controller {
    */
   public function show($id) {
     $product = Product::findOrFail($id);
+
     return response()->json([
       "message" => "Sucessfully fetched one product",
       "product" => $product

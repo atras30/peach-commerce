@@ -15,19 +15,13 @@ class Product extends Model {
     "total_sales"
   ];
 
+  protected $with = ["reviews"];
+
   public function owner() {
     return $this->belongsTo(User::class);
   }
 
   public function reviews() {
     return $this->hasMany(ProductReview::class);
-  }
-
-  public function getAverageRating() {
-    return number_format($this->reviews()->where("product_id", $this->id)->pluck("rating")->avg(), 1);
-  }
-
-  public function getTotalReviews() {
-    return $this->reviews()->get()->count();
   }
 }
