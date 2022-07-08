@@ -7,6 +7,12 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  transition: all .1s;
+}
+
+.product:hover {
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .productrating {

@@ -1,7 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import "../../assets/css/product.css";
+import {Navigate} from "react-router-dom";
 
 export default function Product({product}) {
+  const [redirectToProductPage, setRedirectToProductPage] = useState(false);
+  
   const handleAddToCart = () => {
     window.location.href="/product/add-product";
   };
@@ -21,8 +25,14 @@ export default function Product({product}) {
     return `Rp ${rupiah}`;
   };
 
+  const toggleRedirectProductPage = () => {
+    setRedirectToProductPage(prevValue => !prevValue);
+  }
+
   return (
-    <div className="product">
+    <div className="product" onClick={toggleRedirectProductPage}>
+      {redirectToProductPage && <Navigate to={`/product?id=${product.id}`} />}
+      
       <img className="productimg" src={require(`../../assets/img/product/${product.img_link}`)} alt="product" />
       <div className="producttitle">{product.title.split(" ").length > 5 ? product.title.split(" ").slice(0, 5).join(" ") + "..." : product.title}</div>
       <div className="productprice">{formatRupiah(product.price)}</div>

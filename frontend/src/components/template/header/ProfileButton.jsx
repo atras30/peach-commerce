@@ -8,8 +8,8 @@ export default function ProfileButton() {
 
   return (
     <div className="dropdown">
-      <button className="profile-button dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        <i className="bi bi-123"></i> {authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}
+      <button className="profile-button dropdown-toggle d-flex justify-content-center align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <i className="bi bi-person-circle fs-4 me-1"></i> <span>{authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}</span> 
       </button>
       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>

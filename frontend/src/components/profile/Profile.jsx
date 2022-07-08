@@ -69,7 +69,7 @@ export default function Profile() {
             <img className="edit-button" title="Edit Profile Picture" src={require("../../assets/img/edit_button_1.png")} alt="Edit Button" />
           </div>
 
-          <div className="profile-name fs-3">{authenticatedUser && authenticatedUser.full_name}</div>
+          <div className="profile-name fs-3">{!authenticatedUser ? "Fetching Data..." :  authenticatedUser.full_name}</div>
 
           {!isEditing ? <InformationContainer toggleIsEditing={toggleIsEditing} /> : <FormInformationContainer toggleIsEditing={toggleIsEditing} />}
         </div>

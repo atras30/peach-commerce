@@ -133,8 +133,8 @@ export default function Header({setProducts}) {
       </Link>
       <div className="flexitem">
         <form className="searchbar" onSubmit={handleSearch}>
-          <input ref={inputSearch} className="search" type="text" placeholder="Search here . . ." />
-          <img onClick={handleSearch} className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
+          <input ref={inputSearch} onInput={handleSearch} className="search" type="text" placeholder="Search here . . ." />
+          <img className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
           <button type="submit" className="d-none"></button>
         </form>
         <div className="faq">
