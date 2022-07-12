@@ -1,0 +1,24 @@
+.shopping-cart-container {
+  background: #FFE7D3;
+  min-height: 100vh;
+}
+
+.shopping-cart-card {
+  height: 80%;
+  min-height: 10em;
+  background-color: white;
+}
+
+.user-information {
+  border-bottom: 1px solid black;
+}
+
+.product-container .img-wrapper {
+  width: 10em;
+}
+
+input[type="checkbox"] {
+  --scale: 1em;
+  width: var(--scale);
+  height: var(--scale);
+}

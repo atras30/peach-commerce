@@ -6,6 +6,7 @@ import Profile from "./components/profile/Profile";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import ContextProvider from "./provider/ContextProvider";
+import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/product" element={<ProductPage />}></Route>
             <Route path="/product/add-product" element={<AddProductPage />}></Route>
             <Route path="/user/profile" element={<Profile />}></Route>
+            <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
           </Routes>
         </Router>
     </ContextProvider>

@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileButton from "./ProfileButton";
+import ProfileButton from "../template/header/ProfileButton";
 import { Link } from "react-router-dom";
 import {useUserContext} from "../../provider/ContextProvider";
 

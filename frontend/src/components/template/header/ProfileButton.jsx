@@ -14,12 +14,17 @@ export default function ProfileButton() {
       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
           <Link to="/user/profile" className="dropdown-item">
-              Profile
+              <i class="bi bi-person me-2"></i>Profile
+          </Link>
+        </li>
+        <li>
+          <Link to="/user/shopping-cart" className="dropdown-item">
+              <i class="bi bi-cart me-2"></i>Shopping Cart
           </Link>
         </li>
         <li>
           <Link to="/user/product" className="dropdown-item">
-              Your Products
+              <i class="bi bi-cash-stack me-2"></i>Your Products
           </Link>
         </li>
         <li>
@@ -27,7 +32,7 @@ export default function ProfileButton() {
         </li>
         <li>
           <button onClick={handleLogout} className="dropdown-item" href="#">
-            Logout
+            <i class="bi bi-box-arrow-left me-2"></i>Logout
           </button>
         </li>
       </ul>

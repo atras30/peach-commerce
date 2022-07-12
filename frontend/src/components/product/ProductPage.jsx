@@ -25,7 +25,6 @@ export default function ProductPage() {
 
         if (response.data.product.reviews.length == 0) {
           response.data.product.rating = 0;
-          console.log("true");
           return setProduct(response.data.product);
         }
 
