@@ -1,11 +1,40 @@
 .product-page {
   background: #ffdab9;
+  position: relative;
+  padding-bottom: 200px;
 }
 
 .product-image-container {
-  min-width: 400px;
+  width: clamp(400px, 60%, 550px);
 }
 
-.product-card {
-  
+.product-description p {
+  margin-bottom: .5em;
+}
+
+.review {
+  background-color: #ffa75b;
+  width: 500px;
+  /* width: 100%; */
+}
+
+.reply-review-button {
+  background-color: hsl(28, 100%, 86%);
+  outline: none;
+  border: none;
+  border: 1px solid rgba(0, 0, 0, .5);
+}
+
+@media screen and (max-width: 850px) {
+  .product-card {
+    flex-direction: column;
+  }
+
+  .product-image-container {
+    width: 100% !important;
+  }
+
+  .review {
+    width: 100%;
+  }
 }

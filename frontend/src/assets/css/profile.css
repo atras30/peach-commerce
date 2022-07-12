@@ -7,6 +7,12 @@
   padding-right: var(--padding);
 }
 
+.profile {
+  min-height: 100vh !important;
+  position: relative;
+  padding-bottom: 200px;
+}
+
 .profile-brand {
   width: 200px;
 }

@@ -27,7 +27,8 @@ export default function LandingPage() {
         // handle error
         console.log(error);
       });
-  };
+  }
+  
   return (
     <div className="landing-page">
       <Header setProducts={setProducts} />

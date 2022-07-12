@@ -33,35 +33,36 @@ export default function Product({product}) {
   }
 
   useEffect(() => {
-    console.log(product);
+
   }, []);
 
   return (
-    <div className="product-card d-flex gap-4">
+    <div className="product-card d-flex gap-4 mb-3">
       <div className="product-image-container">
-        <img src={require(`../../assets/img/product/${product.img_link}`)} alt="Product Image" className="img-fluid rounded product-image" />
+        <img src={require(`../../assets/img/product/${product.img_link}`)} alt="Product Image" className="img-fluid rounded shadow product-image img-thumbnail" />
       </div>
 
-      <div className="product-information">
-        <div className="product-title">{product.title}</div>
-        <div className="product-sales">
-          {product.rating} {printStars(product.rating)} | {product.total_reviews} Penilaian | {product.total_sales} Terjual
+      <div className="product-information mb-3">
+        <div className="product-title fs-3 fw-bold mb-3">{product.title}</div>
+        <div className="product-sales mb-3">
+          <span className="fw-bold">{product.rating}</span> {printStars(product.rating)} | <span className="fw-bold">{product.total_reviews}</span> Penilaian | <span className="fw-bold">{product.total_sales}</span> Terjual
         </div>
-        <div className="discounted-price">{applyDiscount(product.price)}</div>
-        {product.discount === 0 ? null : (
-          <div className="d-flex gap-2">
-            <div className="product-discount">{product.discount}%</div>
-            <div className="product-pric text-decoration-line-through">{formatRupiah(product.price)}</div>
-          </div>
-        )}
+        <div className="discounted-price fw-bold fs-2">{applyDiscount(product.price)}</div>
 
-        <div className="product-details">Details</div>
-        <div className="product-description">
-          <pre>{product.description}</pre>
+        <div className="mb-3">
+          {product.discount === 0 ? null : (
+            <div className="d-flex gap-2 align-items-center">
+              <div className="product-discount alert alert-danger p-0 px-1 m-0 fw-bold text-danger">{product.discount}%</div>
+              <div className="product-price text-decoration-line-through">{formatRupiah(product.price)}</div>
+            </div>
+          )}
         </div>
+
+        <div className="product-details text-decoration-underline fs-5 mb-2">Details</div>
+        <div className="product-description mb-3" dangerouslySetInnerHTML={{ __html: product.description.split("\n").map(desc => `<p>${desc}</p>`).join("") }}></div>
         <div className="button-container d-flex gap-3">
-          <button className="w-50 buttonbuy">Masukkan Keranjang</button>
-          <button className="w-50 buttonbuy">Beli Sekarang</button>
+          <button className="w-50 buttonbuy p-0 m-0 fw-bold">+ Keranjang</button>
+          <button className="w-50 buttonbuy p-0 m-0 fw-bold">Beli Sekarang</button>
         </div>
       </div>
     </div>

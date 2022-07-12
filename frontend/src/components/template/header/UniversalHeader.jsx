@@ -127,7 +127,7 @@ export default function Header({setProducts}) {
   };
 
   return (
-    <div className="header">
+    <div className="header pb-2">
       <Link to="/" className="img-logo-wrapper">
         <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
       </Link>

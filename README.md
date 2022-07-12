@@ -1,5 +1,24 @@
 # peach-commerce
 
+## Peach Commerce itu apa ?
+Website Aplikasi iseng yang merepresentasikan sebuah e-commerce (situs jual beli online) yang dibuat dengan teknologi Laravel (Backend) dan React (Frontend) yang mengimplementasikan berbagai fitur yang ada di e-commerce pada umumnya.
+
+## How to start the project ?
+1. Setting .env file di backend, ada file .env.example disitu, rename jadi .env kemudian sesuaikan settingannya.
+
+2. setting database, bikin database baru sesuai dengan .env anda (default db : peach_commerce)
+
+3. buka terminal arahin ke folder backend, ketik perintah ini :
+- php artisan migrate:fresh --seed (untuk melakukan migrasi database)
+- php artisan serve
+
+4. install dependencies & modules jika belum ada di local kalian, caranya : 
+dependencies backend -> buka terminal dan arahin ke folder backend lalu ketik "composer install"
+dependencies frontend -> buka terminal dan arahin ke folder frontend lalu ketik "npm install"
+
+5. jalankan di local server, ketikan perintah berikut :
+local server backend (Laravel) -> buka terminal dan arahin ke folder backend lalu ketik "php artisan serve"
+local server frontend (React) -> buka terminal dan arahin ke folder backend lalu ketik "npm start"
 
 ## Product API Documentation
 
