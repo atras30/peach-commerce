@@ -198,3 +198,7 @@ a {
   display: flex;
   gap: 1em;
 }
+
+.close-button-login-modal {
+  transform: translate(-2em, .5em);
+}

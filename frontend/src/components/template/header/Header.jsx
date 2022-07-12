@@ -1,17 +1,19 @@
 //import data
-import React, {useRef, useContext, useEffect} from "react";
+import React, {useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {useUserContext} from "../../../provider/ContextProvider";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Loading from "../Loading";
 import "../../../assets/css/header.css";
 
 export default function Header({setProducts}) {
   //useContext hook
   const inputSearch = useRef(null);
   const {authenticatedUser, handleLogin} = useUserContext();
+  const [loadingLogin, setLoadingLogin] = useState(false);
 
   //{ useRef hook }
   //register
@@ -117,13 +119,20 @@ export default function Header({setProducts}) {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoadingLogin(true);
+        
     const username = inputLoginUsername.current.value;
     const password = inputLoginPassword.current.value;
 
-    handleLogin(username, password);
+    let loginStatus = await handleLogin(username, password);
+    setLoadingLogin(false);
+
+    if(loginStatus === "success") {
+      const closeButton = document.querySelector(".close-button-login-modal")
+      return closeButton?.click();
+    }
   };
 
   return (
@@ -145,7 +154,9 @@ export default function Header({setProducts}) {
 
       <div ref={loginModal} className="modal fade" id="login-modal" tabIndex="-1">
         <div className="modal-dialog modal-sm modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content position-relative">
+            <button type="button" class="btn-close position-absolute start-100 top-0 close-button-login-modal" aria-label="Close" data-bs-dismiss="modal"></button>
+
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
                 LOGIN
@@ -165,12 +176,15 @@ export default function Header({setProducts}) {
               </div>
               <div className="modal-footer">
                 <div className="buttonfooter">
-                  <button type="submit" className="login" data-bs-dismiss="modal">
-                    Login
-                  </button>
-                  <button type="button" className="register" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#register-modal">
-                    Register
-                  </button>
+                  {loadingLogin ? <Loading description={"Checking data in database"}/> : 
+                  <>
+                    <button type="submit" className="login">
+                      Login
+                    </button>
+                    <button type="button" className="register" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#register-modal">
+                      Register
+                    </button>
+                  </>}
                 </div>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">

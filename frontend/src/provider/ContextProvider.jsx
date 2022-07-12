@@ -58,7 +58,7 @@ export default function ContextProvider({children}) {
       });
   };
 
-  //function to handle login logic
+  //function to handle login logic, return string ("success" | "false")
   async function handleLogin(username, password) {
     let data = {
       email: username,
@@ -66,12 +66,13 @@ export default function ContextProvider({children}) {
     };
 
     // Send a POST request
-    axios.post("/api/auth/login", data).then(async (response) => {
+    let loginStatus = await axios.post("/api/auth/login", data).then(async (response) => {
       if (response.data.message === "Login failed. Wrong email or password") {
         Toast.fire({
           icon: "error",
           title: response.data.message,
         });
+        return "failed";
       } else {
         cookies.set("Authorization", `Bearer ${response.data.token}`);
 
@@ -88,8 +89,11 @@ export default function ContextProvider({children}) {
           icon: "success",
           title: `Login Success, welcome ${user.full_name}`,
         });
+        return "success";
       }
     });
+
+    return loginStatus;
   }
 
   //check if the user already logged in or not
