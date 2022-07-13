@@ -10,18 +10,19 @@ import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
 
 function App() {
   return (
-    <ContextProvider>
-        <Helmet>
-          {/* Bootstrap 5 CSS & JS */}
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous" />
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"></link>
-          <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-          {/* End Bootstrap 5 CSS & JS */}
+    <>
+      <Helmet>
+        {/* Bootstrap 5 CSS & JS */}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"></link>
+        <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        {/* End Bootstrap 5 CSS & JS */}
 
-          {/* Style Dasar CSS */}
-          <link rel="stylesheet" href="./assets/css/style.css"/>
-        </Helmet>
+        {/* Style Dasar CSS */}
+        <link rel="stylesheet" href="./assets/css/style.css" />
+      </Helmet>
 
+      <ContextProvider>
         <Router>
           <Routes>
             <Route path="/" element={<LandingPage />}></Route>
@@ -31,7 +32,8 @@ function App() {
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
           </Routes>
         </Router>
-    </ContextProvider>
+      </ContextProvider>
+    </>
   );
 }
 

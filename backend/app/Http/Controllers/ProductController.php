@@ -15,6 +15,9 @@ class ProductController extends Controller {
    */
   public function index() {
     $products = Product::all();
+    foreach($products as $product) {
+      $product['discount'] = intval($product["discount"]);
+    }
 
     return response()->json([
       "message" => "Successfully fetched data",
@@ -81,6 +84,11 @@ class ProductController extends Controller {
    */
   public function show($id) {
     $product = Product::findOrFail($id);
+
+    
+    foreach($product["reviews"] as $review) {
+      $review['rating'] = intval($review["rating"]);  
+    }
 
     return response()->json([
       "message" => "Sucessfully fetched one product",

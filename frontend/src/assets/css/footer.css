@@ -4,57 +4,21 @@ a {
 }
 
 .footer {
-  position: absolute;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   background-color: #ffefe5;
-  margin-top: 1rem;
-  padding: 1rem;
-  bottom: 0;
   width: 100%;
 }
 
 .logofooter {
-  height: 100%;
   width: 210px;
 }
 
-.about {
-  text-align: center;
-}
-
-.footer2 {
+.footer2, .footer3 {
   color: #eda27c;
-  margin-left: auto;
-  margin-right: 6em;
-  padding-bottom: 12px;
-}
-
-.follow {
-  line-height: normal;
-  font-weight: bold;
-}
-
-.sosmed {
-  line-height: 22px;
-}
-
-.footer3 {
-  color: #eda27c;
-  margin-right: 2em;
-}
-
-.footer4 {
-  display: flex;
-  gap: 1em;
-  margin-top: 1.5em;
 }
 
 .barcode {
   width: 80px;
-  display: flex;
 }
 
 .link {
@@ -66,7 +30,12 @@ a {
   display: flex;
 }
 
-.download {
-  font-weight: bold;
-  padding-top: 8px;
+.sosmed {
+  text-decoration: underline !important;
+}
+
+@media only screen and (max-width: 576px) {
+  .footer {
+    flex-direction: column;
+  }
 }

@@ -115,41 +115,50 @@ export default function Header({setProducts}) {
           title: "Oops, Register failed...<br/>" + errorList,
         });
 
-        console.log(exception)
+        console.log(exception);
       });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingLogin(true);
-        
+
     const username = inputLoginUsername.current.value;
     const password = inputLoginPassword.current.value;
 
     let loginStatus = await handleLogin(username, password);
     setLoadingLogin(false);
 
-    if(loginStatus === "success") {
-      const closeButton = document.querySelector(".close-button-login-modal")
+    if (loginStatus === "success") {
+      const closeButton = document.querySelector(".close-button-login-modal");
       return closeButton?.click();
     }
   };
 
   return (
-    <div className="header mb-0 pb-2">
-      <Link to="/" className="img-logo-wrapper">
-        <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
-      </Link>
-      <div className="flexitem">
-        <form className="searchbar" onSubmit={handleSearch}>
-          <input ref={inputSearch} onInput={handleSearch} className="search" type="text" placeholder="Search here . . ." />
-          <img className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
-          <button type="submit" className="d-none"></button>
-        </form>
-        <div className="faq">
-          <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
+    <nav className="navbar navbar-expand-md navbar-light">
+      <div class="container-fluid">
+        <Link to="/" className="img-logo-wrapper navbar-brand">
+          <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
+        </Link>
+
+        <button class="navbar-toggler shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex align-items-center ms-auto gap-3 navbar-collapse-container">
+            <form className="searchbar" onSubmit={handleSearch}>
+              <input ref={inputSearch} onInput={handleSearch} className="search" type="text" placeholder="Filter Product . . ." />
+              <img className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
+              <button type="submit" className="d-none"></button>
+            </form>
+
+            <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
+
+              {authenticatedUser === null ? <LoginButton /> : <ProfileButton />}
+          </div>
         </div>
-        <div>{authenticatedUser === null ? <LoginButton /> : <ProfileButton />}</div>
       </div>
 
       <div ref={loginModal} className="modal fade" id="login-modal" tabIndex="-1">
@@ -174,17 +183,21 @@ export default function Header({setProducts}) {
                   <input ref={inputLoginPassword} type="password" className="input" id="password" name="password" />
                 </div>
               </div>
+
               <div className="modal-footer">
                 <div className="buttonfooter">
-                  {loadingLogin ? <Loading description={"Checking data in database"}/> : 
-                  <>
-                    <button type="submit" className="login">
-                      Login
-                    </button>
-                    <button type="button" className="register" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#register-modal">
-                      Register
-                    </button>
-                  </>}
+                  {loadingLogin ? (
+                    <Loading description={"Checking data in database"} />
+                  ) : (
+                    <>
+                      <button type="submit" className="login">
+                        Login
+                      </button>
+                      <button type="button" className="register" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#register-modal">
+                        Register
+                      </button>
+                    </>
+                  )}
                 </div>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
@@ -288,6 +301,6 @@ export default function Header({setProducts}) {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

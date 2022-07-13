@@ -30,28 +30,24 @@ export default function LandingPage() {
   }
   
   return (
-    <div className="landing-page">
-      <Header setProducts={setProducts} />
+    <div className="landing-page d-flex flex-column justify-content-between">
+      <div>
+        <Header setProducts={setProducts} />
 
-      <div className="category-container d-flex justify-content-evenly align-items-stretch">
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Pakaian</div>
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Makanan</div>
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Elektronik</div>
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Komputer & Aksesoris</div>
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Kesehatan</div>
-        <div className="category-item d-flex justify-content-center align-items-center px-2">Perawatan</div>
+        <div className="category-container d-flex justify-content-between px-5 gap-5 overflow-auto">
+          <span className="category-item d-flex justify-content-center align-items-center">Pakaian</span>
+          <span className="category-item d-flex justify-content-center align-items-center">Makanan</span>
+          <span className="category-item d-flex justify-content-center align-items-center">Elektronik</span>
+          <span className="category-item d-flex justify-content-center align-items-center">Komputer</span>
+          <span className="category-item d-flex justify-content-center align-items-center">Kesehatan</span>
+          <span className="category-item d-flex justify-content-center align-items-center">Perawatan</span>
+        </div>
+
+        <div className="productContainer">
+          {!products ? <Loading description={"Loading Products..."} /> : products.map((eachProduct) => <Product key={eachProduct.id} product={eachProduct} />)}
+        </div>
       </div>
-
-      <div className="productContainer">
-        {!products ? (
-          <Loading description={"Loading Products..."} />
-        ) : (
-          products.map(function (eachProduct) {
-            return <Product key={eachProduct.id} product={eachProduct} />;
-          })
-        )}
-      </div>
-
+      
       <Footer />
     </div>
   );

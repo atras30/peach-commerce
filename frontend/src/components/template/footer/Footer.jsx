@@ -4,16 +4,20 @@ import {Link} from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="footer">
+    <div className="footer d-flex justify-content-between align-items-start gap-4 p-4">
       <div className="footer1">
-        <img className="logofooter" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
-        <Link to="/peach/about" className="about">
+        
+        <Link to="/" className="about text-decoration-underline fs-5">
+          <img className="logofooter" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
+        </Link>
+
+        <Link to="/peach/about" className="about text-decoration-underline fs-5 ms-2">
           ABOUT PEACH
         </Link>
       </div>
 
       <div className="footer2">
-        <p className="follow">FOLLOW US:</p> <br />
+        <p className="follow fw-bold fs-5">FOLLOW US:</p>
         <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" className="sosmed">
           INSTAGRAM
         </a>
@@ -25,7 +29,7 @@ export default function Footer() {
         </a>
       </div>
       <div className="footer3">
-        <p className="download">DOWNLOAD PEACH HERE:</p>
+        <p className="download fw-bold fs-5">DOWNLOAD PEACH HERE:</p>
         <div className="footer4">
           <img className="barcode" src={require("../../../assets/img/barcode.png")} alt="Barcode" />
           <div className="footer5">

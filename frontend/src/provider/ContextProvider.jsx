@@ -16,7 +16,7 @@ export function useMiddlewareContext() {
 
 export default function ContextProvider({children}) {
   //axios
-  axios.defaults.baseURL = "http://localhost:8000";
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
 

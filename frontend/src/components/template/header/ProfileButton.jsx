@@ -7,11 +7,11 @@ export default function ProfileButton() {
   const {authenticatedUser, handleLogout} = useUserContext();
 
   return (
-    <div className="dropdown">
+    <div className="dropdown profile-button-container">
       <button className="profile-button dropdown-toggle d-flex justify-content-center align-items-center" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
         <i className="bi bi-person-circle fs-4 me-1"></i> <span>{authenticatedUser ? authenticatedUser.first_name : "Fetching Data..."}</span> 
       </button>
-      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
         <li>
           <Link to="/user/profile" className="dropdown-item">
               <i class="bi bi-person me-2"></i>Profile

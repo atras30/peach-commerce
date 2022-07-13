@@ -4,19 +4,19 @@
   justify-content: flex-end;
   gap: 30px;
 }
+
 .category-container {
-  min-height: 60px;
+  height: 50px;
   background-color: #fec491;
   padding-left: 2em;
   padding-right: 2em;
   display: flex;
-  flex-wrap: wrap;
+  overflow: scroll;
 }
 
 .landing-page {
+  overflow: hidden;
   min-height: 100vh !important;
-  position: relative;
-  padding-bottom: 200px;
   background-color: #ffe7d3;
 }
 
@@ -27,6 +27,7 @@
   color: #855f35;
   font-weight: bold;
   transition: all .1s;
+  max-height: 100%;
 }
 
 .category-item:hover {
