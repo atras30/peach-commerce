@@ -12,13 +12,15 @@ Website Aplikasi iseng yang merepresentasikan sebuah e-commerce (situs jual beli
 - php artisan migrate:fresh --seed (untuk melakukan migrasi database)
 - php artisan serve
 
-4. install dependencies & modules jika belum ada di local kalian, caranya : 
-dependencies backend -> buka terminal dan arahin ke folder backend lalu ketik "composer install"
+4. install dependencies & modules jika belum ada di local kalian, caranya : \
+dependencies backend -> buka terminal dan arahin ke folder backend lalu ketik "composer install"\
 dependencies frontend -> buka terminal dan arahin ke folder frontend lalu ketik "npm install"
 
-5. jalankan di local server, ketikan perintah berikut :
-local server backend (Laravel) -> buka terminal dan arahin ke folder backend lalu ketik "php artisan serve"
+5. jalankan di local server, ketikan perintah berikut :\
+local server backend (Laravel) -> buka terminal dan arahin ke folder backend lalu ketik "php artisan serve"\
 local server frontend (React) -> buka terminal dan arahin ke folder backend lalu ketik "npm start"
+
+6. buka browser, akses url : http://localhost:3000 (local server react)
 
 ## Product API Documentation
 
