@@ -136,9 +136,9 @@ export default function Header({setProducts}) {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-light">
+    <nav className="navbar navbar-expand-md navbar-light shadow-sm">
       <div class="container-fluid">
-        <Link to="/" className="img-logo-wrapper navbar-brand">
+        <Link to="/" className="img-logo-wrapper">
           <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
         </Link>
 

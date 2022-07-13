@@ -1,3 +1,7 @@
+.navbar {
+  background-color: #FFE7D3;
+}
+
 .profile-header {
   --padding: 2em;
   background-color: #ffefe5;
@@ -7,10 +11,16 @@
   padding-right: var(--padding);
 }
 
+.profile-navbar-brand {
+  height: 100%;
+}
+
+.profile-img-logo-wrapper {
+  height: 45px;
+}
+
 .profile {
   min-height: 100vh !important;
-  position: relative;
-  padding-bottom: 200px;
 }
 
 .profile-brand {
@@ -73,11 +83,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: .3em;
+  padding: 0.3em;
 }
 
 .choices-item.active {
   background-color: #f5b98c;
+}
+
+.profile-container {
+  padding: 3em;
 }
 
 .noselect {
@@ -90,9 +104,11 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 768px) {
   .profile-container {
     flex-direction: column;
+    padding: 0.3em !important;
+    margin: 0.3em !important;
   }
 
   .profile-information {
@@ -112,5 +128,9 @@
 
   .profile-container .choices {
     display: none !important;
+  }
+
+  .profile-navbar-brand {
+    height: 30px;
   }
 }

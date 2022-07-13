@@ -10,12 +10,10 @@
 
 .logo {
   height: 100%;
-  margin-left: 20px;
-  margin-top: 5px;
 }
 
 .img-logo-wrapper {
-  height: 80px;
+  height: 60px;
 }
 
 .search {
@@ -198,10 +196,5 @@ a {
 
   .navbar-collapse-container {
     flex-direction: column;
-  }
-
-  .logofaq,
-  .profile-button-container {
-    align-self: flex-end!important;
   }
 }

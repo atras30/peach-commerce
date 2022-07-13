@@ -18,6 +18,10 @@ export default function ContextProvider({children}) {
   //axios
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
+  useEffect(function() {
+    console.log(process.env.REACT_APP_BASE_URL);
+  }, []);
+
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
   //misc
