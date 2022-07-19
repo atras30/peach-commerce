@@ -4,22 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
-class Product extends Model {
+class Verification extends Model {
   use HasFactory;
 
   protected $guarded = [
     "id",
     "created_at",
-    "updated_at",
-    "total_sales"
+    "updated_at"
   ];
 
-  public function owner() {
+  public function user() {
     return $this->belongsTo(User::class);
-  }
-
-  public function reviews() {
-    return $this->hasMany(ProductReview::class);
   }
 }

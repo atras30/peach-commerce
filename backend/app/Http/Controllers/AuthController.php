@@ -63,8 +63,8 @@ class AuthController extends Controller {
     $validatedData["password"] = Hash::make($validatedData["password"]);
 
     try {
-      $createdUser = User::create($validatedData);
-    } catch(Exception $e) {
+      $createdUser = User::create($validatedData)->generateEmailVerificationToken();
+    } catch(\Exception $e) {
       return response()->json($e->getMessage(), Response::HTTP_NOT_ACCEPTABLE);
     }
     

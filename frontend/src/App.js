@@ -7,6 +7,8 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import ContextProvider from "./provider/ContextProvider";
 import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
+import EmailResendPage from "./components/email/EmailResendPage";
+import EmailVerificationPage from "./components/email/EmailVerificationPage";
 
 function App() {
   return (
@@ -30,6 +32,11 @@ function App() {
             <Route path="/product/add-product" element={<AddProductPage />}></Route>
             <Route path="/user/profile" element={<Profile />}></Route>
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
+
+
+            {/* ROUTE EMAIL HANDLER */}
+            <Route path="/mail/verification" element={<EmailVerificationPage />}></Route>
+            <Route path="/mail/verification/resend" element={<EmailResendPage />}></Route>
           </Routes>
         </Router>
       </ContextProvider>

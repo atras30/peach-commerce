@@ -8,8 +8,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../Loading";
 import "../../../assets/css/header.css";
+import FilterSearchForm from "./FilterSearchForm";
 
-export default function Header({setProducts}) {
+export default function Header({setProducts, exclude}) {
   //useContext hook
   const inputSearch = useRef(null);
   const {authenticatedUser, handleLogin} = useUserContext();
@@ -137,26 +138,22 @@ export default function Header({setProducts}) {
 
   return (
     <nav className="navbar navbar-expand-md navbar-light shadow-sm">
-      <div class="container-fluid">
+      <div className="container-fluid">
         <Link to="/" className="img-logo-wrapper">
           <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
         </Link>
 
-        <button class="navbar-toggler shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button className="navbar-toggler shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <div class="d-flex align-items-center ms-auto gap-3 navbar-collapse-container">
-            <form className="searchbar" onSubmit={handleSearch}>
-              <input ref={inputSearch} onInput={handleSearch} className="search" type="text" placeholder="Filter Product . . ." />
-              <img className="logosearch" src={require("../../../assets/img/search-icon.png")} alt="Search Icon" />
-              <button type="submit" className="d-none"></button>
-            </form>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="d-flex align-items-center ms-auto gap-3 navbar-collapse-container">
+            {exclude && exclude.form ? null : <FilterSearchForm handleSearch={handleSearch} inputSearch={inputSearch} />}
 
             <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
 
-              {authenticatedUser === null ? <LoginButton /> : <ProfileButton />}
+            {authenticatedUser === null ? <LoginButton /> : <ProfileButton />}
           </div>
         </div>
       </div>
@@ -164,7 +161,7 @@ export default function Header({setProducts}) {
       <div ref={loginModal} className="modal fade" id="login-modal" tabIndex="-1">
         <div className="modal-dialog modal-sm modal-dialog-centered">
           <div className="modal-content position-relative">
-            <button type="button" class="btn-close position-absolute start-100 top-0 close-button-login-modal" aria-label="Close" data-bs-dismiss="modal"></button>
+            <button type="button" className="btn-close position-absolute start-100 top-0 close-button-login-modal" aria-label="Close" data-bs-dismiss="modal"></button>
 
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">

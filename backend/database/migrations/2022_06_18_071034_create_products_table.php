@@ -20,10 +20,10 @@ return new class extends Migration
             $table->integer("discount");
             $table->integer("price");
             $table->integer("total_sales")->default(0);
-            $table->integer("user_id");
             $table->integer("stock");
             $table->string("location");
             $table->string("img_link");
+            $table->foreignId("user_id")->constrained("users")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamps();
         });
     }

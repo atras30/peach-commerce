@@ -9,6 +9,7 @@ import UserHistory from "./UserHistory";
 import "../../assets/css/profile.css";
 import {useUserContext} from "../../provider/ContextProvider";
 import {useMiddlewareContext} from "../../provider/ContextProvider";
+import {Link} from "react-router-dom";
 
 export default function Profile() {
   const [selectedOption, setSelectedOption] = useState("pesanan");
@@ -64,13 +65,22 @@ export default function Profile() {
         <ProfileHeader />
 
         <div className="profile-container d-flex justify-content-evenly gap-3">
-          <div className="profile-information shadow rounded p-3 d-flex flex-column align-items-center justify-content-center">
+          <div className="profile-information position-relative shadow rounded p-3 d-flex flex-column align-items-center justify-content-center">
+            
+            <div className="email-verify-link-container mb-2">
+              {!authenticatedUser ? "Fetching Data..." : authenticatedUser.email_verified_at == null ? <Link to="/mail/verification/resend" className="email-verify-link btn btn-primary text-white position-absolute">Verify Email</Link> : null}
+            </div>      
+
             <div className="position-relative">
               <img className="profile-logo img-thumbnail img-fluid rounded-circle" src={require("../../assets/img/peach_coin_logo.png")} alt="Peach Coin Logo" />
               <img className="edit-button" title="Edit Profile Picture" src={require("../../assets/img/edit_button_1.png")} alt="Edit Button" />
             </div>
 
             <div className="profile-name fs-3">{!authenticatedUser ? "Fetching Data..." : authenticatedUser.full_name}</div>
+
+            <div className="profile-email-verified-status-container mb-2">
+              Email verified at : {!authenticatedUser ? "Fetching Data..." : authenticatedUser.email_verified_at == null ? <span className="email-verified-status alert alert-danger p-1">Not Verified yet</span> : <span className="email-verified-status alert alert-success p-1">{authenticatedUser.email_verified_at}</span>}
+            </div>
 
             {!isEditing ? <InformationContainer toggleIsEditing={toggleIsEditing} /> : <FormInformationContainer toggleIsEditing={toggleIsEditing} />}
           </div>

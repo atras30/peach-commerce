@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
-import UniversalHeader from "../template/header/UniversalHeader";
+import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import "../../assets/css/product_page.css";
 import Product from "./Product";
@@ -12,6 +12,9 @@ export default function ProductPage() {
   const [productId, setProductId] = useState(queryParams.get("id"));
   const [product, setProduct] = useState(null);
   const [redirectToHomepage, setRedirectToHomepage] = useState(false);
+  const navbarExclude = {
+    form: true
+  }
 
   const handleRedirectToHomepage = () => {
     setRedirectToHomepage((prevValue) => !prevValue);
@@ -64,7 +67,7 @@ export default function ProductPage() {
   return (
     <div className="product-page">
       {redirectToHomepage && <Navigate to="/" />}
-      <UniversalHeader />
+      <Header exclude={navbarExclude}/>
 
       <div className="p-3 px-4">
         <div>{!product ? "Fecthing Data..." : <Product product={product} />}</div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useContext, useRef} from "react";
+import React, {useRef} from "react";
 import Cookies from "universal-cookie";
 import {useUserContext} from "../../provider/ContextProvider";
 import Swal from "sweetalert2";
@@ -12,7 +12,7 @@ export default function FormInformationContainer({toggleIsEditing}) {
   //Toast SWAL Configuration
   const Toast = Swal.mixin({
     toast: true,
-    position: "bottom-end",
+    position: "top",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,

@@ -7,9 +7,12 @@ use App\Models\Address;
 use App\Models\Product;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
+use App\Models\Verification;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class DatabaseSeeder extends Seeder {
   /**
@@ -18,10 +21,12 @@ class DatabaseSeeder extends Seeder {
    * @return void
    */
   public function run() {
-    // \App\Models\User::factory(10)->create();
+    // \App\Models\User::factory(30)->create();
 
     // \App\Models\User::factory()->create([
-    //     'name' => 'Test User',
+    //     'first_name' => 'Wendy',
+    //     'last_name' => 'Yanto',
+    //     'full_name' => 'Wendy Yanto',
     //     'email' => 'test@example.com',
     // ]);
 
@@ -296,6 +301,13 @@ Follow kami agar jangan ketinggalan promosi menarik dari kami dan jangan lupa ch
       "product_id" => 1,
       "review" => "",
       "rating" => 2
+    ]);
+
+    Verification::create([
+      "about" => "Email Verification",
+      "user_id" => "1",
+      "token" => Uuid::uuid4(),
+      "expires" => now()->addMinutes(15)
     ]);
   }
 }

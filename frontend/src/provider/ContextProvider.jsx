@@ -16,11 +16,7 @@ export function useMiddlewareContext() {
 
 export default function ContextProvider({children}) {
   //axios
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-
-  useEffect(function() {
-    console.log(process.env.REACT_APP_BASE_URL);
-  }, []);
+  axios.defaults.baseURL = process.env.REACT_APP_BACKEND_BASE_URL;
 
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
@@ -116,7 +112,9 @@ export default function ContextProvider({children}) {
           Authorization: cookies.get("Authorization"),
         },
       })
-      .then((response) => setAuthenticatedUser(response.data.user))
+      .then((response) => {
+        setAuthenticatedUser(response.data.user)
+      })
       .catch((err) => {
         cookies.remove("Authorization");
         window.location.href = "/";

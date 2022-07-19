@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use Illuminate\Http\Request;
-use App\Models\Product;
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
-
-use function PHPUnit\Framework\isEmpty;
+use App\Models\Address;
+use App\Models\Verification;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller {
   /**
@@ -61,7 +60,8 @@ class UserController extends Controller {
       "address" => "string|required"
     ]);
 
-    $user = User::create($request->all());
+    $user = User::create($request->all())->generateEmailVerificationToken();
+
     return response()->json([
       "message" => "User was successfully created!",
       "user" => $user

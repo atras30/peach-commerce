@@ -2,6 +2,11 @@
   background-color: #FFE7D3;
 }
 
+.email-verify-link {
+  top: .6em;
+  right: .5em;
+}
+
 .profile-header {
   --padding: 2em;
   background-color: #ffefe5;

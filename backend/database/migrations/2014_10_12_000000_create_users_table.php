@@ -18,6 +18,7 @@ return new class extends Migration {
       $table->string('full_name')->default("");
       $table->string('username')->unique()->default("");
       $table->string('email')->unique()->default("");
+      $table->string('email_verified_at')->nullable()->default(null);
       $table->string('address')->default("");
       $table->string('password')->default("");
       $table->string('phone_number')->nullable()->default("");
