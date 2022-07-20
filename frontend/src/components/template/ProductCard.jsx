@@ -1,10 +1,9 @@
 import React from "react";
-import {useState} from "react";
 import "../../assets/css/product.css";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function Product({product}) {
-  const [redirectToProductPage, setRedirectToProductPage] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -32,13 +31,11 @@ export default function Product({product}) {
   };
 
   const toggleRedirectProductPage = () => {
-    setRedirectToProductPage((prevValue) => !prevValue);
+    navigate(`/product?id=${product.id}`);
   };
 
   return (
     <div className="product shadow lh-sm d-flex flex-column justify-content-between gap-3" onClick={toggleRedirectProductPage}>
-      {redirectToProductPage && <Navigate to={`/product?id=${product.id}`} />}
-
       <div>
         <img className="productimg mb-2" src={require(`../../assets/img/product/${product.img_link}`)} alt="product" />
         <div className="producttitle mb-2 fw-bold">{product.title.split(" ").length > 5 ? product.title.split(" ").slice(0, 5).join(" ") + "..." : product.title}</div>

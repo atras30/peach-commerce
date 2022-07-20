@@ -12,3 +12,9 @@
   color: rgb(135,97,56);
   text-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
+
+@media only screen and (max-width: 768px) {
+  .email-resend-form-container {
+    width: 100%;
+  }
+}

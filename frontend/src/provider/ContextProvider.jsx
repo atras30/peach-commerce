@@ -5,9 +5,14 @@ import Swal from "sweetalert2";
 
 const UserContext = React.createContext();
 const MiddlewareContext = React.createContext();
+const ToastContext = React.createContext();
 
 export function useUserContext() {
   return useContext(UserContext);
+}
+
+export function useToastContext() {
+  return useContext(ToastContext);
 }
 
 export function useMiddlewareContext() {
@@ -15,16 +20,9 @@ export function useMiddlewareContext() {
 }
 
 export default function ContextProvider({children}) {
-  //axios
-  axios.defaults.baseURL = process.env.REACT_APP_BACKEND_BASE_URL;
-
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
-
-  //misc
-  const cookies = new Cookies();
-
-  //Toast SWAL Configuration
-  const Toast = Swal.mixin({
+  //toast SWAL Configuration
+  const toast = Swal.mixin({
     toast: true,
     position: "top",
     showConfirmButton: false,
@@ -35,6 +33,9 @@ export default function ContextProvider({children}) {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+
+  //misc
+  const cookies = new Cookies();
 
   //function to handle logout logic
   const handleLogout = () => {
@@ -68,7 +69,7 @@ export default function ContextProvider({children}) {
     // Send a POST request
     let loginStatus = await axios.post("/api/auth/login", data).then(async (response) => {
       if (response.data.message === "Login failed. Wrong email or password") {
-        Toast.fire({
+        toast.fire({
           icon: "error",
           title: response.data.message,
         });
@@ -85,7 +86,7 @@ export default function ContextProvider({children}) {
           .then((response) => response.data.user);
 
         setAuthenticatedUser(user);
-        Toast.fire({
+        toast.fire({
           icon: "success",
           title: `Login Success, welcome ${user.full_name}`,
         });
@@ -113,7 +114,7 @@ export default function ContextProvider({children}) {
         },
       })
       .then((response) => {
-        setAuthenticatedUser(response.data.user)
+        setAuthenticatedUser(response.data.user);
       })
       .catch((err) => {
         cookies.remove("Authorization");
@@ -124,7 +125,7 @@ export default function ContextProvider({children}) {
   const checkCurrentlyLoggedOut = () => {
     if (!sessionStorage.getItem("logout_status")) return;
 
-    Toast.fire({
+    toast.fire({
       icon: "success",
       title: "Successfully logged out!",
     });
@@ -152,8 +153,10 @@ export default function ContextProvider({children}) {
   }, []);
 
   return (
-    <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout}}>
-      <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
-    </UserContext.Provider>
+    <ToastContext.Provider value={toast}>
+      <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout}}>
+        <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
+      </UserContext.Provider>
+    </ToastContext.Provider>
   );
 }

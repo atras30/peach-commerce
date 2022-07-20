@@ -24,11 +24,11 @@
     <p>Hello, {{ $full_name }} thank you for signing up to our website, please click the button below to verify your
         email address.</p>
     <a class="verify-email-button"
-      href="{{ env('APP_FRONTEND_URL', 'https://peachcommerce.masuk.id') }}/mail/verification?token={{ $email_verification_token }}">Verify Email
+      href="{{ env('APP_FRONTEND_URL', 'https://peachcommerce.masuk.id') }}/#/mail/verification?token={{ $email_verification_token }}">Verify Email
     </a>
 
     <p>This token will be valid for 15 minutes. If the button on top is not working, please click this link: <a
-      href="{{ env('APP_FRONTEND_URL', 'https://peachcommerce.masuk.id') }}/mail/verification?token={{ $email_verification_token }}">{{ $email_verification_token }}</a>
+      href="{{ env('APP_FRONTEND_URL', 'https://peachcommerce.masuk.id') }}/#/mail/verification?token={{ $email_verification_token }}">{{ $email_verification_token }}</a>
     </p>
 </body>
 

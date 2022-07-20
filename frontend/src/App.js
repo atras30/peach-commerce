@@ -3,14 +3,18 @@ import LandingPage from "./components/landing/LandingPage";
 import AddProductPage from "./components/product/AddProductPage";
 import ProductPage from "./components/product/ProductPage";
 import Profile from "./components/profile/Profile";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {HashRouter as Router, Routes, Route} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import ContextProvider from "./provider/ContextProvider";
 import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
 import EmailResendPage from "./components/email/EmailResendPage";
 import EmailVerificationPage from "./components/email/EmailVerificationPage";
+import axios from "axios";
 
 function App() {
+  //axios
+  axios.defaults.baseURL = process.env.REACT_APP_BACKEND_BASE_URL;
+  
   return (
     <>
       <Helmet>

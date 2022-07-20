@@ -69,7 +69,7 @@ export default function EmailResendPage() {
         <Header exclude={{form: true}}></Header>
         <h1 className="email-resend-title text-center mt-4 mb-4 fw-bold">Resend Email</h1>
 
-        <div className="email-resend-form-container m-auto p-3 rounded border shadow d-flex justify-content-center align-items-center gap-3 flex-column">
+        <div className="email-resend-form-container m-auto p-3 rounded border shadow d-flex justify-content-center align-items-center gap-3 flex-column mb-5">
           {!authenticatedUser? <Loading description={"Please wait..."}></Loading> : <div>Resend email to: <span className="fw-bold">{authenticatedUser.email}</span></div>}
 
           {!isLoading ? <button className="btn btn-primary" onClick={handleResendEmail}>Resend Email</button> : <Loading description="Generating new token..."></Loading>}

@@ -1,28 +1,29 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import "../../assets/css/product_page.css";
 import Product from "./Product";
 import Review from "./Review";
+import { useToastContext } from "../../provider/ContextProvider";
 
 export default function ProductPage() {
-  const queryParams = new URLSearchParams(window.location.search);
-  const [productId, setProductId] = useState(queryParams.get("id"));
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState(null);
-  const [redirectToHomepage, setRedirectToHomepage] = useState(false);
+  const toast = useToastContext();
   const navbarExclude = {
-    form: true
-  }
+    form: true,
+  };
 
   const handleRedirectToHomepage = () => {
-    setRedirectToHomepage((prevValue) => !prevValue);
+    navigate("/");
   };
 
   const fetchProduct = async () => {
     return axios
-      .get(`/api/products/${productId}`)
+      .get(`/api/products/${searchParams.get("id")}`)
       .then((response) => {
         response.data.product.total_reviews = response.data.product.reviews.length;
 
@@ -44,7 +45,16 @@ export default function ProductPage() {
         setProduct(response.data.product);
       })
       .catch((error) => {
-        alert("Oops... someting went wrong : <br>" + error.message);
+        let message = error.response.data.message;
+        if(error.response.data.message.includes("No query results for model")) {
+          message = `Product with id ${searchParams.get("id")} was not found.`;
+        }
+
+        toast.fire({
+          icon: "error",
+          title: message,
+        });
+        navigate("/");
       });
   };
 
@@ -59,22 +69,26 @@ export default function ProductPage() {
   }
 
   useEffect(function () {
-    if (!productId) handleRedirectToHomepage();
+    if (!searchParams.get("id")) handleRedirectToHomepage();
 
     fetchProduct();
   }, []);
 
   return (
     <div className="product-page">
-      {redirectToHomepage && <Navigate to="/" />}
-      <Header exclude={navbarExclude}/>
+      <Header exclude={navbarExclude} />
 
       <div className="p-3 px-4">
         <div>{!product ? "Fecthing Data..." : <Product product={product} />}</div>
 
         <div className="review-container">
           <div className="review-title text-uppercase mb-2">
-            {product ? <> Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span></> : null }
+            {product ? (
+              <>
+                {" "}
+                Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span>
+              </>
+            ) : null}
           </div>
 
           {product?.reviews?.map((review) => (
