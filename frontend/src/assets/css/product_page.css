@@ -4,6 +4,27 @@
   padding-bottom: 200px;
 }
 
+.user-reply {
+  background-color: #ffdab8;
+}
+
+.reply-section {
+  display: none;
+}
+
+.close-button {
+  right: -.4em;
+  top: 1.4em;
+}
+
+.reply-button {
+  display: none;
+}
+
+.show {
+  display: block !important;
+}
+
 .product-image-container {
   width: clamp(400px, 60%, 550px);
 }
@@ -19,7 +40,12 @@
 }
 
 .reply-review-button {
-  background-color: hsl(28, 100%, 86%);
+  background-color: hsl(28, 100%, 86%) !important;
+  border: 1px solid rgba(0, 0, 0, .5);
+}
+
+.reply-button {
+  background-color: hsl(28, 100%, 86%) !important;
   outline: none;
   border: none;
   border: 1px solid rgba(0, 0, 0, .5);

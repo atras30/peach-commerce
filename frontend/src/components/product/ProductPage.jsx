@@ -60,11 +60,8 @@ export default function ProductPage() {
 
   function printStars(number) {
     if (Math.round(number) == 0) return "★";
-
     let stars = "";
-
     for (let i = 0; i < Math.round(number); i++) stars += "★";
-
     return stars;
   }
 
@@ -85,14 +82,13 @@ export default function ProductPage() {
           <div className="review-title text-uppercase mb-2">
             {product ? (
               <>
-                {" "}
                 Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span>
               </>
             ) : null}
           </div>
 
           {product?.reviews?.map((review) => (
-            <Review review={review} printStars={printStars} />
+            <Review fetchProduct={fetchProduct} review={review} key={review.id} printStars={printStars} />
           ))}
         </div>
       </div>

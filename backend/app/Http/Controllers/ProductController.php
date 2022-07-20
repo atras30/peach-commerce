@@ -14,9 +14,12 @@ class ProductController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function index() {
-    $products = Product::all();
+    $products = Product::with("reviews")->get();
+
     foreach($products as $product) {
       $product['discount'] = intval($product["discount"]);
+      $product['total_sales'] = intval($product["total_sales"]);
+      $product['stock'] = intval($product["stock"]);
     }
 
     return response()->json([
@@ -83,8 +86,11 @@ class ProductController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function show($id) {
-    $product = Product::findOrFail($id);
+    $product = Product::with("reviews")->findOrFail($id);
 
+    $product['discount'] = intval($product["discount"]);
+    $product['total_sales'] = intval($product["total_sales"]);
+    $product['stock'] = intval($product["stock"]);
     
     foreach($product["reviews"] as $review) {
       $review['rating'] = intval($review["rating"]);  

@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Product;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
+use App\Models\ProductReviewComment;
 use App\Models\Verification;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -301,6 +302,12 @@ Follow kami agar jangan ketinggalan promosi menarik dari kami dan jangan lupa ch
       "product_id" => 1,
       "review" => "",
       "rating" => 2
+    ]);
+
+    ProductReviewComment::create([
+      "product_review_id" => 1,
+      "user_id" => 2,
+      "comment" => "terimakasih, sangat membantu reviewnya"
     ]);
 
     Verification::create([

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ProductReviewCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,24 +19,31 @@ use App\Http\Controllers\MailController;
 |
 */
 
+//products
 Route::resource("products", ProductController::class);
+Route::get("/products/search/{query}", [ProductController::class, "search"]);
+
+//users
 Route::resource("users", UserController::class);
 
-Route::get("/products/search/{query}", [ProductController::class, "search"]);
-Route::post("/mail/verification/verify/{verification:token}", [MailController::class, "verifyEmail"]);
-// Route::post("/mail/password/verify/{verification:token}", [MailController::class, "verifyEmail"]);
-// Route::post("/mail/password/resend/{verification:token}", [MailController::class, "verifyEmail"]);
+//product review comments
+Route::post("/products/reviews/comments", [ProductReviewCommentController::class, "store"]);
 
+//Emails
+Route::post("/mail/verification/verify/{verification:token}", [MailController::class, "verifyEmail"]);
+
+//Authentication
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 
+//Authenticated users
 Route::group(["middleware" => ["auth:sanctum"]], function () {
   Route::post("/mail/verification/resend/{user:email}", [MailController::class, "resendEmail"]);
   Route::post("/auth/logout", [AuthController::class, "logout"]);
   Route::get("/auth/user", [AuthController::class, "getUser"]);
 });
 
-
+//default route
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
