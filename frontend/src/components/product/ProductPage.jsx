@@ -1,15 +1,22 @@
-import axios from "axios";
+//react components & hooks
 import React, {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {useToastContext} from "../../provider/ContextProvider";
 import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
-import "../../assets/css/product_page.css";
 import Product from "./Product";
 import Review from "./Review";
 import Loading from "../template/Loading";
-import {useToastContext} from "../../provider/ContextProvider";
+import { useMiddlewareContext } from "../../provider/ContextProvider";
+
+//libraries
+import axios from "axios";
+
+//css
+import "../../assets/css/product_page.css";
 
 export default function ProductPage() {
+  const setMiddleware = useMiddlewareContext();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState(null);

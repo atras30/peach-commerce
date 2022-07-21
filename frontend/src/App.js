@@ -14,7 +14,7 @@ import axios from "axios";
 function App() {
   //axios
   axios.defaults.baseURL = process.env.REACT_APP_BACKEND_BASE_URL;
-  
+
   return (
     <>
       <Helmet>
@@ -28,8 +28,8 @@ function App() {
         <link rel="stylesheet" href="./assets/css/style.css" />
       </Helmet>
 
-      <ContextProvider>
-        <Router>
+      <Router>
+        <ContextProvider>
           <Routes>
             <Route path="/" element={<LandingPage />}></Route>
             <Route path="/product" element={<ProductPage />}></Route>
@@ -37,13 +37,12 @@ function App() {
             <Route path="/user/profile" element={<Profile />}></Route>
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
 
-
             {/* ROUTE EMAIL HANDLER */}
             <Route path="/mail/verification" element={<EmailVerificationPage />}></Route>
             <Route path="/mail/verification/resend" element={<EmailResendPage />}></Route>
           </Routes>
-        </Router>
-      </ContextProvider>
+        </ContextProvider>
+      </Router>
     </>
   );
 }

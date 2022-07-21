@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
 const UserContext = React.createContext();
 const MiddlewareContext = React.createContext();
@@ -20,6 +21,7 @@ export function useMiddlewareContext() {
 }
 
 export default function ContextProvider({children}) {
+  const navigate = useNavigate();
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
   //toast SWAL Configuration
   const toast = Swal.mixin({
@@ -138,11 +140,17 @@ export default function ContextProvider({children}) {
     if (!Array.isArray(middlewares)) return;
 
     //check each middleware
-    middlewares.forEach((middleware) => {
+    middlewares.forEach(async (middleware) => {
       if (middleware === "auth") {
         getLoggedInUser();
-      } else if (true) {
-        //next middleware
+      } else if (middleware === "verified") {
+        await getLoggedInUser();
+
+        if(authenticatedUser.email_verified_at === null) {
+          navigate("/");
+        }
+      } else if(true) {
+
       }
     });
   }

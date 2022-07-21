@@ -52,6 +52,6 @@
 
 @media screen and (max-width: 576px) {
   .product {
-    width: 100%;
+    width: 45%;
   }
 }

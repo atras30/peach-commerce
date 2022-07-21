@@ -17,7 +17,7 @@ export default function Review({review, printStars, fetchProduct}) {
   const navigate = useNavigate();
 
   useEffect(function () {
-    console.log(review)
+    console.log(review);
   }, []);
 
   function handleReplyToggle() {
@@ -27,6 +27,11 @@ export default function Review({review, printStars, fetchProduct}) {
       return Toast.fire({
         icon: "error",
         title: "You must be logged in to reply another user's comment",
+      });
+    } else if (authenticatedUser?.email_verified_at === null) {
+      return Toast.fire({
+        icon: "error",
+        title: "Your email is not verified yet.",
       });
     }
 
