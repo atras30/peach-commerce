@@ -14,9 +14,7 @@ export default function UserReply({comment}) {
         <div className='text-muted'>1 minggu yang lalu</div>
       </div>
 
-      <div>
-        {comment.comment}
-      </div>
+      <div dangerouslySetInnerHTML={{ __html: comment.comment.split("\n").map(sentence => `<div style="min-height: 1em">${sentence}</div>`).join("") }}></div>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import {useRef} from "react";
 import {useEffect} from "react";
 import UserReply from "./UserReply";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 import {useUserContext, useToastContext} from "../../provider/ContextProvider";
 
@@ -13,12 +14,22 @@ export default function Review({review, printStars, fetchProduct}) {
   const {authenticatedUser} = useUserContext();
   const Toast = useToastContext();
   const cookies = new Cookies();
+  const navigate = useNavigate();
 
   useEffect(function () {
-    // console.log(review);
+    console.log(review)
   }, []);
 
   function handleReplyToggle() {
+    if (!authenticatedUser) {
+      const button = document.querySelector(".loginbutton");
+      button.click();
+      return Toast.fire({
+        icon: "error",
+        title: "You must be logged in to reply another user's comment",
+      });
+    }
+
     replyReviewButton.current.classList.toggle("show");
     replySection.current.classList.toggle("show");
   }
