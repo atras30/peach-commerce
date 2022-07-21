@@ -6,7 +6,8 @@ import Footer from "../template/footer/Footer";
 import "../../assets/css/product_page.css";
 import Product from "./Product";
 import Review from "./Review";
-import { useToastContext } from "../../provider/ContextProvider";
+import Loading from "../template/Loading";
+import {useToastContext} from "../../provider/ContextProvider";
 
 export default function ProductPage() {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function ProductPage() {
       })
       .catch((error) => {
         let message = error.response.data.message;
-        if(error.response.data.message.includes("No query results for model")) {
+        if (error.response.data.message.includes("No query results for model")) {
           message = `Product with id ${searchParams.get("id")} was not found.`;
         }
 
@@ -72,28 +73,33 @@ export default function ProductPage() {
   }, []);
 
   return (
-    <div className="product-page">
-      <Header exclude={navbarExclude} />
+    <div className="product-page d-flex justify-content-between flex-column">
+      <div>
+        <Header exclude={navbarExclude} />
 
-      <div className="p-3 px-4">
-        <div>{!product ? "Fecthing Data..." : <Product product={product} />}</div>
+        <div className="p-3 px-4">
+          <div>{!product ? <Loading description={"Fetching Data..."}/> : <Product product={product} />}</div>
 
-        <div className="review-container">
-          <div className="review-title text-uppercase mb-2">
-            {product ? (
-              <>
-                Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span>
-              </>
-            ) : null}
+          <div className="review-container">
+            <div className="review-title text-uppercase mb-2">
+              {product ? (
+                <>
+                  Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span>
+                </>
+              ) : null}
+            </div>
+
+            {product?.reviews?.map((review) => (
+              <Review fetchProduct={fetchProduct} review={review} key={review.id} printStars={printStars} />
+            ))}
           </div>
-
-          {product?.reviews?.map((review) => (
-            <Review fetchProduct={fetchProduct} review={review} key={review.id} printStars={printStars} />
-          ))}
         </div>
       </div>
 
-      <Footer />
+      <div>
+        <Footer />
+      </div>
+
     </div>
   );
 }
