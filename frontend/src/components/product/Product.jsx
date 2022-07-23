@@ -1,7 +1,15 @@
 import React from "react";
 import {useEffect} from "react";
+import Cookies from "universal-cookie";
+import {useUserContext} from "../../provider/ContextProvider";
+import {useToastContext} from "../../provider/ContextProvider";
+import axios from "axios";
 
 export default function Product({product}) {
+  const cookies = new Cookies();
+  const {authenticatedUser, checkAuthenticatedUser} = useUserContext();
+  const Toast = useToastContext();
+
   const formatRupiah = (bilangan) => {
     let separator = null;
     let number_string = bilangan.toString();
@@ -32,8 +40,45 @@ export default function Product({product}) {
     return stars;
   }
 
-  useEffect(() => {
+  async function handleAddToCart() {
+    return axios
+      .post(
+        "/api/shopping-cart",
+        {
+          user_id: authenticatedUser.id,
+          product_id: product.id,
+        },
+        {
+          headers: {
+            Authorization: cookies.get("Authorization"),
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        checkAuthenticatedUser();
 
+        if(response.data.message === "created") return Toast.fire({
+          icon: "success",
+          title: `Product has been added to your shopping cart`,
+        });
+
+        return Toast.fire({
+          icon: "success",
+          title: `Product has been removed from your shopping cart`,
+        });
+      })
+      .catch((error) => {
+        console.log(error)
+        Toast.fire({
+          icon: "error",
+          title: `${error}`,
+        });
+      });
+  }
+
+  useEffect(() => {
+    // console.log(authenticatedUser)
   }, []);
 
   return (
@@ -59,10 +104,22 @@ export default function Product({product}) {
         </div>
 
         <div className="product-details text-decoration-underline fs-5 mb-2">Details</div>
-        <div className="product-description mb-3" dangerouslySetInnerHTML={{ __html: product.description.split("\n").map(desc => `<p>${desc}</p>`).join("") }}></div>
+        <div
+          className="product-description mb-3"
+          dangerouslySetInnerHTML={{
+            __html: product.description
+              .split("\n")
+              .map((desc) => `<p>${desc}</p>`)
+              .join(""),
+          }}
+        ></div>
         <div className="button-container d-flex gap-3">
-          <button className="w-50 buttonbuy p-0 m-0 fw-bold">+ Keranjang</button>
-          <button className="w-50 buttonbuy p-0 m-0 fw-bold">Beli Sekarang</button>
+          <button onClick={handleAddToCart} className="w-50 buttonbuy p-0 m-0 fw-bold">
+            <i className="bi bi-cart me-2"></i>Masukkan Keranjang
+          </button>
+          <button className="w-50 buttonbuy p-0 m-0 fw-bold">
+            <i class="bi bi-bag"></i> Beli Sekarang
+          </button>
         </div>
       </div>
     </div>

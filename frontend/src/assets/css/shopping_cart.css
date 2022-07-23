@@ -6,7 +6,8 @@
 .shopping-cart-card {
   height: 80%;
   min-height: 10em;
-  background-color: white;
+  background-color: #fff1e6;
+  overflow: hidden;
 }
 
 .user-information {
@@ -17,8 +18,22 @@
   width: 10em;
 }
 
+.product-container:hover {
+  background-color: #ffead1;
+  cursor: pointer;
+}
+
+.product-container:hover img{
+  transform: scale(1.05);
+}
+
 input[type="checkbox"] {
   --scale: 1em;
   width: var(--scale);
   height: var(--scale);
+}
+
+.user-information-checkbox-container>*:hover {
+  cursor: pointer;
+  color: blue;
 }

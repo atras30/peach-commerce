@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductReviewCommentController;
+use App\Http\Controllers\ShoppingCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,15 @@ Route::post("/auth/register", [AuthController::class, "register"]);
 
 //Authenticated users
 Route::group(["middleware" => ["auth:sanctum"]], function () {
+  //Mails
   Route::post("/mail/verification/resend/{user:email}", [MailController::class, "resendEmail"]);
+
+  //Authentications
   Route::post("/auth/logout", [AuthController::class, "logout"]);
   Route::get("/auth/user", [AuthController::class, "getUser"]);
+
+  //Shopping Carts
+  Route::post("/shopping-cart", [ShoppingCartController::class, "store"]);
 });
 
 //default route

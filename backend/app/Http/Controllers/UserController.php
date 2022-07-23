@@ -35,7 +35,7 @@ class UserController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function show($id) {
-    $user = User::findOrFail($id);
+    $user = User::where("id", $id)->with("shopping_carts")->get();
     return response()->json([
       "message" => "Sucessfully fetched a user",
       "user" => $user

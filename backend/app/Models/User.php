@@ -30,6 +30,10 @@ class User extends Authenticatable {
     return $this->hasMany(Verification::class);
   }
 
+  public function shopping_carts() {
+    return $this->hasMany(ShoppingCart::class);
+  }
+
   public function generateEmailVerificationToken() {
     $token = Verification::create([
       "about" => "Email Verification",

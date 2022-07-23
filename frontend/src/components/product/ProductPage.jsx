@@ -85,7 +85,7 @@ export default function ProductPage() {
         <Header exclude={navbarExclude} />
 
         <div className="p-3 px-4">
-          <div>{!product ? <Loading description={"Fetching Data..."}/> : <Product product={product} />}</div>
+          <div>{!product ? <Loading description={"Fetching Product..."}/> : <Product product={product} />}</div>
 
           <div className="review-container">
             <div className="review-title text-uppercase mb-2">

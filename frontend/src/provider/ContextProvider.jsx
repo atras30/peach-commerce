@@ -162,7 +162,7 @@ export default function ContextProvider({children}) {
 
   return (
     <ToastContext.Provider value={toast}>
-      <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout}}>
+      <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, checkAuthenticatedUser}}>
         <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
       </UserContext.Provider>
     </ToastContext.Provider>

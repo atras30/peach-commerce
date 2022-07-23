@@ -43,7 +43,7 @@ class AuthController extends Controller {
 
   public function getUser(Request $request) {
     return response()->json([
-      "user" => auth()->user()
+      "user" => User::where("id", auth()->user()->id)->with("shopping_carts")->get()->first()
     ], Response::HTTP_OK);
   }
 

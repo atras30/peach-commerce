@@ -26,6 +26,7 @@
 
 .profile {
   min-height: 100vh !important;
+  background-color: #ffe6d0;
 }
 
 .profile-brand {
@@ -49,12 +50,12 @@
 
 .profile-information {
   width: 40%;
-  background-color: #f5b98c;
+  background-color: #ffb278;
 }
 
 .profile-transaction-history {
   width: 60%;
-  background-color: #f5b98c;
+  background-color: #ffb278;
 }
 
 .profile-logo {
@@ -62,7 +63,7 @@
 }
 
 .choices {
-  background-color: #ffe3c8;
+  background-color: #ffd7b2;
   border-top-right-radius: 0.25rem;
   border-top-left-radius: 0.25rem;
   height: 3em;
@@ -92,7 +93,7 @@
 }
 
 .choices-item.active {
-  background-color: #f5b98c;
+  background-color: #ffb278;
 }
 
 .profile-container {

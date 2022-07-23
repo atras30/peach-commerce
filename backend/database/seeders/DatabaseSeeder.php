@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
 use App\Models\ProductReviewComment;
+use App\Models\ShoppingCart;
 use App\Models\Verification;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -315,6 +316,36 @@ Follow kami agar jangan ketinggalan promosi menarik dari kami dan jangan lupa ch
       "user_id" => "1",
       "token" => Uuid::uuid4(),
       "expires" => now()->addMinutes(15)
+    ]);
+
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
+    ]);
+    ShoppingCart::create([
+      "user_id" => 1,
+      "product_id" => mt_rand(1,7)
     ]);
   }
 }

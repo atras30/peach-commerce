@@ -39,7 +39,7 @@
 .productContainer {
   padding: 20px;
   display: flex;
-  gap: 1.5em;
+  gap: 1em;
   justify-content: center;
   flex-wrap: wrap;
 }
