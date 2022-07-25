@@ -21,9 +21,6 @@ export default function ProductPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState(null);
   const toast = useToastContext();
-  const navbarExclude = {
-    form: true,
-  };
 
   const handleRedirectToHomepage = () => {
     navigate("/");
@@ -82,7 +79,7 @@ export default function ProductPage() {
   return (
     <div className="product-page d-flex justify-content-between flex-column">
       <div>
-        <Header exclude={navbarExclude} />
+        <Header exclude={["form"]} navbarBrand={"product"} />
 
         <div className="p-3 px-4">
           <div>{!product ? <Loading description={"Fetching Product..."}/> : <Product product={product} />}</div>

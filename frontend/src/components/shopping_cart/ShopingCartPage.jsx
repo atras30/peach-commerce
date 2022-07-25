@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import ProfileHeader from '../profile/ProfileHeader';
+import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import ShoppingCartCard from "./ShoppingCartCard";
 import "../../assets/css/shopping_cart.css";
@@ -12,7 +12,7 @@ export default function ShopingCartPage() {
   return (
     <div className='shopping-cart-container d-flex justify-content-between flex-column'>
       <div>
-        <ProfileHeader/>
+        <Header navbarBrand="shopping_cart" exclude={["form"]}/>
         <div className='mt-4'>
           {!authenticatedUser ? 
             <Loading description={"Fetching Shoppping Cart Data..."}/> :

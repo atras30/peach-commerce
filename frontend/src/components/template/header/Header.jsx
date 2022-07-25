@@ -10,7 +10,7 @@ import Loading from "../Loading";
 import "../../../assets/css/header.css";
 import FilterSearchForm from "./FilterSearchForm";
 
-export default function Header({setProducts, exclude}) {
+export default function Header({navbarBrand, setProducts, exclude}) {
   //useContext hook
   const inputSearch = useRef(null);
   const {authenticatedUser, handleLogin} = useUserContext();
@@ -140,7 +140,13 @@ export default function Header({setProducts, exclude}) {
     <nav className="navbar navbar-expand-md navbar-light shadow-sm">
       <div className="container-fluid">
         <Link to="/" className="img-logo-wrapper">
-          <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
+          {navbarBrand === "shopping_cart" ?  
+            <img className="logo" src={require("../../../assets/img/navbar_brand_shopping_cart.png")} alt="Shopping cart Navbar Brand" />
+            : 
+            navbarBrand === "product" ?  
+            <img className="logo" src={require("../../../assets/img/navbar_brand_product.png")} alt="Product Navbar Brand" />
+            : 
+            <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />}
         </Link>
 
         <button className="navbar-toggler shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,7 +155,7 @@ export default function Header({setProducts, exclude}) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <div className="d-flex align-items-center ms-auto gap-3 navbar-collapse-container">
-            {exclude && exclude.form ? null : <FilterSearchForm handleSearch={handleSearch} inputSearch={inputSearch} />}
+            {exclude?.includes("form") ? null : <FilterSearchForm handleSearch={handleSearch} inputSearch={inputSearch} />}
 
             <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />
 
