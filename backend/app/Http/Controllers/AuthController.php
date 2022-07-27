@@ -42,8 +42,14 @@ class AuthController extends Controller {
   }
 
   public function getUser(Request $request) {
+    $user = User::where("id", auth()->user()->id)->with("shopping_carts")->get()->first();
+
+    foreach($user["shopping_carts"] as $shoppingCart) {
+      $shoppingCart["product_id"] = intval($shoppingCart["product_id"]);
+    }
+    
     return response()->json([
-      "user" => User::where("id", auth()->user()->id)->with("shopping_carts")->get()->first()
+      "user" => $user
     ], Response::HTTP_OK);
   }
 
