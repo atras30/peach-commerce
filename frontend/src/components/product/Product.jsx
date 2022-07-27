@@ -60,12 +60,12 @@ export default function Product({product}) {
 
         if(response.data.message === "created") return Toast.fire({
           icon: "success",
-          title: `Product has been added to your shopping cart`,
+          title: `Product berhasil dimasukkan ke keranjang kamu`,
         });
 
         return Toast.fire({
           icon: "success",
-          title: `Product has been removed from your shopping cart`,
+          title: `Product berhasil dikeluarkan dari keranjang kamu`,
         });
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ export default function Product({product}) {
   }
 
   useEffect(() => {
-    // console.log(authenticatedUser)
+    // console.log(authenticatedUser.shopping_carts.map(each => each.product_id).includes())
   }, []);
 
   return (
@@ -115,10 +115,15 @@ export default function Product({product}) {
         ></div>
         <div className="button-container d-flex gap-3">
           <button onClick={handleAddToCart} className="w-50 buttonbuy p-0 m-0 fw-bold">
-            <i className="bi bi-cart me-2"></i>Masukkan Keranjang
+            {authenticatedUser?.shopping_carts.map(each => each.product_id).includes(product.id) ?
+              <div className="d-inline-block"><i className="bi bi-cart me-2"></i>Keluarkan Dari Keranjang</div>
+            :
+              <div className="d-inline-block"><i className="bi bi-cart me-2"></i>Masukkan Keranjang</div>
+            }
+           
           </button>
           <button className="w-50 buttonbuy p-0 m-0 fw-bold">
-            <i class="bi bi-bag"></i> Beli Sekarang
+            <i className="bi bi-bag"></i> Beli Sekarang
           </button>
         </div>
       </div>

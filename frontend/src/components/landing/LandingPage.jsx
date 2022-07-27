@@ -35,12 +35,12 @@ export default function LandingPage() {
         <Header setProducts={setProducts} />
 
         <div className="category-container d-flex justify-content-between px-5 gap-5 overflow-auto">
-          <span className="category-item d-flex justify-content-center align-items-center">Pakaian</span>
-          <span className="category-item d-flex justify-content-center align-items-center">Makanan</span>
-          <span className="category-item d-flex justify-content-center align-items-center">Elektronik</span>
-          <span className="category-item d-flex justify-content-center align-items-center">Komputer</span>
-          <span className="category-item d-flex justify-content-center align-items-center">Kesehatan</span>
-          <span className="category-item d-flex justify-content-center align-items-center">Perawatan</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Pakaian</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Makanan</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Elektronik</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Komputer</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Kesehatan</span>
+          <span className="category-item d-flex justify-content-center align-items-center px-2">Perawatan</span>
         </div>
 
         <div className="productContainer">

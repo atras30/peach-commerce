@@ -37,3 +37,29 @@ input[type="checkbox"] {
   cursor: pointer;
   color: blue;
 }
+
+.summary-wrapper {
+  /* background-color: #ffcf93; */
+  background-color: #FFF1E6;
+  width: 20%;
+}
+
+.product-wrapper {
+  width: 70%;
+}
+
+.order-summary-product-wrapper {
+  background-color: white;
+}
+
+.button-buy {
+  background-color: hsl(28, 100%, 86%) !important;
+}
+
+.button-buy:hover {
+  background-color: hsl(28, 91%, 77%) !important;
+}
+
+.button-buy:active {
+  background-color: hsl(28, 100%, 71%) !important;
+}

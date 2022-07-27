@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Footer from "../template/footer/Footer";
-import ProfileHeader from "./ProfileHeader";
+import Header from "../template/header/Header";
 import InformationContainer from "./InformationContainer";
 import FormInformationContainer from "./FormInformationContainer";
 import UserOrder from "./UserOrder";
@@ -62,13 +62,13 @@ export default function Profile() {
   return (
     <div className="profile d-flex flex-column justify-content-between">
       <div>
-        <ProfileHeader />
+        <Header include={["peach_coin"]} exclude={["form", "faq"]} navbarBrand={"profile"}/>
 
         <div className="profile-container d-flex justify-content-evenly gap-3">
           <div className="profile-information position-relative shadow rounded p-3 d-flex flex-column align-items-center justify-content-center">
             
             <div className="email-verify-link-container mb-2">
-              {!authenticatedUser ? "Fetching Data..." : authenticatedUser.email_verified_at == null ? <Link to="/mail/verification/resend" className="email-verify-link btn btn-primary text-white position-absolute">Verify Email</Link> : null}
+              {!authenticatedUser ? null : authenticatedUser.email_verified_at == null ? <Link to="/mail/verification/resend" className="email-verify-link btn btn-primary text-white position-absolute">Verify Email</Link> : null}
             </div>      
 
             <div className="position-relative">

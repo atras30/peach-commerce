@@ -40,7 +40,7 @@ export default function EmailVerificationPage() {
   return (
     <div className="email-verification-page d-flex justify-content-between flex-column">
       <div>
-        <Header exclude={{form: true}}></Header>
+        <Header exclude={["form"]}></Header>
 
         <div className="email-verification-title fs-1 fw-bold text-center my-4">Email Verification</div>
 

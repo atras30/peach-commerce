@@ -66,7 +66,7 @@ export default function EmailResendPage() {
   return (
     <div className="email-resend-page d-flex justify-content-between flex-column flex-wrap">
       <div>
-        <Header exclude={{form: true}}></Header>
+        <Header exclude={["form"]}></Header>
         <h1 className="email-resend-title text-center mt-4 mb-4 fw-bold">Resend Email</h1>
 
         <div className="email-resend-form-container m-auto p-3 rounded border shadow d-flex justify-content-center align-items-center gap-3 flex-column mb-5">
