@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller {
   public function login(Request $request) {
