@@ -55,8 +55,11 @@ export default function ContextProvider({children}) {
         if (response.data.message === "Successfully Logged Out") {
           cookies.remove("Authorization");
           setAuthenticatedUser(null);
-          sessionStorage.setItem("logout_status", true);
-          window.location.href = "/";
+          navigate("/");
+          toast.fire({
+            icon: "success",
+            title: "Successfully logged out!",
+          });
         }
       });
   };
@@ -120,19 +123,12 @@ export default function ContextProvider({children}) {
       })
       .catch((err) => {
         cookies.remove("Authorization");
-        window.location.href = "/";
+        navigate("/");
+        toast.fire({
+          icon: "error",
+          title: "You are not logged in.",
+        });
       });
-  };
-
-  const checkCurrentlyLoggedOut = () => {
-    if (!sessionStorage.getItem("logout_status")) return;
-
-    toast.fire({
-      icon: "success",
-      title: "Successfully logged out!",
-    });
-
-    return sessionStorage.removeItem("logout_status");
   };
 
   function setMiddleware(middlewares) {
@@ -146,18 +142,16 @@ export default function ContextProvider({children}) {
       } else if (middleware === "verified") {
         await getLoggedInUser();
 
-        if(authenticatedUser.email_verified_at === null) {
+        if (authenticatedUser.email_verified_at === null) {
           navigate("/");
         }
-      } else if(true) {
-
+      } else if (true) {
       }
     });
   }
 
   useEffect(() => {
     checkAuthenticatedUser();
-    checkCurrentlyLoggedOut();
   }, []);
 
   return (

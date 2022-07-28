@@ -5,7 +5,6 @@ import {useToastContext} from "../../provider/ContextProvider";
 import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import Product from "./Product";
-import Review from "./Review";
 import Loading from "../template/Loading";
 import { useMiddlewareContext } from "../../provider/ContextProvider";
 
@@ -82,20 +81,10 @@ export default function ProductPage() {
         <Header exclude={["form"]} navbarBrand={"product"} />
 
         <div className="p-3 px-4">
-          <div>{!product ? <Loading description={"Fetching Product..."}/> : <Product product={product} />}</div>
-
-          <div className="review-container">
-            <div className="review-title text-uppercase mb-2">
-              {product ? (
-                <>
-                  Semua Ulasan <span className="fw-bold">({product?.total_reviews})</span>
-                </>
-              ) : null}
-            </div>
-
-            {product?.reviews?.map((review) => (
-              <Review fetchProduct={fetchProduct} review={review} key={review.id} printStars={printStars} />
-            ))}
+          <div>{!product ? 
+                <Loading description={"Fetching Product..."}/> 
+                : 
+                <Product fetchProduct={fetchProduct} product={product} />}
           </div>
         </div>
       </div>

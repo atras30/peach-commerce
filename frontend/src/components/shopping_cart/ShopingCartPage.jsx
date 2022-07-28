@@ -14,7 +14,7 @@ export default function ShopingCartPage() {
       <div>
         <Header navbarBrand="shopping_cart" exclude={["form"]} />
 
-        <div className="my-4 shopping-cart-products-container d-flex align-items-center justify-content-center">
+        <div className="my-4 p-5 pt-0 gap-4 shopping-cart-products-container d-flex align-items-center justify-content-center">
           <div className="product-wrapper">
             {!authenticatedUser ? (
               <Loading description={"Fetching Shoppping Cart Data..."} />

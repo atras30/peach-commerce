@@ -58,7 +58,7 @@ export default function ShoppingCartCard({shoppingCart}) {
   }
 
   return (
-    <div className="shopping-cart-card mb-4 mx-5 rounded shadow">
+    <div className="shopping-cart-card mb-4 rounded shadow">
       <div className="user-information p-2 px-3 fw-bold d-flex justify-content-between">
         <div className="user-information-checkbox-container d-flex align-items-center ">
           <input type="checkbox" id={checkboxId} />
@@ -69,14 +69,14 @@ export default function ShoppingCartCard({shoppingCart}) {
 
         <div className="delete">
           <button onClick={handleDeleteShoppingCart} type="button" className="btn btn-danger shadow-sm">
-            Delete Product
+            Remove Product
           </button>
         </div>
       </div>
 
       <div className="product-container p-3 d-flex gap-3 align-items-center" onClick={handleProductRedirect}>
         <div className="img-wrapper rounded shadow-sm overflow-hidden">
-          <img src={require(`../../assets/img/product/${shoppingCart?.product?.img_link}`)} alt="Product Image" className="img-fluid" />
+          <img src={require(`../../assets/img/product/${shoppingCart?.product?.img_link}`)} alt="Product Image" className="img-fluid img-thumbnail" />
         </div>
 
         <div>

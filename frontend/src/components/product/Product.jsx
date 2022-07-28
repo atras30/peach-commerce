@@ -3,9 +3,10 @@ import {useEffect} from "react";
 import Cookies from "universal-cookie";
 import {useUserContext} from "../../provider/ContextProvider";
 import {useToastContext} from "../../provider/ContextProvider";
+import Reviews from "./Reviews"
 import axios from "axios";
 
-export default function Product({product}) {
+export default function Product({product, fetchProduct}) {
   const cookies = new Cookies();
   const {authenticatedUser, checkAuthenticatedUser} = useUserContext();
   const Toast = useToastContext();
@@ -82,11 +83,11 @@ export default function Product({product}) {
   }, []);
 
   return (
-    <div className="product-card d-flex gap-4 mb-3">
+    <div className="product-card mb-3">
       <div className="product-image-container">
         <img src={require(`../../assets/img/product/${product.img_link}`)} alt="Product Image" className="img-fluid rounded shadow product-image img-thumbnail" />
       </div>
-
+      
       <div className="product-information mb-3">
         <div className="product-title fs-3 fw-bold mb-3">{product.title}</div>
         <div className="product-sales mb-3">
@@ -127,6 +128,9 @@ export default function Product({product}) {
           </button>
         </div>
       </div>
+
+      <Reviews product={product} fetchProduct={fetchProduct} printStars={printStars}/>
+      
     </div>
   );
 }
