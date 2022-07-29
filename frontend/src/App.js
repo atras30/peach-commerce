@@ -3,6 +3,7 @@ import LandingPage from "./components/landing/LandingPage";
 import AddUserProduct from "./components/add_user_product/AddUserProduct";
 import ProductPage from "./components/product/ProductPage";
 import Profile from "./components/profile/Profile";
+import UserProductPage from "./components/user_product/UserProductPage";
 import {HashRouter as Router, Routes, Route} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import ContextProvider from "./provider/ContextProvider";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/product" element={<ProductPage />}></Route>
             <Route path="/product/add-product" element={<AddUserProduct />}></Route>
             <Route path="/user/profile" element={<Profile />}></Route>
+            <Route path="/user/product" element={<UserProductPage />}></Route>
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
 
             {/* ROUTE EMAIL HANDLER */}
