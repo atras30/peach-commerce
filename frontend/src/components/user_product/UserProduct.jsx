@@ -1,10 +1,13 @@
 import React from "react";
 import "../../assets/css/product.css";
 import {useNavigate} from "react-router-dom";
-import {useShoppingCartContext, useUserContext} from "../../provider/ContextProvider";
+import {useHelperContext, useUserContext} from "../../provider/ContextProvider";
+import axios from "axios";
 
 export default function UserProduct({product}) {
   const navigate = useNavigate();
+  const {cookies, toast} = useHelperContext();
+  const {getLoggedInUser} = useUserContext();
 
   function applyDiscount(bilangan) {
     bilangan = parseInt(bilangan - bilangan * (product.discount / 100));
@@ -35,6 +38,35 @@ export default function UserProduct({product}) {
     navigate(`/product/edit-product?id=${product.id}`);
   }
 
+  function handleDeleteProduct(e) {
+    e.stopPropagation();
+
+    const url = `api/products/${product?.id}`;
+    const config = {
+      headers: {
+        Authorization: cookies.get("Authorization"),
+      },
+    };
+
+    axios
+      .delete(url, config)
+      .then((response) => {
+        toast.fire({
+          icon: "success",
+          title: response.data.message,
+        });
+      })
+      .catch((response) => {
+        toast.fire({
+          icon: "error",
+          title: response.response.data.message,
+        });
+      })
+      .finally(() => {
+        getLoggedInUser();
+      });
+  }
+
   return (
     <div className="product shadow lh-sm d-flex flex-column justify-content-between gap-3" onClick={toggleRedirectProductPage}>
       <div>
@@ -56,11 +88,19 @@ export default function UserProduct({product}) {
         <div className="productlocation">{product.location}</div>
       </div>
 
-      <button onClick={handleEditProduct} className="buttonbuy w-100">
-        <div className="d-inline-block">
-          <i class="bi bi-pencil-square"></i> Edit Product
-        </div>
-      </button>
+      <div className="d-flex justify-content-center align-items-center flex-column gap-1">
+        <button onClick={handleDeleteProduct} className="buttonbuy w-100">
+          <div className="d-inline-block">
+            <i className="bi bi-trash"></i> Delete Product
+          </div>
+        </button>
+
+        <button onClick={handleEditProduct} className="buttonbuy w-100">
+          <div className="d-inline-block">
+            <i className="bi bi-pencil-square"></i> Edit Product
+          </div>
+        </button>
+      </div>
     </div>
   );
 }

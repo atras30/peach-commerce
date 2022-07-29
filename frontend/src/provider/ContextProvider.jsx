@@ -69,7 +69,7 @@ export default function ContextProvider({children}) {
       });
   };
 
-  //function to handle login logic, return string ("success" | "false")
+  //function to handle login logic, return string ("success" | "failed")
   async function handleLogin(username, password) {
     let data = {
       email: username,
@@ -107,17 +107,12 @@ export default function ContextProvider({children}) {
     return loginStatus;
   }
 
-  //check if the user already logged in or not
-  const checkAuthenticatedUser = async () => {
+  const getLoggedInUser = async () => {
     //if user not logged in, do nothing
-    if (!cookies.get("Authorization")) return;
+    if (!cookies.get("Authorization")) return false;
 
     //if user already logged in, fetch user based on its token
-    getLoggedInUser();
-  };
-
-  const getLoggedInUser = async () => {
-    axios
+    return await axios
       .get("api/auth/user", {
         headers: {
           Authorization: cookies.get("Authorization"),
@@ -125,6 +120,7 @@ export default function ContextProvider({children}) {
       })
       .then((response) => {
         setAuthenticatedUser(response.data.user);
+        return response.data.user;
       })
       .catch((err) => {
         cookies.remove("Authorization");
@@ -133,6 +129,7 @@ export default function ContextProvider({children}) {
           icon: "error",
           title: "You are not logged in.",
         });
+        return false;
       });
   };
 
@@ -143,14 +140,27 @@ export default function ContextProvider({children}) {
     //check each middleware
     middlewares.forEach(async (middleware) => {
       if (middleware === "auth") {
-        getLoggedInUser();
-      } else if (middleware === "verified") {
-        await getLoggedInUser();
-
-        if (authenticatedUser.email_verified_at === null) {
+        if ((await getLoggedInUser()) === false) {
           navigate("/");
+
+          return toast.fire({
+            icon: "error",
+            title: `You are not logged in`,
+          });
         }
-      } else if (true) {
+      } else if (middleware === "verified") {
+        const user = await getLoggedInUser();
+
+        if (user.email_verified_at === null) {
+          navigate("/");
+
+          return toast.fire({
+            icon: "error",
+            title: `Your email must be verified`,
+          });
+        }
+      } else if (true) { //next middleware
+
       }
     });
   }
@@ -171,7 +181,7 @@ export default function ContextProvider({children}) {
       )
       .then((response) => {
         console.log(response);
-        checkAuthenticatedUser();
+        getLoggedInUser();
 
         if (response.data.message === "created")
           return toast.fire({
@@ -195,22 +205,22 @@ export default function ContextProvider({children}) {
 
   function formatErrorRequest(errorObject) {
     let errorListings = "";
-    
+
     Object.keys(errorObject).map(function (key, index) {
       errorListings += errorObject[key].map((each) => `<li>${each}</li>`);
     });
-    
+
     return `<ol>${errorListings}</ol>`;
   }
 
   useEffect(() => {
-    checkAuthenticatedUser();
+    getLoggedInUser();
   }, []);
 
   return (
     <ShoppingCartContext.Provider value={{handleAddToCart}}>
       <HelperContext.Provider value={{toast, cookies, formatErrorRequest}}>
-        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, checkAuthenticatedUser}}>
+        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, getLoggedInUser}}>
           <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
         </UserContext.Provider>
       </HelperContext.Provider>

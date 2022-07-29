@@ -1,12 +1,12 @@
 import React from "react";
 import {useEffect} from "react";
-import Cookies from "universal-cookie";
+import {useNavigate} from "react-router-dom";
 import {useUserContext} from "../../provider/ContextProvider";
 import {useShoppingCartContext} from "../../provider/ContextProvider";
-import Reviews from "./Reviews"
-import axios from "axios";
+import Reviews from "./Reviews";
 
 export default function Product({product, fetchProduct}) {
+  const navigate = useNavigate();
   const {authenticatedUser} = useUserContext();
   const {handleAddToCart} = useShoppingCartContext();
 
@@ -40,6 +40,10 @@ export default function Product({product, fetchProduct}) {
     return stars;
   }
 
+  function handleRedirectToProductOwner() {
+    navigate(`/user?id=${product?.owner?.id}`);
+  }
+
   useEffect(() => {
     // console.log(authenticatedUser.shopping_carts.map(each => each.product_id).includes())
   }, []);
@@ -49,12 +53,21 @@ export default function Product({product, fetchProduct}) {
       <div className="product-image-container">
         <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/storage/${product.img_link}`} alt="Product Image" className="img-fluid rounded shadow product-image img-thumbnail" />
       </div>
-      
+
       <div className="product-information mb-3">
         <div className="product-title fs-3 fw-bold mb-3">{product.title}</div>
-        <div className="product-sales mb-3">
-          <span className="fw-bold">{product.rating}</span> {printStars(product.rating)} | <span className="fw-bold">{product.total_reviews}</span> Penilaian | <span className="fw-bold">{product.total_sales}</span> Terjual
+        <div className="product-sales mb-3 d-inline-block">
+          <div>
+            <span className="fw-bold">{product.rating}</span> {printStars(product.rating)} | <span className="fw-bold">{product.total_reviews}</span> Penilaian | <span className="fw-bold">{product.total_sales}</span> Terjual
+          </div>
+
+          <div className="seller">
+            <button className="fw-bold w-100 btn btn-primary d-inline-block m-0 p-0 px-3" onClick={handleRedirectToProductOwner}>
+              {product?.owner?.username}
+            </button>
+          </div>
         </div>
+
         <div className="discounted-price fw-bold fs-2">{applyDiscount(product.price)}</div>
 
         <div className="mb-3">
@@ -78,21 +91,23 @@ export default function Product({product, fetchProduct}) {
         ></div>
         <div className="button-container d-flex gap-3">
           <button onClick={() => handleAddToCart(product)} className="w-50 buttonbuy p-0 m-0 fw-bold">
-            {authenticatedUser?.shopping_carts.map(each => each.product_id).includes(product.id) ?
-              <div className="d-inline-block"><i className="bi bi-cart me-2"></i>Keluarkan Dari Keranjang</div>
-            :
-              <div className="d-inline-block"><i className="bi bi-cart me-2"></i>Masukkan Keranjang</div>
-            }
-           
+            {authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
+              <div className="d-inline-block">
+                <i className="bi bi-cart me-2"></i>Remove from cart
+              </div>
+            ) : (
+              <div className="d-inline-block">
+                <i className="bi bi-cart me-2"></i>Add to cart
+              </div>
+            )}
           </button>
           <button className="w-50 buttonbuy p-0 m-0 fw-bold">
-            <i className="bi bi-bag"></i> Beli Sekarang
+            <i className="bi bi-bag"></i> Buy Now
           </button>
         </div>
       </div>
 
-      <Reviews product={product} fetchProduct={fetchProduct} printStars={printStars}/>
-      
+      <Reviews product={product} fetchProduct={fetchProduct} printStars={printStars} />
     </div>
   );
 }

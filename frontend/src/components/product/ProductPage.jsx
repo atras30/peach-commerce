@@ -80,7 +80,7 @@ export default function ProductPage() {
       <div>
         <Header exclude={["form"]} navbarBrand={"product"} />
 
-        <div className="p-3 container">
+        <div className="p-3 container position-relative">
           <div>{!product ? 
                 <Loading description={"Fetching Product..."}/> 
                 : 

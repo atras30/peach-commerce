@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Address;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductRating;
 use App\Models\ProductReview;
@@ -45,19 +46,47 @@ class DatabaseSeeder extends Seeder {
     ]);
 
     User::create([
-      "first_name" => "Kelsha",
-      "last_name" => "Aira Meylie",
-      "full_name" => "Kelsha Aira Meylie",
-      "username" => "ludovica",
-      "email" => "kelshairaa@gmail.com",
+      "first_name" => "Jonathan",
+      "last_name" => "Putra",
+      "full_name" => "Jonathan Putra",
+      "username" => "jojo",
+      "email" => "jojo@gmail.com",
       "password" => Hash::make("testing12345"),
       "phone_number" => "0812873846577",
       "peach_coin" => 500000,
-      "address" => "Tegal Alur 1"
+      "address" => "Jakarta Barat"
+    ]);
+
+    Category::create([
+      "name" => "Pakaian"
+    ]);
+
+    Category::create([
+      "name" => "Makanan"
+    ]);
+
+    Category::create([
+      "name" => "Elektronik"
+    ]);
+
+    Category::create([
+      "name" => "Komputer"
+    ]);
+
+    Category::create([
+      "name" => "Komputer"
+    ]);
+
+    Category::create([
+      "name" => "Kesehatan"
+    ]);
+
+    Category::create([
+      "name" => "Perawatan"
     ]);
 
     Product::create([
-      "img_link" => "oppo-reno.jpg",
+      "img_link" => "products/product_images/user_id_1/oppo-reno.jpg",
       "title" => "Oppo Reno 4 8/128",
       "description" => "OPPO RENO 4F 8/128 GB.
 
@@ -101,7 +130,7 @@ diskripsinya",
     ]);
 
     Product::create([
-      "img_link" => "bardi-lamp.jpg",
+      "img_link" => "products/product_images/user_id_1/bardi-lamp.jpg",
       "title" => "LED Bulb 7W ECO, Putih - MEVAL",
       "description" => "- Ready gojek/grab 7hari termasuk hari libur selalu kirim
 - Distributor Resmi - Ga perlu kawatir
@@ -155,7 +184,7 @@ Lampu balkon yang dapat di skedul mati nyala sesuai kebiasaan dan juga bisa di k
     ]);
 
     Product::create([
-      "img_link" => "kuromi.jpg",
+      "img_link" => "products/product_images/user_id_2/kuromi.jpg",
       "title" => "Cute Kuromi My Melody KT Plush Toy Pendant Cinnamoroll Stuffed Doll",
       "description" => "Gantungan kunci ori
 ukuran : 4 x 6 cm
@@ -174,7 +203,7 @@ CN",
     ]);
 
     Product::create([
-      "img_link" => "chamelleon.jpg",
+      "img_link" => "products/product_images/user_id_2/chamelleon.jpg",
       "title" => "XIA| 28inch Simulated Chameleon Animal Model Doll Plush Stuffed Toy",
       "description" => "1KG BISA 5PCS
 BERAT PRODUK 260Gram
@@ -213,7 +242,7 @@ Isi Paket :
     ]);
 
     Product::create([
-      "img_link" => "mikhadou.jpg",
+      "img_link" => "products/product_images/user_id_2/mikhadou.jpg",
       "title" => "Mikhadou Doudou Doll (boneka anak)",
       "description" => "Mikhadou Doudou Doll (boneka anak , boneka bunny, boneka teddy)",
       "price" => 124000,
@@ -225,7 +254,7 @@ Isi Paket :
     ]);
 
     Product::create([
-      "img_link" => "baju-pink.jpg",
+      "img_link" => "products/product_images/user_id_2/baju-pink.jpg",
       "title" => "Cherry Blossom Pink One Set / ff183",
       "description" => "READY STOK ... LANGSUNG ORDER YA KAKAK..
 PENGIRIMAN SETIAP HARI
@@ -265,7 +294,7 @@ Happy shoping 🎁🎉🥳😍",
     ]);
 
     Product::create([
-      "img_link" => "smiski.jpg",
+      "img_link" => "products/product_images/user_id_2/smiski.jpg",
       "title" => "Smiski Bed Series [Blind Box]",
       "description" => "Kids & Beyond hadir untuk menyediakan produk edukasi yang berkualitas bagi anak-anak dan kami hanya menjual produk original.
 Follow kami agar jangan ketinggalan promosi menarik dari kami dan jangan lupa checkout setiap hari untuk new titles and diskon serta voucher ya!",

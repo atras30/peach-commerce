@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProductReviewCommentController;
 use App\Http\Controllers\ShoppingCartController;
@@ -34,7 +35,11 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
 
   //Products
   Route::post("products", [ProductController::class, "store"]);
+  Route::delete("products/{id}", [ProductController::class, "destroy"]);
 });
+
+//Categories
+Route::get("/categories", [CategoryController::class, "index"]);
 
 //products
 Route::get("/products", [ProductController::class, "index"]);

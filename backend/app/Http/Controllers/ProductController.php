@@ -145,7 +145,12 @@ class ProductController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function destroy($id) {
-    $product = Product::findOrFail($id);
+    $product = Product::find($id);
+    if($product == null) {
+      return response()->json([
+        "message" => "Product was not found."
+      ], Response::HTTP_NOT_FOUND);
+    }
     $product->delete();
 
     return response()->json([

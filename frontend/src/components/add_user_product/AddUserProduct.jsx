@@ -4,9 +4,12 @@ import Footer from "../template/footer/Footer";
 import "../../assets/css/add_user_product.css";
 import axios from "axios";
 import {useRef} from "react";
-import {useHelperContext} from "../../provider/ContextProvider";
+import {useHelperContext, useMiddlewareContext} from "../../provider/ContextProvider";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddUserProduct() {
+  const setMiddleware = useMiddlewareContext();
   const {toast, formatErrorRequest, cookies} = useHelperContext();
   const inputTitle = useRef(null);
   const inputDescription = useRef(null);
@@ -15,6 +18,7 @@ export default function AddUserProduct() {
   const inputDiscount = useRef(null);
   const inputLocation = useRef(null);
   const inputProductImage = useRef(null);
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -45,6 +49,7 @@ export default function AddUserProduct() {
           icon: "success",
           title: "Product was successfully added to your listings.",
         });
+        navigate(`/product?id=${response.data.product.id}`);
       })
       .catch((response) => {
         let errorObject = response.response.data.errors;        
@@ -56,6 +61,10 @@ export default function AddUserProduct() {
         });
       });
   }
+
+  useEffect(function() {
+    setMiddleware(["auth", "verified"]);
+  }, []);
 
   return (
     <div className="add-product-page d-flex justify-content-between flex-column">
@@ -99,7 +108,7 @@ export default function AddUserProduct() {
                 <label htmlFor="input-discount" className="form-label">
                   Discount
                 </label>
-                <input ref={inputDiscount} required type="number" className="form-input" id="input-discount"></input>
+                <input ref={inputDiscount} required min="0" max="100" type="number" className="form-input" id="input-discount"></input>
               </div>
 
               <div className="mb-3">

@@ -1,6 +1,7 @@
 import React from "react";
 import LandingPage from "./components/landing/LandingPage";
 import AddUserProduct from "./components/add_user_product/AddUserProduct";
+import EditUserProduct from "./components/edit_user_product/EditUserProduct";
 import ProductPage from "./components/product/ProductPage";
 import Profile from "./components/profile/Profile";
 import UserProductPage from "./components/user_product/UserProductPage";
@@ -25,16 +26,20 @@ function App() {
         <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         {/* End Bootstrap 5 CSS & JS */}
 
-        {/* Style Dasar CSS */}
+        {/* Base Styling CSS */}
         <link rel="stylesheet" href="./assets/css/style.css" />
       </Helmet>
 
       <Router>
         <ContextProvider>
           <Routes>
+            {/* ROUTE PRODUCT HANDLER */}
             <Route path="/" element={<LandingPage />}></Route>
             <Route path="/product" element={<ProductPage />}></Route>
             <Route path="/product/add-product" element={<AddUserProduct />}></Route>
+            <Route path="/product/edit-product" element={<EditUserProduct />}></Route>
+
+            {/* ROUTE USER HANDLER */}
             <Route path="/user/profile" element={<Profile />}></Route>
             <Route path="/user/product" element={<UserProductPage />}></Route>
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>

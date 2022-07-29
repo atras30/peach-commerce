@@ -38,9 +38,17 @@
   cursor: pointer;
 }
 
+.seller {
+  top: 1.2em;
+}
+
 .buttonbuy:hover {
   transform: scale(1.05);
   background: rgb(240, 220, 194);
+}
+
+.product-image-container {
+  max-width: 500px !important;
 }
 
 .productimg {

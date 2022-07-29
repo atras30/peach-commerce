@@ -4,16 +4,37 @@ import Product from "../template/ProductCard";
 import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import "../../assets/css/landingPage.css";
+import Category from "./Category";
 import Loading from "../template/Loading";
+import {useHelperContext} from "../../provider/ContextProvider";
 
 export default function LandingPage() {
   //useState hook
   const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState(null);
+  const {toast} = useHelperContext();
 
   //on init
   useEffect(function () {
     getProducts();
+    getCategories();
   }, []);
+
+  function getCategories() {
+    axios
+      .get("/api/categories")
+      .then(function (response) {
+        // handle success
+        setCategories(response.data.categories);
+      })
+      .catch(function (error) {
+        // handle error
+        toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      });
+  }
 
   //function to get all product in the server
   const getProducts = () => {
@@ -25,33 +46,27 @@ export default function LandingPage() {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
       });
-  }
-  
+  };
+
   return (
     <div className="landing-page d-flex flex-column justify-content-between">
       <div>
         <Header setProducts={setProducts} />
 
         <div className="category-container d-flex justify-content-between px-5 gap-5 overflow-auto">
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Pakaian</span>
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Makanan</span>
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Elektronik</span>
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Komputer</span>
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Kesehatan</span>
-          <span className="category-item d-flex justify-content-center align-items-center px-2">Perawatan</span>
+          {categories?.map((category) => (
+            <Category category={category} key={category.id}/>
+          ))}
         </div>
 
-        <div className="productContainer">
-          {!products ? 
-            <Loading description={"Loading Products..."} /> 
-            : 
-            products.map((eachProduct) => <Product key={eachProduct.id} product={eachProduct} />)
-          }
-        </div>
+        <div className="productContainer">{!products ? <Loading description={"Loading Products..."} /> : products.map((eachProduct) => <Product key={eachProduct.id} product={eachProduct} />)}</div>
       </div>
-      
+
       <Footer />
     </div>
   );
