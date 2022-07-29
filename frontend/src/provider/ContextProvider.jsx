@@ -7,9 +7,14 @@ import {useNavigate} from "react-router-dom";
 const UserContext = React.createContext();
 const MiddlewareContext = React.createContext();
 const ToastContext = React.createContext();
+const ShoppingCartContext = React.createContext();
 
 export function useUserContext() {
   return useContext(UserContext);
+}
+
+export function useShoppingCartContext() {
+  return useContext(ShoppingCartContext);
 }
 
 export function useToastContext() {
@@ -150,15 +155,55 @@ export default function ContextProvider({children}) {
     });
   }
 
+  async function handleAddToCart(product) {
+    return axios
+      .post(
+        "/api/shopping-cart",
+        {
+          user_id: authenticatedUser.id,
+          product_id: product.id,
+        },
+        {
+          headers: {
+            Authorization: cookies.get("Authorization"),
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        checkAuthenticatedUser();
+
+        if (response.data.message === "created")
+          return toast.fire({
+            icon: "success",
+            title: `Product berhasil dimasukkan ke keranjang kamu`,
+          });
+
+        return toast.fire({
+          icon: "success",
+          title: `Product berhasil dikeluarkan dari keranjang kamu`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.fire({
+          icon: "error",
+          title: `${error}`,
+        });
+      });
+  }
+
   useEffect(() => {
     checkAuthenticatedUser();
   }, []);
 
   return (
-    <ToastContext.Provider value={toast}>
-      <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, checkAuthenticatedUser}}>
-        <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
-      </UserContext.Provider>
-    </ToastContext.Provider>
+    <ShoppingCartContext.Provider value={{handleAddToCart}}>
+      <ToastContext.Provider value={toast}>
+        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, checkAuthenticatedUser}}>
+          <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
+        </UserContext.Provider>
+      </ToastContext.Provider>
+    </ShoppingCartContext.Provider>
   );
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
+use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller {
   /**
@@ -57,22 +59,32 @@ class ProductController extends Controller {
    */
   public function store(Request $request) {
     $validated = $request->validate([
-      'title' => 'required',
+      'title' => 'required|string',
+      'description' => "required|string",
       'discount' => 'required|integer|between:0,100',
       'price' => 'required|numeric|min:0',
-      'user_id' => 'required',
       'stock' => 'required|numeric|min:1',
       'location' => 'required|string',
-      'img_link' => 'required|string'
+      'product_image' => 'required|mimes:png,jpg,jpeg|max:4096'
     ]);
 
+    $validated["user_id"] = $request->user()->id;
     if (User::find($validated["user_id"]) == null) {
       return response()->json([
         "message" => "User was not found!"
       ], Response::HTTP_NOT_FOUND);
     }
 
-    $product = Product::create($request->all());
+    try {
+      $filePath = $request->file("product_image")->storeAs("products/product_images/user_id_{$request->user()->id}", pathinfo($request->file("product_image")->getClientOriginalName(), PATHINFO_FILENAME)."_".Uuid::generate()->string.".".$request->file("product_image")->getClientOriginalExtension());
+      $validated["img_link"] = $filePath;
+      $product = Product::create($validated); 
+    } catch(\Exception $e) {
+      return response()->json([
+        "error" => $e->getMessage()
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+    
     return response()->json([
       "message" => "Product was successfully created!",
       "product" => $product

@@ -20,8 +20,23 @@ use App\Http\Controllers\ShoppingCartController;
 |
 */
 
+//Authenticated users
+Route::group(["middleware" => ["auth:sanctum"]], function () {
+  //Mails
+  Route::post("/mail/verification/resend/{user:email}", [MailController::class, "resendEmail"]);
+
+  //Authentications
+  Route::post("/auth/logout", [AuthController::class, "logout"]);
+  Route::get("/auth/user", [AuthController::class, "getUser"]);
+
+  //Shopping Carts
+  Route::post("/shopping-cart", [ShoppingCartController::class, "store"]);
+  Route::post("products", [ProductController::class, "store"]);
+});
+
 //products
-Route::resource("products", ProductController::class);
+Route::get("/products", [ProductController::class, "index"]);
+Route::get("/products/{id}", [ProductController::class, "show"]);
 Route::get("/products/search/{query}", [ProductController::class, "search"]);
 
 //users
@@ -37,20 +52,7 @@ Route::post("/mail/verification/verify/{verification:token}", [MailController::c
 Route::post("/auth/login", [AuthController::class, "login"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 
-//Authenticated users
-Route::group(["middleware" => ["auth:sanctum"]], function () {
-  //Mails
-  Route::post("/mail/verification/resend/{user:email}", [MailController::class, "resendEmail"]);
-
-  //Authentications
-  Route::post("/auth/logout", [AuthController::class, "logout"]);
-  Route::get("/auth/user", [AuthController::class, "getUser"]);
-
-  //Shopping Carts
-  Route::post("/shopping-cart", [ShoppingCartController::class, "store"]);
-});
-
 //default route
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });

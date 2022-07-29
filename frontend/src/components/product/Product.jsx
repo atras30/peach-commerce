@@ -3,12 +3,14 @@ import {useEffect} from "react";
 import Cookies from "universal-cookie";
 import {useUserContext} from "../../provider/ContextProvider";
 import {useToastContext} from "../../provider/ContextProvider";
+import {useShoppingCartContext} from "../../provider/ContextProvider";
 import Reviews from "./Reviews"
 import axios from "axios";
 
 export default function Product({product, fetchProduct}) {
   const cookies = new Cookies();
   const {authenticatedUser, checkAuthenticatedUser} = useUserContext();
+  const {handleAddToCart} = useShoppingCartContext();
   const Toast = useToastContext();
 
   const formatRupiah = (bilangan) => {
@@ -39,43 +41,6 @@ export default function Product({product, fetchProduct}) {
     for (let i = 0; i < Math.round(number); i++) stars += "★";
 
     return stars;
-  }
-
-  async function handleAddToCart() {
-    return axios
-      .post(
-        "/api/shopping-cart",
-        {
-          user_id: authenticatedUser.id,
-          product_id: product.id,
-        },
-        {
-          headers: {
-            Authorization: cookies.get("Authorization"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        checkAuthenticatedUser();
-
-        if(response.data.message === "created") return Toast.fire({
-          icon: "success",
-          title: `Product berhasil dimasukkan ke keranjang kamu`,
-        });
-
-        return Toast.fire({
-          icon: "success",
-          title: `Product berhasil dikeluarkan dari keranjang kamu`,
-        });
-      })
-      .catch((error) => {
-        console.log(error)
-        Toast.fire({
-          icon: "error",
-          title: `${error}`,
-        });
-      });
   }
 
   useEffect(() => {
@@ -115,7 +80,7 @@ export default function Product({product, fetchProduct}) {
           }}
         ></div>
         <div className="button-container d-flex gap-3">
-          <button onClick={handleAddToCart} className="w-50 buttonbuy p-0 m-0 fw-bold">
+          <button onClick={() => handleAddToCart(product)} className="w-50 buttonbuy p-0 m-0 fw-bold">
             {authenticatedUser?.shopping_carts.map(each => each.product_id).includes(product.id) ?
               <div className="d-inline-block"><i className="bi bi-cart me-2"></i>Keluarkan Dari Keranjang</div>
             :

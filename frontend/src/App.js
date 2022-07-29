@@ -1,6 +1,6 @@
 import React from "react";
 import LandingPage from "./components/landing/LandingPage";
-import AddProductPage from "./components/product/AddProductPage";
+import AddUserProduct from "./components/add_user_product/AddUserProduct";
 import ProductPage from "./components/product/ProductPage";
 import Profile from "./components/profile/Profile";
 import {HashRouter as Router, Routes, Route} from "react-router-dom";
@@ -33,7 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />}></Route>
             <Route path="/product" element={<ProductPage />}></Route>
-            <Route path="/product/add-product" element={<AddProductPage />}></Route>
+            <Route path="/product/add-product" element={<AddUserProduct />}></Route>
             <Route path="/user/profile" element={<Profile />}></Route>
             <Route path="/user/shopping-cart" element={<ShoppingCartPage />}></Route>
 

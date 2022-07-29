@@ -7,7 +7,7 @@ export default function Product({product}) {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    window.location.href = "/product/add-product";
+    navigate("/add-product");
   };
 
   function applyDiscount(bilangan) {
