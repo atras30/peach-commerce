@@ -1,7 +1,7 @@
 //react components & hooks
 import React, {useEffect, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {useToastContext} from "../../provider/ContextProvider";
+import {useHelperContext} from "../../provider/ContextProvider";
 import Header from "../template/header/Header";
 import Footer from "../template/footer/Footer";
 import Product from "./Product";
@@ -19,7 +19,7 @@ export default function ProductPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [product, setProduct] = useState(null);
-  const toast = useToastContext();
+  const {toast} = useHelperContext();
 
   const handleRedirectToHomepage = () => {
     navigate("/");
@@ -80,7 +80,7 @@ export default function ProductPage() {
       <div>
         <Header exclude={["form"]} navbarBrand={"product"} />
 
-        <div className="p-3 px-4">
+        <div className="p-3 container">
           <div>{!product ? 
                 <Loading description={"Fetching Product..."}/> 
                 : 

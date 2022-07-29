@@ -44,7 +44,11 @@ export default function LandingPage() {
         </div>
 
         <div className="productContainer">
-          {!products ? <Loading description={"Loading Products..."} /> : products.map((eachProduct) => <Product key={eachProduct.id} product={eachProduct} />)}
+          {!products ? 
+            <Loading description={"Loading Products..."} /> 
+            : 
+            products.map((eachProduct) => <Product key={eachProduct.id} product={eachProduct} />)
+          }
         </div>
       </div>
       

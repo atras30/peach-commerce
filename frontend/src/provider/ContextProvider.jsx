@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 
 const UserContext = React.createContext();
 const MiddlewareContext = React.createContext();
-const ToastContext = React.createContext();
+const HelperContext = React.createContext();
 const ShoppingCartContext = React.createContext();
 
 export function useUserContext() {
@@ -17,8 +17,8 @@ export function useShoppingCartContext() {
   return useContext(ShoppingCartContext);
 }
 
-export function useToastContext() {
-  return useContext(ToastContext);
+export function useHelperContext() {
+  return useContext(HelperContext);
 }
 
 export function useMiddlewareContext() {
@@ -193,17 +193,27 @@ export default function ContextProvider({children}) {
       });
   }
 
+  function formatErrorRequest(errorObject) {
+    let errorListings = "";
+    
+    Object.keys(errorObject).map(function (key, index) {
+      errorListings += errorObject[key].map((each) => `<li>${each}</li>`);
+    });
+    
+    return `<ol>${errorListings}</ol>`;
+  }
+
   useEffect(() => {
     checkAuthenticatedUser();
   }, []);
 
   return (
     <ShoppingCartContext.Provider value={{handleAddToCart}}>
-      <ToastContext.Provider value={toast}>
+      <HelperContext.Provider value={{toast, cookies, formatErrorRequest}}>
         <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, checkAuthenticatedUser}}>
           <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
         </UserContext.Provider>
-      </ToastContext.Provider>
+      </HelperContext.Provider>
     </ShoppingCartContext.Provider>
   );
 }

@@ -68,7 +68,14 @@ export default function Profile() {
           <div className="profile-information position-relative shadow rounded p-3 d-flex flex-column align-items-center justify-content-center">
             
             <div className="email-verify-link-container mb-2">
-              {!authenticatedUser ? null : authenticatedUser.email_verified_at == null ? <Link to="/mail/verification/resend" className="email-verify-link btn btn-primary text-white position-absolute">Verify Email</Link> : null}
+              {!authenticatedUser ? 
+                null 
+                : 
+                authenticatedUser.email_verified_at == null ? 
+                  <Link to="/mail/verification/resend" className="email-verify-link btn btn-primary text-white position-absolute">Verify Email</Link> 
+                  : 
+                  null
+              }
             </div>      
 
             <div className="position-relative">
@@ -82,7 +89,11 @@ export default function Profile() {
               Email verified at : {!authenticatedUser ? "Fetching Data..." : authenticatedUser.email_verified_at == null ? <span className="email-verified-status alert alert-danger p-1">Not Verified yet</span> : <span className="email-verified-status alert alert-success p-1">{authenticatedUser.email_verified_at}</span>}
             </div>
 
-            {!isEditing ? <InformationContainer toggleIsEditing={toggleIsEditing} /> : <FormInformationContainer toggleIsEditing={toggleIsEditing} />}
+            {!isEditing ? 
+              <InformationContainer toggleIsEditing={toggleIsEditing} /> 
+              : 
+              <FormInformationContainer toggleIsEditing={toggleIsEditing} />
+            }
           </div>
 
           <div className="profile-transaction-history rounded shadow d-flex-flex-column">

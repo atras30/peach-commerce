@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useId} from "react";
 import {useEffect} from "react";
-import {useUserContext, useToastContext} from "../../provider/ContextProvider";
+import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -9,7 +9,7 @@ export default function ShoppingCartCard({shoppingCart}) {
   const navigate = useNavigate();
   const checkboxId = useId();
   const {authenticatedUser, checkAuthenticatedUser} = useUserContext();
-  const Toast = useToastContext();
+  const {toast} = useHelperContext();
 
   useEffect(function () {
     console.log(shoppingCart);
@@ -38,19 +38,19 @@ export default function ShoppingCartCard({shoppingCart}) {
         checkAuthenticatedUser();
 
         if (response.data.message === "created")
-          return Toast.fire({
+          return toast.fire({
             icon: "success",
             title: `Product has been added to your shopping cart`,
           });
 
-        return Toast.fire({
+        return toast.fire({
           icon: "success",
           title: `Product has been removed from your shopping cart`,
         });
       })
       .catch((error) => {
         console.log(error);
-        Toast.fire({
+        toast.fire({
           icon: "error",
           title: `${error}`,
         });
@@ -76,7 +76,7 @@ export default function ShoppingCartCard({shoppingCart}) {
 
       <div className="product-container p-3 d-flex gap-3 align-items-center" onClick={handleProductRedirect}>
         <div className="img-wrapper rounded shadow-sm overflow-hidden">
-          <img src={require(`../../assets/img/product/${shoppingCart?.product?.img_link}`)} alt="Product Image" className="img-fluid img-thumbnail" />
+          <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/storage/${shoppingCart?.product?.img_link}`} alt="Product Image" className="img-fluid img-thumbnail" />
         </div>
 
         <div>

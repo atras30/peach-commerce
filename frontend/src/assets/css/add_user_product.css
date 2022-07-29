@@ -1,0 +1,17 @@
+.add-product-page {
+  min-height: 100vh;
+  background-color: #FFE7D3;
+} 
+
+.add-product-wrapper {
+  background: #FFEFE5;
+}
+
+.form-input {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #E1A586;
+  padding-inline: .5rem;
+}

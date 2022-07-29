@@ -60,8 +60,8 @@
 .product-card {
   display: grid;
   grid-template-areas:
-    "product-image product-information"
-    "product-review-container product-information";
+    "product-image product-information product-information"
+    "product-review-container product-information product-information";
   gap: 1em;
 }
 

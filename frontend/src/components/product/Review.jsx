@@ -5,38 +5,41 @@ import UserReply from "./UserReply";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
-import {useUserContext, useToastContext} from "../../provider/ContextProvider";
+import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
 
 export default function Review({review, printStars, fetchProduct}) {
   const replyReviewButton = useRef(null);
   const replySection = useRef(null);
   const inputReply = useRef(null);
   const {authenticatedUser} = useUserContext();
-  const Toast = useToastContext();
+  const {toast} = useHelperContext();
   const cookies = new Cookies();
-  const navigate = useNavigate();
 
   useEffect(function () {
-    console.log(review);
+    // console.log(review);
   }, []);
 
   function handleReplyToggle() {
+    replyReviewButton.current.classList.toggle("show");
+    replySection.current.classList.toggle("show");
+  }
+
+  function handleReplyToggleWithCheck() {
     if (!authenticatedUser) {
       const button = document.querySelector(".loginbutton");
       button.click();
-      return Toast.fire({
+      return toast.fire({
         icon: "error",
         title: "You must be logged in to reply another user's comment",
       });
     } else if (authenticatedUser?.email_verified_at === null) {
-      return Toast.fire({
+      return toast.fire({
         icon: "error",
         title: "Your email is not verified yet.",
       });
     }
-
-    replyReviewButton.current.classList.toggle("show");
-    replySection.current.classList.toggle("show");
+    
+    handleReplyToggle();
   }
 
   function handleReply() {
@@ -56,14 +59,15 @@ export default function Review({review, printStars, fetchProduct}) {
       )
       .then((response) => {
         inputReply.current.value = "";
-        Toast.fire({
+        toast.fire({
           icon: "success",
           title: response.data.message,
         });
         fetchProduct();
+        handleReplyToggle();
       })
       .catch((error) => {
-        Toast.fire({
+        toast.fire({
           icon: "error",
           title: error.response.data.message,
         });
@@ -94,7 +98,7 @@ export default function Review({review, printStars, fetchProduct}) {
       </div>
 
       <div className="reply-section-container">
-        <button type="button" ref={replyReviewButton} onClick={handleReplyToggle} className="rounded show shadow-sm px-2 py-1 w-100 reply-button mb-2">
+        <button type="button" ref={replyReviewButton} onClick={handleReplyToggleWithCheck} className="rounded show shadow-sm px-2 py-1 w-100 reply-button mb-2">
           Balas Ulasan Ini
         </button>
 

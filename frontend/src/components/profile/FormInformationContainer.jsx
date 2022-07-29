@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, {useRef} from "react";
 import Cookies from "universal-cookie";
-import {useUserContext} from "../../provider/ContextProvider";
+import {useHelperContext, useUserContext} from "../../provider/ContextProvider";
 import Swal from "sweetalert2";
 import "../../assets/css/FormInformationContainer.css";
 
 export default function FormInformationContainer({toggleIsEditing}) {
   const {authenticatedUser, setAuthenticatedUser} = useUserContext();
-  const cookies = new Cookies();
+  const {formatErrorRequest, cookies} = useHelperContext();
 
   //Toast SWAL Configuration
   const Toast = Swal.mixin({
@@ -59,19 +59,11 @@ export default function FormInformationContainer({toggleIsEditing}) {
       });
     } catch (exception) {
       let errors = exception.response.data.errors;
-      let errorList = [];
-
-      for (let field in errors) {
-        if (errors.hasOwnProperty(field)) {
-          errorList.push(errors[field].join(" & "));
-        }
-      }
-
-      errorList = errorList.join("<br/>");
+      let errorList = formatErrorRequest(errors);
 
       Toast.fire({
         icon: "error",
-        title: "Oops, Update failed...<br/>" + errorList,
+        title: `<p>Update Failed :</p>${errorList}`,
       });
     }
   };

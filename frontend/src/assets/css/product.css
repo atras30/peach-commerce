@@ -28,7 +28,9 @@
 .buttonbuy {
   margin: 0;
   padding: 0;
-  height: 2em;
+  padding-inline: .4em;
+  font-size: .9rem;
+  min-height: 2em;
   border-radius: 6px;
   border-color: antiquewhite;
   border-style: solid;

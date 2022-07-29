@@ -18,6 +18,7 @@
   overflow: hidden;
   min-height: 100vh !important;
   background-color: #ffe7d3;
+  /* background: linear-gradient(to bottom, #FFE7D3, #FFEFE5);  */
 }
 
 .category-item {

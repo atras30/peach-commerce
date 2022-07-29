@@ -6,6 +6,7 @@ a {
 .footer {
   display: flex;
   background-color: #ffefe5;
+  /* background-color: #FFE7D3 !important; */
   width: 100%;
 }
 
