@@ -51,7 +51,7 @@ export default function Product({product, fetchProduct}) {
   return (
     <div className="product-card mb-3">
       <div className="product-image-container">
-        <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/storage/${product.img_link}`} alt="Product Image" className="img-fluid rounded shadow product-image img-thumbnail" />
+        <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/${product.img_link}`} alt="Product Image" className="img-fluid rounded shadow product-image img-thumbnail" />
       </div>
 
       <div className="product-information mb-3">

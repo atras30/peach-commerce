@@ -3,15 +3,24 @@
   min-height: 100vh;
 }
 
-.button-buy {
+.add-product-button {
+  background: #FFD9B8 !important;
   position: absolute !important;
   top: 50%;
   right: 2em;
   transform: translateY(-50%);
 }
 
+.add-product-button:hover {
+  background-color: hsl(28, 91%, 77%) !important;
+}
+
+.add-product-button:active {
+  background-color: hsl(28, 100%, 71%) !important;
+}
+
 @media only screen and (max-width: 768px) {
-  .button-buy {
+  .add-product-button {
     position: initial !important;
     min-width: 100% !important;
   }

@@ -40,7 +40,7 @@ export default function Product({product}) {
   return (
     <div className="product shadow lh-sm d-flex flex-column justify-content-between gap-3" onClick={toggleRedirectProductPage}>
       <div>
-        <img className="productimg mb-2" src={`${process.env.REACT_APP_BACKEND_BASE_URL}/storage/${product.img_link}`} alt="product" />
+        <img className="productimg mb-2" src={`${process.env.REACT_APP_BACKEND_BASE_URL}/${product.img_link}`} alt="product" />
         <div className="producttitle mb-2 fw-bold">{product.title.split(" ").length > 5 ? product.title.split(" ").slice(0, 5).join(" ") + "..." : product.title}</div>
         <div className="productprice mb-2">{applyDiscount(product.price)}</div>
         {product.discount === 0 ? null : (

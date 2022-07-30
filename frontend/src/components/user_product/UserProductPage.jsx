@@ -30,7 +30,7 @@ export default function UserProductPage() {
           <div className="title-button-container">
             <div className="position-relative title-button-wrapper">
               <h1 className="title text-center fw-bold my-3">Your Products</h1>
-              <button onClick={handleAddNewProductRedirect} className="btn fw-bold shadow-sm border border-secondary button-buy d-flex justify-content-center align-items-center gap-2">
+              <button onClick={handleAddNewProductRedirect} className="btn fw-bold shadow-sm border border-secondary add-product-button d-flex justify-content-center align-items-center gap-2">
                 <i className="bi bi-plus-circle-fill"></i> <span>Add New Product</span>
               </button>
             </div>

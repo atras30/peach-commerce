@@ -76,7 +76,7 @@ export default function ShoppingCartCard({shoppingCart}) {
 
       <div className="product-container p-3 d-flex gap-3 align-items-center" onClick={handleProductRedirect}>
         <div className="img-wrapper rounded shadow-sm overflow-hidden">
-          <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/storage/${shoppingCart?.product?.img_link}`} alt="Product Image" className="img-fluid img-thumbnail" />
+          <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/${shoppingCart?.product?.img_link}`} alt="Product Image" className="img-fluid img-thumbnail" />
         </div>
 
         <div>

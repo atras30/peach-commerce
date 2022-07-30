@@ -125,8 +125,8 @@ export default function AddUserProduct() {
                 <input ref={inputProductImage} className="form-control" type="file" id="input-product-image" />
               </div>
 
-              <button className="btn btn-primary" onClick={handleSubmit}>
-                Submit
+              <button onClick={handleSubmit} className="btn fw-bold shadow-sm border border-secondary button-buy d-flex justify-content-center align-items-center gap-2">
+                <i className="bi bi-plus-circle-fill"></i> <span>Submit</span>
               </button>
             </form>
           </div>
