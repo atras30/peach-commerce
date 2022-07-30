@@ -8,11 +8,11 @@ import Cookies from "universal-cookie";
 export default function ShoppingCartCard({shoppingCart}) {
   const navigate = useNavigate();
   const checkboxId = useId();
-  const {authenticatedUser, checkAuthenticatedUser} = useUserContext();
+  const {authenticatedUser, getLoggedInUser} = useUserContext();
   const {toast} = useHelperContext();
 
   useEffect(function () {
-    console.log(shoppingCart);
+    // console.log(shoppingCart);
   }, []);
 
   function handleProductRedirect() {
@@ -35,7 +35,7 @@ export default function ShoppingCartCard({shoppingCart}) {
       )
       .then((response) => {
         console.log(response);
-        checkAuthenticatedUser();
+        getLoggedInUser();
 
         if (response.data.message === "created")
           return toast.fire({

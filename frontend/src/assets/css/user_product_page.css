@@ -2,3 +2,31 @@
   background-color: #FFE7D3;
   min-height: 100vh;
 }
+
+.button-buy {
+  position: absolute !important;
+  top: 50%;
+  right: 2em;
+  transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 768px) {
+  .button-buy {
+    position: initial !important;
+    min-width: 100% !important;
+  }
+
+  .title-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .title-button-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}

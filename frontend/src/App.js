@@ -11,6 +11,7 @@ import ContextProvider from "./provider/ContextProvider";
 import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
 import EmailResendPage from "./components/email/EmailResendPage";
 import EmailVerificationPage from "./components/email/EmailVerificationPage";
+import QuickLogin from "./components/QuickLogin";
 import axios from "axios";
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
             {/* ROUTE EMAIL HANDLER */}
             <Route path="/mail/verification" element={<EmailVerificationPage />}></Route>
             <Route path="/mail/verification/resend" element={<EmailResendPage />}></Route>
+
+            {/* MISC */}
+            <Route path="/quick-login" element={<QuickLogin />}></Route>
           </Routes>
         </ContextProvider>
       </Router>

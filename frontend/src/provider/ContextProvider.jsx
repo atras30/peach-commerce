@@ -149,6 +149,15 @@ export default function ContextProvider({children}) {
           });
         }
       } else if (middleware === "verified") {
+        if(authenticatedUser?.email_verified_at === null) {          
+          toast.fire({
+            icon: "error",
+            title: `Your email must be verified`,
+          });
+
+          return navigate("/");
+        }
+        
         const user = await getLoggedInUser();
 
         if (user.email_verified_at === null) {
