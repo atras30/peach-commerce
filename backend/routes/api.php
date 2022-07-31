@@ -36,6 +36,9 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
   //Products
   Route::post("products", [ProductController::class, "store"]);
   Route::delete("products/{id}", [ProductController::class, "destroy"]);
+
+  //Users
+  Route::post("users/profile-picture", [UserController::class, "changeProfilePicture"]);// change profile picture
 });
 
 //Categories

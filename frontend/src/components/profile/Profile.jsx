@@ -6,15 +6,17 @@ import FormInformationContainer from "./FormInformationContainer";
 import UserOrder from "./UserOrder";
 import UserReview from "./UserReview";
 import UserHistory from "./UserHistory";
-import "../../assets/css/profile.css";
-import {useUserContext} from "../../provider/ContextProvider";
-import {useMiddlewareContext} from "../../provider/ContextProvider";
+import FormChangingProfilePicture from "./FormChangingProfilePicture";
+import ProfilePicture from "./ProfilePicture";
+import {useMiddlewareContext, useUserContext} from "../../provider/ContextProvider";
 import {Link} from "react-router-dom";
+import "../../assets/css/profile.css";
 
 export default function Profile() {
   const [selectedOption, setSelectedOption] = useState("pesanan");
   const {authenticatedUser} = useUserContext();
   const [isEditing, setIsEditing] = useState(false);
+  const [isChangingProfilePicture, setIsChangingProfilePicture] = useState(false);
   const setMiddleware = useMiddlewareContext();
 
   useEffect(function () {
@@ -24,6 +26,10 @@ export default function Profile() {
   const toggleIsEditing = () => {
     setIsEditing((prevValue) => !prevValue);
   };
+
+  const toggleIsChangingProfilePicture = () => {
+    setIsChangingProfilePicture(prevValue => !prevValue);
+  }
 
   const changeSelected = (e) => {
     const selectedText = e.target.textContent.toLowerCase();
@@ -79,8 +85,13 @@ export default function Profile() {
             </div>      
 
             <div className="position-relative">
-              <img className="profile-logo img-thumbnail img-fluid rounded-circle" src={require("../../assets/img/peach_coin_logo.png")} alt="Peach Coin Logo" />
-              <img className="edit-button" title="Edit Profile Picture" src={require("../../assets/img/edit_button_1.png")} alt="Edit Button" />
+
+              {
+                !isChangingProfilePicture ? 
+                <ProfilePicture toggleIsChangingProfilePicture={toggleIsChangingProfilePicture}/>
+                :
+                <FormChangingProfilePicture/>
+              }
             </div>
 
             <div className="profile-name fs-3">{!authenticatedUser ? "Fetching Data..." : authenticatedUser.full_name}</div>

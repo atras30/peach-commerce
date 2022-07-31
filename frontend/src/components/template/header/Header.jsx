@@ -32,6 +32,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
   const inputEmail = useRef(null);
   const inputPhoneNumber = useRef(null);
   const inputAddress = useRef(null);
+  const inputProfilePicture = useRef(null);
 
   //login
   const inputLoginUsername = useRef(null);
@@ -89,16 +90,26 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
     e.preventDefault();
 
     axios
-      .post("/api/auth/register", {
-        first_name: inputFirstName.current.value,
-        last_name: inputLastName.current.value,
-        username: inputRegisterUsername.current.value,
-        email: inputEmail.current.value,
-        password: inputRegisterPassword.current.value,
-        phone_number: inputPhoneNumber.current.value,
-        address: inputAddress.current.value,
-      })
+      .post(
+        "/api/auth/register",
+        {
+          first_name: inputFirstName.current.value,
+          last_name: inputLastName.current.value,
+          username: inputRegisterUsername.current.value,
+          email: inputEmail.current.value,
+          password: inputRegisterPassword.current.value,
+          phone_number: inputPhoneNumber.current.value,
+          address: inputAddress.current.value,
+          profile_picture: inputProfilePicture.current.files[0],
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
+        console.log(response);
         if (response.data.message === "User has been created") {
           Toast.fire({
             icon: "success",
@@ -107,14 +118,21 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
         }
       })
       .catch((exception) => {
-        let errors = formatErrorRequest(exception.response.data.errors);
-
-        Toast.fire({
-          icon: "error",
-          title: "<p>Register failed : </p>" + errors,
-        });
-
         console.log(exception);
+
+        if (exception.response.data.errors) {
+          let errors = formatErrorRequest(exception.response.data.errors);
+
+          return Toast.fire({
+            icon: "error",
+            title: "<p>Register failed : </p>" + errors,
+          });
+        }
+
+        return Toast.fire({
+          icon: "error",
+          title: exception.response.data,
+        });
       });
   };
 
@@ -246,7 +264,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
                     </>
                   )}
                 </div>
-                <div className="mt-4">Or login using</div>
+                <div className="mt-4">Or login using Google</div>
                 <div className="mb-3">
                   {/* <img alt="Google" className="google" src={require("../../../assets/img/google.png")} /> */}
                   <div id="sign-in-button"></div>
@@ -302,15 +320,18 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
                   <label htmlFor="address">Address</label>
                   <input ref={inputAddress} type="text" className="input" id="address" name="address" />
                 </div>
+
+                <div className="mb-3">
+                  <label htmlFor="formFileSm" className="form-label">
+                    Profile Picture
+                  </label>
+                  <input ref={inputProfilePicture} className="form-control form-control-sm" id="formFileSm" type="file" />
+                </div>
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer mb-3">
                 <button onClick={handleRegisterUser} type="submit" className="register w-75 m-0" data-bs-dismiss="modal">
                   Register
                 </button>
-                <div className="mt-4">Or login using</div>
-                <div className="mb-3">
-                  <img alt="Google" className="google" src={require("../../../assets/img/google.png")} />
-                </div>
               </div>
             </form>
           </div>

@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Sanctum\HasApiTokens;
-
+use Webpatser\Uuid\Uuid;
 
 class AuthController extends Controller {
   public function login(Request $request) {
@@ -63,6 +62,7 @@ class AuthController extends Controller {
       "password" => "string|required|min:8",
       "phone_number" => "string|required",
       "address" => "string|required",
+      "profile_picture" => 'mimes:png,jpg,jpeg|max:4096',
       "registered_via" => "string"
     ]);
 
@@ -78,12 +78,16 @@ class AuthController extends Controller {
     $validatedData["password"] = Hash::make($validatedData["password"]);
 
     try {
-      if(isset($validatedData["registered_via"]) && $validatedData["registered_via"] == "google") {
+      if (isset($validatedData["registered_via"]) && $validatedData["registered_via"] == "google") {
         $validatedData["email_verified_at"] = now();
         $createdUser = User::create($validatedData);
       } else {
         $createdUser = User::create($validatedData)->generateEmailVerificationToken();
       }
+
+      $createdUser = User::findOrFail($createdUser->id);
+      $createdUser->profile_picture_path = $request->file("profile_picture")->storeAs("users/user_id_{$createdUser->id}/profile_picture", pathinfo($request->file("profile_picture")->getClientOriginalName(), PATHINFO_FILENAME) . "_" . Uuid::generate()->string . "." . $request->file("profile_picture")->getClientOriginalExtension());
+      $createdUser->update();
     } catch (\Exception $e) {
       return response()->json($e->getMessage(), Response::HTTP_NOT_ACCEPTABLE);
     }
@@ -108,7 +112,7 @@ class AuthController extends Controller {
     $validated = $validator->validated();
     $user = User::firstWhere("email", $validated["email"]);
 
-    if($user == null) {
+    if ($user == null) {
       return response()->json([
         "message" => "User was not found."
       ], Response::HTTP_NOT_ACCEPTABLE);

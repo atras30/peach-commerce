@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Address;
-use App\Models\Verification;
+use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller {
@@ -143,6 +144,35 @@ class UserController extends Controller {
     return response()->json([
       "message" => "Successfully fetched one user",
       "user" => $user
+    ], Response::HTTP_OK);
+  }
+
+  public function changeProfilePicture(Request $request) {    
+    $user = User::findOrFail(auth()->user()->id);
+    
+    $validator = Validator::make($request->all(), [
+      "profile_picture" => 'required|mimes:png,jpg,jpeg|max:4096',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json([
+        "errors" => $validator->errors()
+      ], Response::HTTP_NOT_ACCEPTABLE);
+    }
+
+    try {
+      $profilePicturePath = $request->file("profile_picture")->storeAs("users/user_id_{$request->user()->id}/profile_picture", pathinfo($request->file("profile_picture")->getClientOriginalName(), PATHINFO_FILENAME) . "_" . Uuid::generate()->string . "." . $request->file("profile_picture")->getClientOriginalExtension());
+      $user->profile_picture_path = $profilePicturePath;
+      $user->update();
+    } catch(\Exception $e) {
+      return response()->json([
+        "errors" => $e->getMessage(),
+        "message" => "failed"
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    return response()->json([
+      "message" => "success"
     ], Response::HTTP_OK);
   }
 }

@@ -59,7 +59,11 @@
 }
 
 .profile-logo {
-  width: 130px;
+  --scale: 130px;
+  width: var(--scale) !important;
+  height: var(--scale) !important;
+  object-fit: cover;
+  background-position: center;
 }
 
 .choices {

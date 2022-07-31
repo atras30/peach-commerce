@@ -23,6 +23,7 @@ return new class extends Migration {
       $table->string('password')->default("");
       $table->string('phone_number')->nullable()->default("");
       $table->integer('peach_coin')->default(0);
+      $table->text("profile_picture_path")->nullable();
       $table->rememberToken();
       $table->timestamps();
     });

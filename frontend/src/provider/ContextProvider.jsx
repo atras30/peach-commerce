@@ -213,6 +213,8 @@ export default function ContextProvider({children}) {
 
   async function handleAddToCart(product) {
     if (!authenticatedUser) {
+      document.querySelector(".loginbutton").click();
+
       return toast.fire({
         icon: "error",
         title: `Please sign in to continue any further`,
