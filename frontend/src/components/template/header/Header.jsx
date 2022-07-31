@@ -1,7 +1,7 @@
 //import data
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import {Link} from "react-router-dom";
-import {useUserContext} from "../../../provider/ContextProvider";
+import {useUserContext, useHelperContext} from "../../../provider/ContextProvider";
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
@@ -10,11 +10,17 @@ import Loading from "../Loading";
 import "../../../assets/css/header.css";
 import PeachCoin from "./PeachCoin";
 import FilterSearchForm from "./FilterSearchForm";
+import jwt_decode from "jwt-decode";
+import {useNavigate} from "react-router-dom";
+const google = window.google;
 
 export default function Header({navbarBrand, setProducts, exclude, include}) {
+  const navigate = useNavigate();
+  const {cookies, formatErrorRequest, toast} = useHelperContext();
+
   //useContext hook
   const inputSearch = useRef(null);
-  const {authenticatedUser, handleLogin} = useUserContext();
+  const {authenticatedUser, handleLogin, handleLoginByGoogle} = useUserContext();
   const [loadingLogin, setLoadingLogin] = useState(false);
 
   //{ useRef hook }
@@ -101,20 +107,11 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
         }
       })
       .catch((exception) => {
-        let errors = exception.response.data.errors;
-        let errorList = [];
-
-        for (let field in errors) {
-          if (errors.hasOwnProperty(field)) {
-            errorList.push(errors[field].join(" & "));
-          }
-        }
-
-        errorList = errorList.join("<br/>");
+        let errors = formatErrorRequest(exception.response.data.errors);
 
         Toast.fire({
           icon: "error",
-          title: "Oops, Register failed...<br/>" + errorList,
+          title: "<p>Register failed : </p>" + errors,
         });
 
         console.log(exception);
@@ -137,20 +134,61 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
     }
   };
 
+  function handleCredentialResponse(response) {
+    const user = jwt_decode(response.credential);
+
+    axios
+      .get(`api/users/find-by-email/${user.email}`)
+      .then((response) => {
+        if (response.data.message === "User was not found") {
+          document.querySelector(".close-button-login-modal").click();
+
+          const userInformation = {
+            first_name: user.given_name,
+            last_name: user.family_name,
+            email: user.email,
+          };
+
+          cookies.set("user_information", userInformation);
+
+          // redirect to user registration page with google information
+          return navigate("/register/google");
+        }
+
+        //already registered
+        handleLoginByGoogle(user.email);
+      })
+      .catch((response) => {
+        console.log(response);
+      });
+  }
+
+  useEffect(function () {
+    google.accounts.id.initialize({
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+      callback: handleCredentialResponse,
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("sign-in-button"),
+      {theme: "outline", size: "large"} // customization attributes
+    );
+    // google.accounts.id.prompt(); // also display the One Tap dialog
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-md navbar-light shadow-sm">
       <div className="container-fluid">
         <Link to="/" className="img-logo-wrapper">
-          {navbarBrand === "shopping_cart" ?  
+          {navbarBrand === "shopping_cart" ? (
             <img className="logo" src={require("../../../assets/img/navbar_brand_shopping_cart.png")} alt="Shopping cart Navbar Brand" />
-            : 
-            navbarBrand === "product" ?  
+          ) : navbarBrand === "product" ? (
             <img className="logo" src={require("../../../assets/img/navbar_brand_product.png")} alt="Product Navbar Brand" />
-            : 
-            navbarBrand === "profile" ?  
+          ) : navbarBrand === "profile" ? (
             <img className="logo" src={require("../../../assets/img/navbar_brand_profile.png")} alt="Product Navbar Brand" />
-            : 
-            <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />}
+          ) : (
+            <img className="logo" src={require("../../../assets/img/logo.png")} alt="Peach Commerce Logo" />
+          )}
         </Link>
 
         <button className="navbar-toggler shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -163,7 +201,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
 
             {exclude?.includes("faq") ? null : <img className="logofaq" src={require("../../../assets/img/faq.png")} alt="Frequently Asked Questions" data-bs-toggle="modal" data-bs-target="#faqModalScrollable" />}
 
-            {include?.includes("peach_coin") ? <PeachCoin/> : null}
+            {include?.includes("peach_coin") ? <PeachCoin /> : null}
 
             {authenticatedUser === null ? <LoginButton /> : <ProfileButton />}
           </div>
@@ -210,7 +248,8 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
                 </div>
                 <div className="mt-4">Or login using</div>
                 <div className="mb-3">
-                  <img alt="Google" className="google" src={require("../../../assets/img/google.png")} />
+                  {/* <img alt="Google" className="google" src={require("../../../assets/img/google.png")} /> */}
+                  <div id="sign-in-button"></div>
                 </div>
               </div>
             </form>
@@ -289,9 +328,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
             <div className="modal-body modal-faq">
               <p>Website Aplikasi iseng yang merepresentasikan sebuah e-commerce (situs jual beli online) yang dibuat dengan teknologi Laravel (Backend) dan React (Frontend) yang mengimplementasikan berbagai fitur yang ada di e-commerce pada umumnya.</p>
 
-              <p>
-                Fitur yang terdapat dalam Aplikasi ini : blablabla....
-              </p>
+              <p>Fitur yang terdapat dalam Aplikasi ini : blablabla....</p>
               <div className="modal-footer">
                 <button type="button" className="button-close-faq" data-bs-dismiss="modal">
                   Close

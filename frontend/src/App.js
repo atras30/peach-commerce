@@ -12,6 +12,7 @@ import ShoppingCartPage from "./components/shopping_cart/ShopingCartPage";
 import EmailResendPage from "./components/email/EmailResendPage";
 import EmailVerificationPage from "./components/email/EmailVerificationPage";
 import QuickLogin from "./components/QuickLogin";
+import RegistrationByGoogle from "./components/registration_by_google/RegistrationByGoogle";
 import axios from "axios";
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
             {/* ROUTE EMAIL HANDLER */}
             <Route path="/mail/verification" element={<EmailVerificationPage />}></Route>
             <Route path="/mail/verification/resend" element={<EmailResendPage />}></Route>
+
+            {/* ROUTE REGISTRATION */}
+            <Route path="/register/google" element={<RegistrationByGoogle />}></Route>
 
             {/* MISC */}
             <Route path="/quick-login" element={<QuickLogin />}></Route>

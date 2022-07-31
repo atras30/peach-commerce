@@ -1,0 +1,5 @@
+.base-layout {
+  min-height: 100vh;
+  background: #FFE7D3;
+  overflow-x: hidden;
+}

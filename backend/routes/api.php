@@ -48,6 +48,7 @@ Route::get("/products/search/{query}", [ProductController::class, "search"]);
 
 //users
 Route::resource("users", UserController::class);
+Route::get("users/find-by-email/{email}", [UserController::class, "getUserByEmail"]);
 
 //product review comments
 Route::post("/products/reviews/comments", [ProductReviewCommentController::class, "store"]);
@@ -57,6 +58,7 @@ Route::post("/mail/verification/verify/{verification:token}", [MailController::c
 
 //Authentication
 Route::post("/auth/login", [AuthController::class, "login"]);
+Route::post("/auth/login/google", [AuthController::class, "loginByGoogle"]);
 Route::post("/auth/register", [AuthController::class, "register"]);
 
 //default route

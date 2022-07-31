@@ -12,12 +12,16 @@ export default function LandingPage() {
   //useState hook
   const [products, setProducts] = useState(null);
   const [categories, setCategories] = useState(null);
-  const {toast} = useHelperContext();
+  const {toast, cookies} = useHelperContext();
 
   //on init
   useEffect(function () {
     getProducts();
     getCategories();
+    if(cookies.get("recently_registered")) {
+      cookies.remove("recently_registered");
+      document.querySelector(".loginbutton").click();
+    }
   }, []);
 
   function getCategories() {

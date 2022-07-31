@@ -49,6 +49,8 @@ class UserController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request) {
+    return response()->json(["message" => "please use /api/auth/register endpoint instead."], Response::HTTP_UNPROCESSABLE_ENTITY);
+
     $request->validate([
       'first_name' => 'string|max:255',
       'last_name' => 'string|nullable|max:255',
@@ -127,6 +129,20 @@ class UserController extends Controller {
     return response()->json([
       "message" => "Product was successfully deleted",
       "deleted_product" => $user
+    ], Response::HTTP_OK);
+  }
+
+  public function getUserByEmail($email) {
+    $user = User::firstWhere("email", $email);
+    if ($user == null) {
+      return response()->json([
+        "message" => "User was not found",
+      ], Response::HTTP_OK);
+    }
+
+    return response()->json([
+      "message" => "Successfully fetched one user",
+      "user" => $user
     ], Response::HTTP_OK);
   }
 }

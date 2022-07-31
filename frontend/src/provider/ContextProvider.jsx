@@ -44,6 +44,38 @@ export default function ContextProvider({children}) {
   //misc
   const cookies = new Cookies();
 
+  async function handleLoginByGoogle(email) {
+    const url = `api/auth/login/google`;
+    const payload = {
+      email: email,
+    };
+
+    axios
+      .post(url, payload)
+      .then(async (response) => {
+        cookies.set("Authorization", `Bearer ${response.data.token}`);
+
+        const user = await axios
+          .get("api/auth/user", {
+            headers: {
+              Authorization: cookies.get("Authorization"),
+            },
+          })
+          .then((response) => response.data.user)
+          .catch((response) => console.log(response));
+          
+        setAuthenticatedUser(user);
+
+        document.querySelector(".close-button-login-modal").click();
+        
+        toast.fire({
+          icon: "success",
+          title: `Login Success, welcome ${user.full_name}`,
+        });
+      })
+      .catch((response) => console.log(response));
+  }
+
   //function to handle logout logic
   const handleLogout = () => {
     axios
@@ -149,7 +181,7 @@ export default function ContextProvider({children}) {
           });
         }
       } else if (middleware === "verified") {
-        if(authenticatedUser?.email_verified_at === null) {          
+        if (authenticatedUser?.email_verified_at === null) {
           toast.fire({
             icon: "error",
             title: `Your email must be verified`,
@@ -157,7 +189,7 @@ export default function ContextProvider({children}) {
 
           return navigate("/");
         }
-        
+
         const user = await getLoggedInUser();
 
         if (user.email_verified_at === null) {
@@ -168,8 +200,8 @@ export default function ContextProvider({children}) {
             title: `Your email must be verified`,
           });
         }
-      } else if (true) { //next middleware
-
+      } else if (true) {
+        //next middleware
       }
     });
   }
@@ -216,10 +248,10 @@ export default function ContextProvider({children}) {
     let errorListings = "";
 
     Object.keys(errorObject).map(function (key, index) {
-      errorListings += errorObject[key].map((each) => `<li>${each}</li>`);
+      errorListings += errorObject[key].map((each) => `<li>${each}</li>`).join("");
     });
 
-    return `<ol>${errorListings}</ol>`;
+    return `<ul>${errorListings}</ul>`;
   }
 
   useEffect(() => {
@@ -229,7 +261,7 @@ export default function ContextProvider({children}) {
   return (
     <ShoppingCartContext.Provider value={{handleAddToCart}}>
       <HelperContext.Provider value={{toast, cookies, formatErrorRequest}}>
-        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLogout, getLoggedInUser}}>
+        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLoginByGoogle, handleLogout, getLoggedInUser}}>
           <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
         </UserContext.Provider>
       </HelperContext.Provider>
