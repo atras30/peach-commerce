@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useUserContext} from "../../provider/ContextProvider";
@@ -9,6 +9,11 @@ export default function Product({product, fetchProduct}) {
   const navigate = useNavigate();
   const {authenticatedUser} = useUserContext();
   const {handleAddToCart} = useShoppingCartContext();
+  const [isAddToCartProcessing, setIsAddToCartProcessing] = useState(false);
+
+  const toggleAddToCartProcessing = () => {
+    setIsAddToCartProcessing(prevValue => !prevValue);
+  }
 
   const formatRupiah = (bilangan) => {
     let separator = null;
@@ -42,6 +47,13 @@ export default function Product({product, fetchProduct}) {
 
   function handleRedirectToProductOwner() {
     navigate(`/user?id=${product?.owner?.id}`);
+  }
+
+  async function handleAddToCartFunction() {
+    if(isAddToCartProcessing) return;
+    toggleAddToCartProcessing();
+    await handleAddToCart(product);
+    toggleAddToCartProcessing();
   }
 
   useEffect(() => {
@@ -90,8 +102,11 @@ export default function Product({product, fetchProduct}) {
           }}
         ></div>
         <div className="button-container d-flex gap-3">
-          <button onClick={() => handleAddToCart(product)} className="w-50 buttonbuy p-0 m-0 fw-bold">
-            {authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
+          <button onClick={handleAddToCartFunction} className="w-50 buttonbuy p-0 m-0 fw-bold">
+            {isAddToCartProcessing ? 
+            <div className="processing-add-to-cart">Processing..</div>
+            :
+            authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
               <div className="d-inline-block">
                 <i className="bi bi-cart me-2"></i>Remove from cart
               </div>
