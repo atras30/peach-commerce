@@ -64,11 +64,11 @@ export default function ContextProvider({children}) {
           })
           .then((response) => response.data.user)
           .catch((response) => console.log(response));
-          
+
         setAuthenticatedUser(user);
 
         document.querySelector(".close-button-login-modal").click();
-        
+
         toast.fire({
           icon: "success",
           title: `Login Success, welcome ${user.full_name}`,
@@ -212,6 +212,13 @@ export default function ContextProvider({children}) {
   }
 
   async function handleAddToCart(product) {
+    if (!authenticatedUser) {
+      return toast.fire({
+        icon: "error",
+        title: `Please sign in to continue any further`,
+      });
+    }
+
     return axios
       .post(
         "/api/shopping-cart",
@@ -225,20 +232,26 @@ export default function ContextProvider({children}) {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
-        getLoggedInUser();
+      .then(async (response) => {
+        console.log("waiting getlogginuser function");
+        await getLoggedInUser();
+        console.log("getlogginuser function done");
 
-        if (response.data.message === "created")
-          return toast.fire({
+        if (response.data.message === "created") {
+          return setTimeout(() => {
+            toast.fire({
+              icon: "success",
+              title: `Product berhasil dimasukkan ke keranjang kamu`,
+            });
+          }, 0);
+        }
+
+        return setTimeout(() => {
+          toast.fire({
             icon: "success",
-            title: `Product berhasil dimasukkan ke keranjang kamu`,
+            title: `Product berhasil dikeluarkan dari keranjang kamu`,
           });
-
-        return toast.fire({
-          icon: "success",
-          title: `Product berhasil dikeluarkan dari keranjang kamu`,
-        });
+        }, 0);
       })
       .catch((error) => {
         console.log(error);

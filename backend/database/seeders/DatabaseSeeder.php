@@ -42,7 +42,8 @@ class DatabaseSeeder extends Seeder {
       "password" => Hash::make("testing12345"),
       "phone_number" => "081287318166",
       "peach_coin" => 500000,
-      "address" => "Kota Sutera, Blossom Ville c7/20"
+      "address" => "Kota Sutera, Blossom Ville c7/20",
+      "email_verified_at" => now()
     ]);
 
     User::create([
@@ -54,7 +55,8 @@ class DatabaseSeeder extends Seeder {
       "password" => Hash::make("testing12345"),
       "phone_number" => "0812873846577",
       "peach_coin" => 500000,
-      "address" => "Jakarta Barat"
+      "address" => "Jakarta Barat",
+      "email_verified_at" => now()
     ]);
 
     Category::create([
@@ -349,32 +351,7 @@ Follow kami agar jangan ketinggalan promosi menarik dari kami dan jangan lupa ch
 
     ShoppingCart::create([
       "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
-    ]);
-    ShoppingCart::create([
-      "user_id" => 1,
-      "product_id" => mt_rand(1,7)
+      "product_id" => 1
     ]);
   }
 }

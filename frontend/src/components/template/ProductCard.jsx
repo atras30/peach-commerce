@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../assets/css/product.css";
 import {useNavigate} from "react-router-dom";
 import {useShoppingCartContext, useUserContext} from "../../provider/ContextProvider";
+import Loading from "../template/Loading";
 
 export default function Product({product}) {
   const navigate = useNavigate();
   const {authenticatedUser} = useUserContext();
   const {handleAddToCart} = useShoppingCartContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   function applyDiscount(bilangan) {
     bilangan = parseInt(bilangan - bilangan * (product.discount / 100));
@@ -32,9 +34,19 @@ export default function Product({product}) {
     navigate(`/product?id=${product.id}`);
   };
 
-  function handleAddToCartFunction(e) {
+  function toggleSetIsLoading() {
+    setIsLoading((prevValue) => !prevValue);
+  }
+
+  async function handleAddToCartFunction(e) {
     e.stopPropagation();
-    handleAddToCart(product);
+    if(isLoading) return;
+    toggleSetIsLoading();
+
+    console.log("waiting for process to be done");
+    await handleAddToCart(product);
+    console.log("Process done");
+    toggleSetIsLoading();
   }
 
   return (
@@ -59,7 +71,9 @@ export default function Product({product}) {
       </div>
 
       <button onClick={handleAddToCartFunction} className="buttonbuy w-100">
-        {authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
+        {isLoading ? (
+          <div className="loading-add-to-cart">Processing...</div>
+        ) : authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
           <div className="d-inline-block">
             <i className="bi bi-cart me-2"></i>Remove from cart
           </div>
