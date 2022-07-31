@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, {useRef} from "react";
-import { useHelperContext } from "../../provider/ContextProvider";
+import { useHelperContext, useUserContext } from "../../provider/ContextProvider";
 
-export default function FormChangingProfilePicture() {
+export default function FormChangingProfilePicture({toggleIsChangingProfilePicture}) {
   const inputProfilePicture = useRef(null);
+  const {getLoggedInUser} = useUserContext();
   const {cookies, formatErrorRequest, toast} = useHelperContext();
 
   const handleEditProfilePicture = (e) => {
@@ -21,7 +22,10 @@ export default function FormChangingProfilePicture() {
     };
     
     axios.post(url, payload, config)
-      .then(() => {
+      .then(async () => {
+        await getLoggedInUser();
+        toggleIsChangingProfilePicture();
+        
         return toast.fire({
           icon: "success",
           title: `Profile picture successfully been changed`

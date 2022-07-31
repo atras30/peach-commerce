@@ -90,7 +90,7 @@ export default function Profile() {
                 !isChangingProfilePicture ? 
                 <ProfilePicture toggleIsChangingProfilePicture={toggleIsChangingProfilePicture}/>
                 :
-                <FormChangingProfilePicture/>
+                <FormChangingProfilePicture toggleIsChangingProfilePicture={toggleIsChangingProfilePicture}/>
               }
             </div>
 
