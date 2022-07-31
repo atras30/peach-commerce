@@ -18,6 +18,8 @@ export default function LandingPage() {
   useEffect(function () {
     getProducts();
     getCategories();
+
+    //if recently registered with google sign up, close the modal
     if(cookies.get("recently_registered")) {
       cookies.remove("recently_registered");
       document.querySelector(".loginbutton").click();

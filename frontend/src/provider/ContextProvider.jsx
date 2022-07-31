@@ -8,6 +8,7 @@ const UserContext = React.createContext();
 const MiddlewareContext = React.createContext();
 const HelperContext = React.createContext();
 const ShoppingCartContext = React.createContext();
+const google = window.google;
 
 export function useUserContext() {
   return useContext(UserContext);
@@ -141,7 +142,11 @@ export default function ContextProvider({children}) {
 
   const getLoggedInUser = async () => {
     //if user not logged in, do nothing
-    if (!cookies.get("Authorization")) return false;
+    if (!cookies.get("Authorization")) {
+      // prompt google one tap login if the user is not logged in
+      google.accounts.id.prompt();
+      return false;
+    }
 
     //if user already logged in, fetch user based on its token
     return await axios
