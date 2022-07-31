@@ -4,12 +4,15 @@ import {useEffect} from "react";
 import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
 import {useNavigate} from "react-router-dom";
 import Cookies from "universal-cookie";
+import {useState} from "react";
+import Loading from "../template/Loading";
 
 export default function ShoppingCartCard({shoppingCart}) {
   const navigate = useNavigate();
   const checkboxId = useId();
   const {authenticatedUser, getLoggedInUser} = useUserContext();
   const {toast} = useHelperContext();
+  const [isShoppingCartProcessing, setIsShoppingCartProcessing] = useState(false);
 
   useEffect(function () {
     // console.log(shoppingCart);
@@ -19,8 +22,18 @@ export default function ShoppingCartCard({shoppingCart}) {
     navigate(`/product?id=${shoppingCart.product.id}`);
   }
 
+  function toggleProcessingShoppingCart() {
+    setIsShoppingCartProcessing((prevValue) => !prevValue);
+  }
+
   async function handleDeleteShoppingCart() {
-    return axios
+    if (isShoppingCartProcessing) {
+      return;
+    }
+
+    toggleProcessingShoppingCart();
+
+    await axios
       .post(
         "/api/shopping-cart",
         {
@@ -33,28 +46,26 @@ export default function ShoppingCartCard({shoppingCart}) {
           },
         }
       )
-      .then((response) => {
-        console.log(response);
-        getLoggedInUser();
+      .then(async (response) => {
+        await getLoggedInUser();
 
-        if (response.data.message === "created")
-          return toast.fire({
+        return (async () => {
+          toast.fire({
             icon: "success",
-            title: `Product has been added to your shopping cart`,
+            title: `Product has been removed from your shopping cart`,
           });
-
-        return toast.fire({
-          icon: "success",
-          title: `Product has been removed from your shopping cart`,
-        });
+        })();
       })
       .catch((error) => {
-        console.log(error);
-        toast.fire({
-          icon: "error",
-          title: `${error}`,
-        });
+        (async () => {
+          toast.fire({
+            icon: "error",
+            title: `${error}`,
+          });
+        })();
       });
+
+    return toggleProcessingShoppingCart();
   }
 
   return (
@@ -68,9 +79,13 @@ export default function ShoppingCartCard({shoppingCart}) {
         </div>
 
         <div className="delete">
-          <button onClick={handleDeleteShoppingCart} type="button" className="btn btn-danger shadow-sm">
-            Remove Product
-          </button>
+          {isShoppingCartProcessing ? (
+            <Loading description={"Processing..."}/>
+          ) : (
+            <button onClick={handleDeleteShoppingCart} type="button" className="btn btn-danger shadow-sm">
+              Remove Product
+            </button>
+          )}
         </div>
       </div>
 

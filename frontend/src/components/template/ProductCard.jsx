@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import "../../assets/css/product.css";
 import {useNavigate} from "react-router-dom";
 import {useShoppingCartContext, useUserContext} from "../../provider/ContextProvider";
-import Loading from "../template/Loading";
 
 export default function Product({product}) {
   const navigate = useNavigate();
