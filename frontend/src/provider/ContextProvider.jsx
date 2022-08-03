@@ -215,10 +215,12 @@ export default function ContextProvider({children}) {
     if (!authenticatedUser) {
       document.querySelector(".loginbutton").click();
 
-      return toast.fire({
-        icon: "error",
-        title: `Please sign in to continue any further`,
-      });
+      return (async () => {
+        toast.fire({
+          icon: "error",
+          title: `Please sign in to continue any further`,
+        });
+      })();
     }
 
     return axios
