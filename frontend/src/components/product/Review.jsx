@@ -3,11 +3,13 @@ import {useRef} from "react";
 import {useEffect} from "react";
 import UserReply from "./UserReply";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {formatDistance}  from "date-fns";
 import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
 import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
 
 export default function Review({review, printStars, fetchProduct}) {
+  const navigate = useNavigate();
   const replyReviewButton = useRef(null);
   const replySection = useRef(null);
   const inputReply = useRef(null);
@@ -16,7 +18,7 @@ export default function Review({review, printStars, fetchProduct}) {
   const cookies = new Cookies();
 
   useEffect(function () {
-    // console.log(review);
+    console.log(review);
   }, []);
 
   function handleReplyToggle() {
@@ -74,13 +76,21 @@ export default function Review({review, printStars, fetchProduct}) {
       });
   }
 
+  function handleRedirectToUserPage() {
+    navigate("/user?id="+review?.user?.id);
+  }
+
   return (
     <div className="review rounded shadow p-3 mb-2">
       <div className="user-information d-flex gap-5 mb-2">
         <div className="d-flex flex-column">
-          <i className="bi bi-person-circle"></i>
-          <div className="user-username fw-bold">{review?.user?.username}</div>
-          <div className="user-timestamp text-muted mb-3">1 minggu yang lalu</div>
+          <div className="d-flex align-items-center gap-2 user rounded p-1" onClick={handleRedirectToUserPage}>
+            <img src={process.env.REACT_APP_BACKEND_BASE_URL+"/"+review?.user?.profile_picture_path} alt="Profile Picture" width={"30px"} height={"30px"} className="profile-image rounded-circle border border-2"/>
+            <div className="user-username fw-bold">{review?.user?.username}</div>
+          </div>
+          <div className="user-timestamp text-muted mb-3 text-center">{
+            formatDistance(new Date(review?.user?.created_at), new Date(), { addSuffix: true })
+          }</div>
         </div>
 
         <div className="user-comment">

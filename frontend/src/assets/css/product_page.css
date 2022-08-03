@@ -57,6 +57,31 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
+.user {
+  transition: .1s;
+}
+
+.user:hover {
+  cursor: pointer;
+  background-color: #FFD3AE;
+  box-shadow: 0px 0px 2px 1px rgba(0, 47, 254, 0.3);
+}
+
+.user-user-reply {
+  transition: .1s;
+}
+
+.user-user-reply:hover {
+  cursor: pointer;
+  background-color: #FFA75B;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, .5);
+}
+
+.user img,
+.user-reply img {
+  object-fit: cover;
+}
+
 .product-card {
   display: grid;
   grid-template-areas:
