@@ -86,8 +86,10 @@ class AuthController extends Controller {
       }
 
       $createdUser = User::findOrFail($createdUser->id);
-      $createdUser->profile_picture_path = $request->file("profile_picture")->storeAs("users/user_id_{$createdUser->id}/profile_picture", pathinfo($request->file("profile_picture")->getClientOriginalName(), PATHINFO_FILENAME) . "_" . Uuid::generate()->string . "." . $request->file("profile_picture")->getClientOriginalExtension());
-      $createdUser->update();
+      if($request->file("profile_picture")) {
+        $createdUser->profile_picture_path = $request->file("profile_picture")->storeAs("users/user_id_{$createdUser->id}/profile_picture", pathinfo($request->file("profile_picture")->getClientOriginalName(), PATHINFO_FILENAME) . "_" . Uuid::generate()->string . "." . $request->file("profile_picture")->getClientOriginalExtension());
+        $createdUser->update();
+      }
     } catch (\Exception $e) {
       return response()->json($e->getMessage(), Response::HTTP_NOT_ACCEPTABLE);
     }

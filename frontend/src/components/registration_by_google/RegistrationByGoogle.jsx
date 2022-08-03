@@ -20,6 +20,7 @@ export default function RegistrationByGoogle() {
   const inputEmail = useRef(null);
   const inputPhoneNumber = useRef(null);
   const inputAddress = useRef(null);
+  const inputProfilePicture = useRef(null);
 
   function toggleIsSigningUp() {
     setIsSigningUp((value) => !value);
@@ -39,7 +40,12 @@ export default function RegistrationByGoogle() {
         password: inputRegisterPassword.current.value,
         phone_number: inputPhoneNumber.current.value,
         address: inputAddress.current.value,
+        profile_picture: inputProfilePicture.current.files[0],
         registered_via: "google",
+      }, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       })
       .then((response) => {
         if (response.data.message === "User has been created") {
@@ -53,6 +59,7 @@ export default function RegistrationByGoogle() {
         }
       })
       .catch((exception) => {
+        console.log(exception)
         const errors = formatErrorRequest(exception.response.data.errors);
         toast.fire({
           icon: "error",
@@ -85,7 +92,7 @@ export default function RegistrationByGoogle() {
   return (
     <BaseLayout headerExclude={["form"]}>
       <div className="registration-by-google-container row p-4">
-        <div className="form-container shadow col-6 m-auto border border-1 border-dark p-3 rounded">
+        <div className="form-container shadow col-12 col-md-6 m-auto border border-1 border-dark p-3 rounded">
           <div className="title fs-5 text-center fw-bold mb-3">
             {/* Looks like your account is not registered yet, please fill in the form first to continue any further */}
             Register User
@@ -93,53 +100,60 @@ export default function RegistrationByGoogle() {
 
           <form onSubmit={handleRegisterUser}>
             <div className="mb-3">
-              <label htmlFor="input-first-name" className="form-label fw-bold">
+              <label htmlFor="input-first-name" className="form-label fw-bold form-required">
                 First Name
               </label>
               <input ref={inputFirstName} type="text" className="form-input" defaultValue={userInformation?.first_name} />
             </div>
             <div className="mb-3">
-              <label htmlFor="input-last-name" className="form-label fw-bold">
+              <label htmlFor="input-last-name" className="form-label fw-bold form-required">
                 Last Name
               </label>
               <input ref={inputLastName} type="text" className="form-input" defaultValue={userInformation?.last_name} />
             </div>
             <div className="mb-3">
-              <label htmlFor="input-username" className="form-label fw-bold">
+              <label htmlFor="input-username" className="form-label fw-bold form-required">
                 Username
               </label>
               <input ref={inputRegisterUsername} type="text" className="form-input" />
             </div>
             <div className="mb-3">
-              <label htmlFor="input-email" className="form-label fw-bold">
+              <label htmlFor="input-email" className="form-label fw-bold form-required">
                 Email
               </label>
-              <input ref={inputEmail} type="email" className="form-input" defaultValue={userInformation?.email} />
+              <input disabled ref={inputEmail} type="email" className="form-input" defaultValue={userInformation?.email} />
             </div>
             <div className="mb-3">
-              <label htmlFor="input-password" className="form-label fw-bold">
+              <label htmlFor="input-password" className="form-label fw-bold form-required">
                 Password
               </label>
               <input ref={inputRegisterPassword} type="password" className="form-input" />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="input-phone-number" className="form-label fw-bold">
+              <label htmlFor="input-phone-number" className="form-label fw-bold form-required">
                 Phone Number
               </label>
               <input ref={inputPhoneNumber} type="text" className="form-input" />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="input-address" className="form-label fw-bold">
+              <label htmlFor="input-address" className="form-label fw-bold form-required">
                 Address
               </label>
               <input ref={inputAddress} type="text" className="form-input" />
             </div>
 
+            <div className="mb-3">
+              <label htmlFor="input-address" className="form-label fw-bold">
+                Profile Picture
+              </label>
+              <input ref={inputProfilePicture} class="form-control" type="file" id="formFile"/>
+            </div>
+
             {!isSigningUp ? (
               <button type="submit" className="register" onClick={handleRegisterUser}>
-                Submit
+                Register
               </button>
             ) : (
               <Loading description={"Registering your account"} />

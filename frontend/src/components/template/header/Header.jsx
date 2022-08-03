@@ -239,12 +239,12 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
                 <div className="form-container mb-3">
-                  <label htmlFor="username">Username / Email:</label>
+                  <label className="form-required" htmlFor="username">Username / Email:</label>
                   <input ref={inputLoginUsername} type="text" className="input" id="username" name="username" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="password">Password:</label>
+                  <label className="form-required" htmlFor="password">Password:</label>
                   <input ref={inputLoginPassword} type="password" className="input" id="password" name="password" />
                 </div>
               </div>
@@ -287,37 +287,37 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
             <form onSubmit={handleRegisterUser}>
               <div className="modal-body">
                 <div className="form-container mb-3">
-                  <label htmlFor="firstname">First Name</label>
+                  <label className="form-required" htmlFor="firstname">First Name</label>
                   <input ref={inputFirstName} type="text" className="input" id="firstname" name="first_name" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="lastname">Last Name</label>
+                  <label className="form-required" htmlFor="lastname">Last Name</label>
                   <input ref={inputLastName} type="text" className="input" id="lastname" name="last_name" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="username">Username</label>
+                  <label className="form-required" htmlFor="username">Username</label>
                   <input ref={inputRegisterUsername} type="text" className="input" id="username" name="username" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="email">Email</label>
+                  <label className="form-required" htmlFor="email">Email</label>
                   <input ref={inputEmail} type="text" className="input" id="email" name="email" />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="password">Password</label>
+                  <label className="form-required" htmlFor="password">Password</label>
                   <input ref={inputRegisterPassword} type="password" className="input" id="password" name="password" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="phone-number">Phone Number</label>
+                  <label className="form-required" htmlFor="phone-number">Phone Number</label>
                   <input ref={inputPhoneNumber} type="text" className="input" id="phone-number" name="phone_number" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label htmlFor="address">Address</label>
+                  <label className="form-required" htmlFor="address">Address</label>
                   <input ref={inputAddress} type="text" className="input" id="address" name="address" />
                 </div>
 
