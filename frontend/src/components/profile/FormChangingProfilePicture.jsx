@@ -32,6 +32,7 @@ export default function FormChangingProfilePicture({toggleIsChangingProfilePictu
         })
       })
       .catch((error) => {
+        console.log(error)
         return toast.fire({
           icon: "error",
           title: `<p>Failed changing new profile picture : </p>${formatErrorRequest(error.response.data.errors)}`

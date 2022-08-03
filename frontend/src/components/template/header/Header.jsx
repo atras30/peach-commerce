@@ -182,12 +182,12 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
   }
 
   useEffect(function () {
-    google.accounts.id.initialize({
+    google?.accounts?.id?.initialize({
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
     });
 
-    google.accounts.id.renderButton(
+    google?.accounts?.id?.renderButton(
       document.getElementById("sign-in-button"),
       {theme: "outline", size: "large"} // customization attributes
     );

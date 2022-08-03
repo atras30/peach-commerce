@@ -144,7 +144,7 @@ export default function ContextProvider({children}) {
     //if user not logged in, do nothing
     if (!cookies.get("Authorization")) {
       // prompt google one tap login if the user is not logged in
-      google.accounts.id.prompt();
+      google?.accounts?.id?.prompt();
       return false;
     }
 
