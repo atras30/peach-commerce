@@ -14,19 +14,6 @@
   border-bottom: 1px solid black;
 }
 
-.product-container .img-wrapper {
-  width: 10em;
-}
-
-.product-container:hover {
-  background-color: #ffead1;
-  cursor: pointer;
-}
-
-.product-container:hover img{
-  transform: scale(1.05);
-}
-
 input[type="checkbox"] {
   --scale: 1em;
   width: var(--scale);

@@ -15,7 +15,7 @@ export default function ShoppingCartCard({shoppingCart}) {
   const [isShoppingCartProcessing, setIsShoppingCartProcessing] = useState(false);
 
   useEffect(function () {
-    // console.log(shoppingCart);
+    console.log(shoppingCart);
   }, []);
 
   function handleProductRedirect() {
@@ -68,11 +68,16 @@ export default function ShoppingCartCard({shoppingCart}) {
     return toggleProcessingShoppingCart();
   }
 
+  function stopPropagation(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
     <div className="shopping-cart-card mb-4 rounded shadow">
       <div className="user-information p-2 px-3 fw-bold d-flex justify-content-between">
-        <div className="user-information-checkbox-container d-flex align-items-center ">
-          <input type="checkbox" id={checkboxId} />
+        <div className="user-information-1-container d-flex align-items-center noselect">
+          <input type="checkbox" id={checkboxId}/>
           <label className="p-1 px-2" htmlFor={checkboxId}>
             {shoppingCart.product.owner.username}
           </label>
@@ -80,7 +85,7 @@ export default function ShoppingCartCard({shoppingCart}) {
 
         <div className="delete">
           {isShoppingCartProcessing ? (
-            <Loading description={"Processing..."}/>
+            <Loading description={"Processing..."} />
           ) : (
             <button onClick={handleDeleteShoppingCart} type="button" className="btn btn-danger shadow-sm">
               Remove Product
@@ -89,18 +94,24 @@ export default function ShoppingCartCard({shoppingCart}) {
         </div>
       </div>
 
-      <div className="product-container p-3 d-flex gap-3 align-items-center" onClick={handleProductRedirect}>
-        <div className="img-wrapper rounded shadow-sm overflow-hidden">
+      <div className="product-container p-3 row" onClick={handleProductRedirect}>
+        <div className="col-4">
           <img src={`${process.env.REACT_APP_BACKEND_BASE_URL}/${shoppingCart?.product?.img_link}`} alt="Product Image" className="img-fluid img-thumbnail" />
         </div>
 
-        <div>
+        <div className="col-3 d-flex justify-content-center flex-column gap-3">
           <div className="product-title fw-bold">{shoppingCart?.product?.title}</div>
 
           <div className="product-category">Handphone & Elektronik</div>
         </div>
 
-        <div>
+        <div className="col-2 d-flex justify-content-center flex-column" onClick={stopPropagation}>
+          <div className="product-quantity-label fw-bold">Quantity : </div>
+          <input type="number" min={0} max={99} class="form-control" id="exampleFormControlInput1" />
+        </div>
+
+        <div className="col-2 d-flex justify-content-center flex-column">
+          <div className="product-price-label fw-bold">Price : </div>
           <div className="product-price fw-bold">{shoppingCart?.product?.price}</div>
         </div>
       </div>

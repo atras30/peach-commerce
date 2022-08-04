@@ -239,12 +239,12 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
                 <div className="form-container mb-3">
-                  <label className="form-required" htmlFor="username">Username / Email:</label>
+                  <label htmlFor="username">Username / Email:</label>
                   <input ref={inputLoginUsername} type="text" className="input" id="username" name="username" />
                 </div>
 
                 <div className="form-container mb-3">
-                  <label className="form-required" htmlFor="password">Password:</label>
+                  <label htmlFor="password">Password:</label>
                   <input ref={inputLoginPassword} type="password" className="input" id="password" name="password" />
                 </div>
               </div>
