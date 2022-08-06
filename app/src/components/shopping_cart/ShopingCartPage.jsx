@@ -5,9 +5,15 @@ import ShoppingCartCard from "./ShoppingCartCard";
 import "../../assets/css/shopping_cart.css";
 import {useUserContext} from "../../provider/ContextProvider";
 import Loading from "../template/Loading";
+import { useState } from "react";
 
 export default function ShopingCartPage() {
   const {authenticatedUser} = useUserContext();
+  const [shoppingCarts, setShoppingCarts] = useState(null);
+
+  useEffect(function() {
+    setShoppingCarts(authenticatedUser?.shopping_carts);
+  }, [authenticatedUser]);
 
   return (
     <div className="shopping-cart-container d-flex justify-content-between flex-column">
@@ -16,12 +22,12 @@ export default function ShopingCartPage() {
 
         <div className="my-4 p-5 pt-0 gap-4 shopping-cart-products-container d-flex align-items-center justify-content-center">
           <div className="product-wrapper">
-            {!authenticatedUser ? (
+            {!shoppingCarts ? (
               <Loading description={"Fetching Shoppping Cart Data..."} />
-            ) : authenticatedUser?.shopping_carts.length === 0 ? (
+            ) : shoppingCarts.length === 0 ? (
               <div className="container fw-bold fs-4 d-flex justify-content-center align-items-center">Empty Shopping Cart</div>
             ) : (
-              authenticatedUser?.shopping_carts?.map((shoppingCart) => <ShoppingCartCard key={shoppingCart.id} shoppingCart={shoppingCart}></ShoppingCartCard>)
+              shoppingCarts?.map((shoppingCart) => <ShoppingCartCard key={shoppingCart.id} setShoppingCarts={setShoppingCarts} shoppingCart={shoppingCart}></ShoppingCartCard>)
             )}
           </div>
 

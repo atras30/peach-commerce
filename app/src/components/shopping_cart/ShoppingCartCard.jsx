@@ -3,15 +3,14 @@ import React, {useId} from "react";
 import {useEffect} from "react";
 import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
 import {useNavigate} from "react-router-dom";
-import Cookies from "universal-cookie";
 import {useState} from "react";
 import Loading from "../template/Loading";
 
-export default function ShoppingCartCard({shoppingCart}) {
+export default function ShoppingCartCard({shoppingCart, setShoppingCarts}) {
   const navigate = useNavigate();
   const checkboxId = useId();
   const {authenticatedUser, getLoggedInUser} = useUserContext();
-  const {toast} = useHelperContext();
+  const {toast, cookies} = useHelperContext();
   const [isShoppingCartProcessing, setIsShoppingCartProcessing] = useState(false);
 
   useEffect(function () {
@@ -42,7 +41,7 @@ export default function ShoppingCartCard({shoppingCart}) {
         },
         {
           headers: {
-            Authorization: new Cookies().get("Authorization"),
+            Authorization: cookies.get("Authorization"),
           },
         }
       )
@@ -73,11 +72,32 @@ export default function ShoppingCartCard({shoppingCart}) {
     e.stopPropagation();
   }
 
+  async function handleToggleActive(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const url = `/api/shopping-cart/active/${shoppingCart?.id}`;
+    const data = {};
+    const config = {
+      headers: {
+        Authorization: cookies.get("Authorization")
+      }
+    };
+    
+    return axios.post(url, data, config)
+    .then(async (response) => {
+      const user = await getLoggedInUser();
+      console.log(response)
+      setShoppingCarts(user.shopping_carts);
+    })
+    .catch(response => console.log(response));
+  }
+
   return (
     <div className="shopping-cart-card mb-4 rounded shadow">
       <div className="user-information p-2 px-3 fw-bold d-flex justify-content-between">
-        <div className="user-information-1-container d-flex align-items-center noselect">
-          <input type="checkbox" id={checkboxId}/>
+        <div className="user-information-1-container d-flex align-items-center noselect" onClick={handleToggleActive}>
+          <input type="checkbox" id={checkboxId} defaultChecked={shoppingCart.is_active}/>
           <label className="p-1 px-2" htmlFor={checkboxId}>
             {shoppingCart.product.owner.username}
           </label>
@@ -107,7 +127,7 @@ export default function ShoppingCartCard({shoppingCart}) {
 
         <div className="col-2 d-flex justify-content-center flex-column" onClick={stopPropagation}>
           <div className="product-quantity-label fw-bold">Quantity : </div>
-          <input type="number" min={0} max={99} class="form-control" id="exampleFormControlInput1" />
+          <input type="number" min={0} max={99} className="form-control" id="exampleFormControlInput1" />
         </div>
 
         <div className="col-2 d-flex justify-content-center flex-column">

@@ -32,6 +32,7 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
 
   //Shopping Carts
   Route::post("/shopping-cart", [ShoppingCartController::class, "store"]);
+  Route::post("/shopping-cart/active/{id}", [ShoppingCartController::class, "toggleActive"]);
 
   //Products
   Route::post("products", [ProductController::class, "store"]);

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
-class ShoppingCartController extends Controller {  
+class ShoppingCartController extends Controller {
   public function store(Request $request) {
     $user = User::with("shopping_carts")->find(auth()->user()->id);
     $shoppingCarts = $user->shopping_carts;
@@ -56,5 +56,22 @@ class ShoppingCartController extends Controller {
     return response()->json([
       "message" => "created",
     ], Response::HTTP_CREATED);
+  }
+
+  public function toggleActive($id) {
+    $shoppingCart = ShoppingCart::findOrFail($id);
+    $shoppingCart->is_active = !$shoppingCart->is_active;
+
+    try {
+      $shoppingCart->update();
+    } catch (\Exception $e) {
+      return response()->json([
+        "error" => $e->getMessage()
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    return response()->json([
+      "message" => "success"
+    ], Response::HTTP_OK);
   }
 }
