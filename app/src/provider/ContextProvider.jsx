@@ -119,19 +119,10 @@ export default function ContextProvider({children}) {
         return "failed";
       } else {
         cookies.set("Authorization", `Bearer ${response.data.token}`);
-
-        let user = await axios
-          .get("api/auth/user", {
-            headers: {
-              Authorization: cookies.get("Authorization"),
-            },
-          })
-          .then((response) => response.data.user);
-
-        setAuthenticatedUser(user);
+        setAuthenticatedUser(response.data.user);
         toast.fire({
           icon: "success",
-          title: `Login Success, welcome ${user.full_name}`,
+          title: `Login Success, welcome ${response.data.user.full_name}`,
         });
         return "success";
       }

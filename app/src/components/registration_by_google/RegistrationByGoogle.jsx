@@ -148,7 +148,7 @@ export default function RegistrationByGoogle() {
               <label htmlFor="input-address" className="form-label fw-bold">
                 Profile Picture
               </label>
-              <input ref={inputProfilePicture} class="form-control" type="file" id="formFile"/>
+              <input ref={inputProfilePicture} className="form-control" type="file" id="formFile"/>
             </div>
 
             {!isSigningUp ? (
