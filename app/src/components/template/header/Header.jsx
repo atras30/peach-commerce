@@ -12,6 +12,7 @@ import PeachCoin from "./PeachCoin";
 import FilterSearchForm from "./FilterSearchForm";
 import jwt_decode from "jwt-decode";
 import {useNavigate} from "react-router-dom";
+import FloatingLoading from "../FloatingLoading"
 const google = window.google;
 
 export default function Header({navbarBrand, setProducts, exclude, include}) {
@@ -155,9 +156,11 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
   function handleCredentialResponse(response) {
     const user = jwt_decode(response.credential);
 
+    setLoadingLogin(true);
+
     axios
       .get(`api/users/find-by-email/${user.email}`)
-      .then((response) => {
+      .then(async (response) => {
         if (response.data.message === "User was not found") {
           document.querySelector(".close-button-login-modal").click();
 
@@ -174,7 +177,8 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
         }
 
         //already registered
-        handleLoginByGoogle(user.email);
+        await handleLoginByGoogle(user.email);
+        setLoadingLogin(false);
       })
       .catch((response) => {
         console.log(response);
@@ -196,6 +200,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
 
   return (
     <nav className="navbar navbar-expand-md navbar-light shadow-sm">
+      {loadingLogin ? <FloatingLoading description={"Loggin you in..."}/> : null}
       <div className="container-fluid">
         <Link to="/" className="img-logo-wrapper">
           {navbarBrand === "shopping_cart" ? (

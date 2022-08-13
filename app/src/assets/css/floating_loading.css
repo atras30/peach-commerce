@@ -1,0 +1,7 @@
+.floating-loading {
+  background-color: rgb(255, 238, 216);
+  top: 2em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}

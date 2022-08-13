@@ -87,7 +87,7 @@ export default function AddUserProduct() {
                 <label htmlFor="input-description" className="form-label">
                   Description
                 </label>
-                <input ref={inputDescription} required type="text" className="form-input" id="input-description"></input>
+              <textarea ref={inputDescription} style={{minHeight: "100px"}} required type="text" className="form-input" id="input-description"></textarea>
               </div>
 
               <div className="mb-3">

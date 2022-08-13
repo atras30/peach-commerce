@@ -18,7 +18,7 @@ export default function UserReply({comment}) {
     <div className="d-flex gap-4 mb-2 shadow-sm p-3 user-reply rounded">
       <div>
         <div className="d-flex align-items-center gap-2 user-user-reply p-1 rounded" onClick={handleRedirectToUserPage}>
-          <img src={process.env.REACT_APP_BACKEND_BASE_URL + "/" + comment?.user?.profile_picture_path} alt="Profile Picture" width={"30px"} height={"30px"} className="profile-image rounded-circle border border-2 border-primary" />
+          <img src={process.env.REACT_APP_BACKEND_BASE_URL + "/" + (comment?.user?.profile_picture_path ? comment?.user?.profile_picture_path : "assets/peach_coin_logo.png")} alt="Profile Picture" width={"30px"} height={"30px"} className="profile-image rounded-circle border border-2 border-primary" />
           <div className="user-username fw-bold">{comment?.user?.username}</div>
         </div>
         <div className="text-muted">{formatDistance(new Date(comment?.user?.created_at), new Date(), {addSuffix: true})}</div>

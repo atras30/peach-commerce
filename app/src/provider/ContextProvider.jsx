@@ -51,7 +51,7 @@ export default function ContextProvider({children}) {
       email: email,
     };
 
-    axios
+    await axios
       .post(url, payload)
       .then(async (response) => {
         cookies.set("Authorization", `Bearer ${response.data.token}`);

@@ -85,7 +85,7 @@ export default function Review({review, printStars, fetchProduct}) {
       <div className="user-information d-flex gap-5 mb-2">
         <div className="d-flex flex-column">
           <div className="d-flex align-items-center gap-2 user rounded p-1" onClick={handleRedirectToUserPage}>
-            <img src={process.env.REACT_APP_BACKEND_BASE_URL+"/"+review?.user?.profile_picture_path} alt="Profile Picture" width={"30px"} height={"30px"} className="profile-image rounded-circle border border-2"/>
+            <img src={process.env.REACT_APP_BACKEND_BASE_URL+"/"+(review?.user?.profile_picture_path ? review?.user?.profile_picture_path : "assets/peach_coin_logo.png")} alt="Profile Picture" width={"30px"} height={"30px"} className="profile-image rounded-circle border border-2"/>
             <div className="user-username fw-bold">{review?.user?.username}</div>
           </div>
           <div className="user-timestamp text-muted mb-3 text-center">{
