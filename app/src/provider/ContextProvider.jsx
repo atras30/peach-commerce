@@ -29,6 +29,7 @@ export function useMiddlewareContext() {
 export default function ContextProvider({children}) {
   const navigate = useNavigate();
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
   //toast SWAL Configuration
   const toast = Swal.mixin({
     toast: true,
@@ -46,6 +47,7 @@ export default function ContextProvider({children}) {
   const cookies = new Cookies();
 
   async function handleLoginByGoogle(email) {
+    setIsLoginLoading(prevValue => !prevValue);
     const url = `api/auth/login/google`;
     const payload = {
       email: email,
@@ -74,7 +76,10 @@ export default function ContextProvider({children}) {
           title: `Login Success, welcome ${user.full_name}`,
         });
       })
-      .catch((response) => console.log(response));
+      .catch((response) => console.log(response))
+      .finally(() => {
+        setIsLoginLoading(prevValue => !prevValue);
+      });
   }
 
   //function to handle logout logic
@@ -104,6 +109,8 @@ export default function ContextProvider({children}) {
 
   //function to handle login logic, return string ("success" | "failed")
   async function handleLogin(username, password) {
+    setIsLoginLoading(prevValue => !prevValue);
+    
     let data = {
       email: username,
       password: password,
@@ -128,14 +135,17 @@ export default function ContextProvider({children}) {
       }
     });
 
+    setIsLoginLoading(prevValue => !prevValue);
     return loginStatus;
   }
 
   const getLoggedInUser = async () => {
+    setIsLoginLoading(prevValue => !prevValue);
     //if user not logged in, do nothing
     if (!cookies.get("Authorization")) {
       // prompt google one tap login if the user is not logged in
       google?.accounts?.id?.prompt();
+      setIsLoginLoading(prevValue => !prevValue);
       return false;
     }
 
@@ -158,6 +168,8 @@ export default function ContextProvider({children}) {
           title: "You are not logged in.",
         });
         return false;
+      }).finally(() => {
+        setIsLoginLoading(prevValue => !prevValue);
       });
   };
 
@@ -274,7 +286,7 @@ export default function ContextProvider({children}) {
   return (
     <ShoppingCartContext.Provider value={{handleAddToCart}}>
       <HelperContext.Provider value={{toast, cookies, formatErrorRequest}}>
-        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLoginByGoogle, handleLogout, getLoggedInUser}}>
+        <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLoginByGoogle, handleLogout, getLoggedInUser, isLoginLoading}}>
           <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
         </UserContext.Provider>
       </HelperContext.Provider>

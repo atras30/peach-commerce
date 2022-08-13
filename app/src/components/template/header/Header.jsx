@@ -21,7 +21,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
 
   //useContext hook
   const inputSearch = useRef(null);
-  const {authenticatedUser, handleLogin, handleLoginByGoogle} = useUserContext();
+  const {authenticatedUser, handleLogin, handleLoginByGoogle, isLoginLoading} = useUserContext();
   const [loadingLogin, setLoadingLogin] = useState(false);
 
   //{ useRef hook }
@@ -226,7 +226,8 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
 
             {include?.includes("peach_coin") ? <PeachCoin /> : null}
 
-            {authenticatedUser === null ? <LoginButton /> : <ProfileButton />}
+            {/* {authenticatedUser === null && !isLoginLoading ? <LoginButton /> : authenticatedUser === null && isLoginLoading ? null : <ProfileButton />} */}
+            {!authenticatedUser && !isLoginLoading ? <LoginButton/> : !authenticatedUser && isLoginLoading ? null : <ProfileButton/> }
           </div>
         </div>
       </div>
