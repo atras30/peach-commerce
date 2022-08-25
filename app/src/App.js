@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LandingPage from "./components/landing/LandingPage";
 import AddUserProduct from "./components/add_user_product/AddUserProduct";
 import EditUserProduct from "./components/edit_user_product/EditUserProduct";
@@ -14,6 +14,10 @@ import EmailVerificationPage from "./components/email/EmailVerificationPage";
 import QuickLogin from "./components/QuickLogin";
 import RegistrationByGoogle from "./components/registration_by_google/RegistrationByGoogle";
 import axios from "axios";
+import { ToastContainer, toast} from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
   //axios
@@ -58,6 +62,8 @@ function App() {
           </Routes>
         </ContextProvider>
       </Router>
+
+      <ToastContainer/>
     </>
   );
 }

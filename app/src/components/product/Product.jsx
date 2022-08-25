@@ -106,7 +106,7 @@ export default function Product({product, fetchProduct}) {
             {isAddToCartProcessing ? 
             <div className="processing-add-to-cart">Processing..</div>
             :
-            authenticatedUser?.shopping_carts.map((each) => each.product_id).includes(product.id) ? (
+            authenticatedUser?.shopping_carts?.map((each) => each?.product_id).includes(product.id) ? (
               <div className="d-inline-block">
                 <i className="bi bi-cart me-2"></i>Remove from cart
               </div>

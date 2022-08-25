@@ -49,18 +49,12 @@ export default function ShoppingCartCard({shoppingCart, setShoppingCarts}) {
         await getLoggedInUser();
 
         return (async () => {
-          toast.fire({
-            icon: "success",
-            title: `Product has been removed from your shopping cart`,
-          });
+          toast.success(`Product has been removed from your shopping cart`)
         })();
       })
       .catch((error) => {
         (async () => {
-          toast.fire({
-            icon: "error",
-            title: `${error}`,
-          });
+          toast.error(error)
         })();
       });
 

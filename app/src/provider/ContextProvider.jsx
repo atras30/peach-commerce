@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
-import Swal from "sweetalert2";
+import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 const UserContext = React.createContext();
@@ -30,24 +30,13 @@ export default function ContextProvider({children}) {
   const navigate = useNavigate();
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
-  //toast SWAL Configuration
-  const toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   //misc
   const cookies = new Cookies();
 
   async function handleLoginByGoogle(email) {
-    setIsLoginLoading(prevValue => !prevValue);
+    const id = toast.loading("Loggin you in...");
+
     const url = `api/auth/login/google`;
     const payload = {
       email: email,
@@ -58,28 +47,17 @@ export default function ContextProvider({children}) {
       .then(async (response) => {
         cookies.set("Authorization", `Bearer ${response.data.token}`);
 
-        const user = await axios
-          .get("api/auth/user", {
-            headers: {
-              Authorization: cookies.get("Authorization"),
-            },
-          })
-          .then((response) => response.data.user)
-          .catch((response) => console.log(response));
-
-        setAuthenticatedUser(user);
-
         document.querySelector(".close-button-login-modal").click();
-
-        toast.fire({
-          icon: "success",
-          title: `Login Success, welcome ${user.full_name}`,
+        const userPromise = await axios.get("api/auth/user", {
+          headers: {
+            Authorization: cookies.get("Authorization"),
+          },
         });
+
+        toast.update(id, {render: `Hello, ${userPromise.data.user.username}`, type: "success", isLoading: false, autoClose: 3000, closeOnClick: true});
+        setAuthenticatedUser(userPromise.data.user);
       })
-      .catch((response) => console.log(response))
-      .finally(() => {
-        setIsLoginLoading(prevValue => !prevValue);
-      });
+      .catch((response) => console.log(response));
   }
 
   //function to handle logout logic
@@ -99,18 +77,15 @@ export default function ContextProvider({children}) {
           cookies.remove("Authorization");
           setAuthenticatedUser(null);
           navigate("/");
-          toast.fire({
-            icon: "success",
-            title: "Successfully logged out!",
-          });
+          toast.success("Successfully logged out!");
         }
       });
   };
 
   //function to handle login logic, return string ("success" | "failed")
   async function handleLogin(username, password) {
-    setIsLoginLoading(prevValue => !prevValue);
-    
+    setIsLoginLoading((prevValue) => !prevValue);
+
     let data = {
       email: username,
       password: password,
@@ -119,33 +94,27 @@ export default function ContextProvider({children}) {
     // Send a POST request
     let loginStatus = await axios.post("/api/auth/login", data).then(async (response) => {
       if (response.data.message === "Login failed. Wrong email or password") {
-        toast.fire({
-          icon: "error",
-          title: response.data.message,
-        });
+        toast.error(response.data.message);
         return "failed";
       } else {
         cookies.set("Authorization", `Bearer ${response.data.token}`);
         setAuthenticatedUser(response.data.user);
-        toast.fire({
-          icon: "success",
-          title: `Login Success, welcome ${response.data.user.full_name}`,
-        });
+        toast.success(`Login Success, welcome ${response.data.user.full_name}`);
         return "success";
       }
     });
 
-    setIsLoginLoading(prevValue => !prevValue);
+    setIsLoginLoading((prevValue) => !prevValue);
     return loginStatus;
   }
 
   const getLoggedInUser = async () => {
-    setIsLoginLoading(prevValue => !prevValue);
+    setIsLoginLoading((prevValue) => !prevValue);
     //if user not logged in, do nothing
     if (!cookies.get("Authorization")) {
       // prompt google one tap login if the user is not logged in
       google?.accounts?.id?.prompt();
-      setIsLoginLoading(prevValue => !prevValue);
+      setIsLoginLoading((prevValue) => !prevValue);
       return false;
     }
 
@@ -163,13 +132,11 @@ export default function ContextProvider({children}) {
       .catch((err) => {
         cookies.remove("Authorization");
         navigate("/");
-        toast.fire({
-          icon: "error",
-          title: "You are not logged in.",
-        });
+        toast.error("You are not logged in.");
         return false;
-      }).finally(() => {
-        setIsLoginLoading(prevValue => !prevValue);
+      })
+      .finally(() => {
+        setIsLoginLoading((prevValue) => !prevValue);
       });
   };
 
@@ -183,18 +150,11 @@ export default function ContextProvider({children}) {
         if ((await getLoggedInUser()) === false) {
           navigate("/");
 
-          return toast.fire({
-            icon: "error",
-            title: `You are not logged in`,
-          });
+          return toast.error(`You are not logged in`);
         }
       } else if (middleware === "verified") {
         if (authenticatedUser?.email_verified_at === null) {
-          toast.fire({
-            icon: "error",
-            title: `Your email must be verified`,
-          });
-
+          toast.error(`Your email must be verified`);
           return navigate("/");
         }
 
@@ -203,10 +163,7 @@ export default function ContextProvider({children}) {
         if (user.email_verified_at === null) {
           navigate("/");
 
-          return toast.fire({
-            icon: "error",
-            title: `Your email must be verified`,
-          });
+          toast.error(`Your email must be verified`);
         }
       } else if (true) {
         //next middleware
@@ -219,10 +176,7 @@ export default function ContextProvider({children}) {
       document.querySelector(".loginbutton").click();
 
       return (async () => {
-        toast.fire({
-          icon: "error",
-          title: `Please sign in to continue any further`,
-        });
+        toast.error(`Please sign in to continue any further`);
       })();
     }
 
@@ -240,32 +194,21 @@ export default function ContextProvider({children}) {
         }
       )
       .then(async (response) => {
-        console.log("waiting getlogginuser function");
         await getLoggedInUser();
-        console.log("getlogginuser function done");
 
         if (response.data.message === "created") {
           return setTimeout(() => {
-            toast.fire({
-              icon: "success",
-              title: `Product berhasil dimasukkan ke keranjang kamu`,
-            });
+            toast.success(`Product berhasil dimasukkan ke keranjang kamu`);
           }, 0);
         }
 
         return setTimeout(() => {
-          toast.fire({
-            icon: "success",
-            title: `Product berhasil dikeluarkan dari keranjang kamu`,
-          });
+          toast.success(`Product berhasil dikeluarkan dari keranjang kamu`);
         }, 0);
       })
       .catch((error) => {
         console.log(error);
-        toast.fire({
-          icon: "error",
-          title: `${error}`,
-        });
+        toast.error(error);
       });
   }
 

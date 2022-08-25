@@ -51,16 +51,10 @@ export default function UserProduct({product}) {
     axios
       .delete(url, config)
       .then((response) => {
-        toast.fire({
-          icon: "success",
-          title: response.data.message,
-        });
+        toast.success(response.data.message)
       })
       .catch((response) => {
-        toast.fire({
-          icon: "error",
-          title: response.response.data.message,
-        });
+        toast.error(response.response.data.message)
       })
       .finally(() => {
         getLoggedInUser();

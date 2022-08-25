@@ -42,9 +42,7 @@ export default function Product({product}) {
     if(isLoading) return;
     toggleSetIsLoading();
 
-    console.log("waiting for process to be done");
     await handleAddToCart(product);
-    console.log("Process done");
     toggleSetIsLoading();
   }
 

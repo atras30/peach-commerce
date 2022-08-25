@@ -5,19 +5,18 @@ import {useUserContext, useHelperContext} from "../../../provider/ContextProvide
 import LoginButton from "./LoginButton.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import axios from "axios";
-import Swal from "sweetalert2";
+import {toast} from "react-toastify";
 import Loading from "../Loading";
 import "../../../assets/css/header.css";
 import PeachCoin from "./PeachCoin";
 import FilterSearchForm from "./FilterSearchForm";
 import jwt_decode from "jwt-decode";
 import {useNavigate} from "react-router-dom";
-import FloatingLoading from "../FloatingLoading"
 const google = window.google;
 
 export default function Header({navbarBrand, setProducts, exclude, include}) {
   const navigate = useNavigate();
-  const {cookies, formatErrorRequest, toast} = useHelperContext();
+  const {cookies, formatErrorRequest} = useHelperContext();
 
   //useContext hook
   const inputSearch = useRef(null);
@@ -43,19 +42,6 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
   const loginModal = useRef(null);
 
   //{End useRef hook}
-
-  //Toast SWAL Configuration
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   // Filter produk berdasarkan input user (search input)
   function handleSearch(e) {
@@ -110,12 +96,8 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
         }
       )
       .then((response) => {
-        console.log(response);
         if (response.data.message === "User has been created") {
-          Toast.fire({
-            icon: "success",
-            title: `Successfully created a user, you can now login to our app!`,
-          });
+          toast.success(`Successfully created a user, you can now login to our app!`)
         }
       })
       .catch((exception) => {
@@ -124,16 +106,10 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
         if (exception.response.data.errors) {
           let errors = formatErrorRequest(exception.response.data.errors);
 
-          return Toast.fire({
-            icon: "error",
-            title: "<p>Register failed : </p>" + errors,
-          });
+          return toast.error("<p>Register failed : </p>" + errors);
         }
 
-        return Toast.fire({
-          icon: "error",
-          title: exception.response.data,
-        });
+        return toast.error(exception.response.data)
       });
   };
 
@@ -145,6 +121,7 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
     const password = inputLoginPassword.current.value;
 
     let loginStatus = await handleLogin(username, password);
+    console.log(loginStatus);
     setLoadingLogin(false);
 
     if (loginStatus === "success") {
@@ -200,7 +177,6 @@ export default function Header({navbarBrand, setProducts, exclude, include}) {
 
   return (
     <nav className="navbar navbar-expand-md navbar-light shadow-sm">
-      {loadingLogin ? <FloatingLoading description={"Loggin you in..."}/> : null}
       <div className="container-fluid">
         <Link to="/" className="img-logo-wrapper">
           {navbarBrand === "shopping_cart" ? (

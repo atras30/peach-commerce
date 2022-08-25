@@ -6,9 +6,9 @@ import "../../assets/css/email_resend.css";
 import {useMiddlewareContext, useUserContext} from "../../provider/ContextProvider";
 import Footer from "../template/footer/Footer";
 import Header from "../template/header/Header";
-import Swal from "sweetalert2";
 import {useState} from "react";
 import Loading from "../template/Loading";
+import { toast } from "react-toastify";
 
 export default function EmailResendPage() {
   const setMiddleware = useMiddlewareContext();
@@ -16,19 +16,6 @@ export default function EmailResendPage() {
   const inputEmail = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const cookies = new Cookies();
-
-  //Toast SWAL Configuration
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   useEffect(function () {
     setMiddleware(["auth"]);
@@ -47,16 +34,10 @@ export default function EmailResendPage() {
         }
       )
       .then((response) => {
-        Toast.fire({
-          icon: "success",
-          title: response.data.message,
-        });
+        toast.success(response.data.message);
       })
       .catch((response) => {
-        Toast.fire({
-          icon: "success",
-          title: response.data.message,
-        });
+        toast.success(response.data.message);
       })
       .finally(() => {
         setIsLoading(false);

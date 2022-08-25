@@ -49,10 +49,7 @@ export default function RegistrationByGoogle() {
       })
       .then((response) => {
         if (response.data.message === "User has been created") {
-          toast.fire({
-            icon: "success",
-            title: `Successfully created a user, you can now login to our app!`,
-          });
+          toast.success(`Successfully created a user, you can now login to our app!`)
 
           cookies.set("recently_registered", true);
           navigate("/");
@@ -61,10 +58,7 @@ export default function RegistrationByGoogle() {
       .catch((exception) => {
         console.log(exception)
         const errors = formatErrorRequest(exception.response.data.errors);
-        toast.fire({
-          icon: "error",
-          title: `<p>Failed creating user : </p>${errors}`,
-        });
+        toast.error(`<p>Failed creating user : </p>${errors}`)
         console.log(exception.response.data.errors);
       })
       .finally(() => {
@@ -74,19 +68,13 @@ export default function RegistrationByGoogle() {
 
   useEffect(function () {
     if (!cookies.get("user_information")) {
-      toast.fire({
-        icon: "error",
-        title: "You have no access to the page",
-      });
+      toast.error("You have no access to the page");
       return navigate("/");
     }
 
     cookies.remove("user_information");
 
-    toast.fire({
-      icon: "info",
-      title: `Please fill in the data to register to our app`,
-    });
+    toast.warn(`Please fill in the data to register to our app`);
   }, []);
 
   return (

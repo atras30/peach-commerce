@@ -7,6 +7,7 @@ import {formatDistance}  from "date-fns";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import {useUserContext, useHelperContext} from "../../provider/ContextProvider";
+import {toast} from "react-toastify";
 
 export default function Review({review, printStars, fetchProduct}) {
   const navigate = useNavigate();
@@ -14,7 +15,6 @@ export default function Review({review, printStars, fetchProduct}) {
   const replySection = useRef(null);
   const inputReply = useRef(null);
   const {authenticatedUser} = useUserContext();
-  const {toast} = useHelperContext();
   const cookies = new Cookies();
 
   useEffect(function () {
@@ -30,15 +30,9 @@ export default function Review({review, printStars, fetchProduct}) {
     if (!authenticatedUser) {
       const button = document.querySelector(".loginbutton");
       button.click();
-      return toast.fire({
-        icon: "error",
-        title: "You must be logged in to reply another user's comment",
-      });
+      return toast.error("You must be logged in to reply another user's comment");
     } else if (authenticatedUser?.email_verified_at === null) {
-      return toast.fire({
-        icon: "error",
-        title: "Your email is not verified yet.",
-      });
+      return toast.error("Your email is not verified yet.");
     }
     
     handleReplyToggle();
@@ -61,18 +55,12 @@ export default function Review({review, printStars, fetchProduct}) {
       )
       .then((response) => {
         inputReply.current.value = "";
-        toast.fire({
-          icon: "success",
-          title: response.data.message,
-        });
+        toast.success(response.data.message)
         fetchProduct();
         handleReplyToggle();
       })
       .catch((error) => {
-        toast.fire({
-          icon: "error",
-          title: error.response.data.message,
-        });
+        toast.error(error.response.data.message);
       });
   }
 

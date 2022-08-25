@@ -20,7 +20,7 @@ export default function LandingPage() {
     getCategories();
 
     //if recently registered with google sign up, close the modal
-    if(cookies.get("recently_registered")) {
+    if (cookies.get("recently_registered")) {
       cookies.remove("recently_registered");
       document.querySelector(".loginbutton").click();
     }
@@ -35,10 +35,7 @@ export default function LandingPage() {
       })
       .catch(function (error) {
         // handle error
-        toast.fire({
-          icon: "error",
-          title: error.response.data.message,
-        });
+        toast.error(error.response.data.message);
       });
   }
 
@@ -52,10 +49,7 @@ export default function LandingPage() {
       })
       .catch(function (error) {
         // handle error
-        toast.fire({
-          icon: "error",
-          title: error.response.data.message,
-        });
+        toast.error(error.response.data.message);
       });
   };
 
@@ -66,7 +60,7 @@ export default function LandingPage() {
 
         <div className="category-container d-flex justify-content-between px-5 gap-5 overflow-auto">
           {categories?.map((category) => (
-            <Category category={category} key={category.id}/>
+            <Category category={category} key={category.id} />
           ))}
         </div>
 

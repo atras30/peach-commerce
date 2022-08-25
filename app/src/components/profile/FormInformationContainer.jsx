@@ -1,26 +1,12 @@
 import axios from "axios";
 import React, {useRef} from "react";
-import Cookies from "universal-cookie";
 import {useHelperContext, useUserContext} from "../../provider/ContextProvider";
-import Swal from "sweetalert2";
+import {toast} from "react-toastify"
 import "../../assets/css/FormInformationContainer.css";
 
 export default function FormInformationContainer({toggleIsEditing}) {
   const {authenticatedUser, setAuthenticatedUser} = useUserContext();
   const {formatErrorRequest, cookies} = useHelperContext();
-
-  //Toast SWAL Configuration
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   const inputUsername = useRef(null);
   const inputEmail = useRef(null);
@@ -53,18 +39,12 @@ export default function FormInformationContainer({toggleIsEditing}) {
 
       setAuthenticatedUser(response.data.user);
 
-      Toast.fire({
-        icon: "success",
-        title: response.data.message,
-      });
+      toast.success(response.data.message);
     } catch (exception) {
       let errors = exception.response.data.errors;
       let errorList = formatErrorRequest(errors);
 
-      Toast.fire({
-        icon: "error",
-        title: `<p>Update Failed :</p>${errorList}`,
-      });
+      toast.error(`<p>Update Failed :</p>${errorList}`)
     }
   };
 

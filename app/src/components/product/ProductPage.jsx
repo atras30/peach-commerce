@@ -54,10 +54,7 @@ export default function ProductPage() {
           message = `Product with id ${searchParams.get("id")} was not found.`;
         }
 
-        toast.fire({
-          icon: "error",
-          title: message,
-        });
+        toast.error(message);
         navigate("/");
       });
   };

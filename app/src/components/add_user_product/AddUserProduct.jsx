@@ -5,8 +5,9 @@ import "../../assets/css/add_user_product.css";
 import axios from "axios";
 import {useRef} from "react";
 import {useHelperContext, useMiddlewareContext} from "../../provider/ContextProvider";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function AddUserProduct() {
   const setMiddleware = useMiddlewareContext();
@@ -45,24 +46,18 @@ export default function AddUserProduct() {
     axios
       .post(url, payload, config)
       .then((response) => {
-        toast.fire({
-          icon: "success",
-          title: "Product was successfully added to your listings.",
-        });
+        toast.success("Product was successfully added to your listings.");
         navigate(`/product?id=${response.data.product.id}`);
       })
       .catch((response) => {
-        let errorObject = response.response.data.errors;        
+        let errorObject = response.response.data.errors;
         const errorListings = formatErrorRequest(errorObject);
 
-        toast.fire({
-          icon: "error",
-          title: `<p">Add Product Failed :</p>${errorListings}`,
-        });
+        toast.error(`<p">Add Product Failed :</p>${errorListings}`);
       });
   }
 
-  useEffect(function() {
+  useEffect(function () {
     setMiddleware(["auth", "verified"]);
   }, []);
 
@@ -87,7 +82,7 @@ export default function AddUserProduct() {
                 <label htmlFor="input-description" className="form-label">
                   Description
                 </label>
-              <textarea ref={inputDescription} style={{minHeight: "100px"}} required type="text" className="form-input" id="input-description"></textarea>
+                <textarea ref={inputDescription} style={{minHeight: "100px"}} required type="text" className="form-input" id="input-description"></textarea>
               </div>
 
               <div className="mb-3">
