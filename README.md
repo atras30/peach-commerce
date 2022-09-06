@@ -120,3 +120,5 @@ EDIT ONE USER
 
 ### /api/users/{id} - delete
 DELETE ONE USER
+
+###Lanjutin nanti lagi hehehe, lagi sibuk kuliah soalnya
