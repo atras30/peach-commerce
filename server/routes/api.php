@@ -35,11 +35,14 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
   Route::post("/shopping-cart/active/{id}", [ShoppingCartController::class, "toggleActive"]);
 
   //Products
-  Route::post("products", [ProductController::class, "store"]);
-  Route::delete("products/{id}", [ProductController::class, "destroy"]);
+  Route::post("/products", [ProductController::class, "store"]);
+  Route::delete("/products/{id}", [ProductController::class, "destroy"]);
 
   //Users
-  Route::post("users/profile-picture", [UserController::class, "changeProfilePicture"]);// change profile picture
+  Route::post("/users/profile-picture", [UserController::class, "changeProfilePicture"]);// change profile picture
+
+  //Product Review Comments
+  Route::delete("/products/reviews/comments/{id}", [ProductReviewCommentController::class, "destroy"]);
 });
 
 Route::put("/products/{id}", [ProductController::class, "update"]);

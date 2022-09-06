@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductReview;
 use App\Models\ProductReviewComment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,9 +38,9 @@ class ProductReviewCommentController extends Controller {
       "product_review_id" => "integer|required",
       "comment" => "string|required",
       "user_id" => "integer|required"
-      ]);
+    ]);
 
-    if($validator->fails()) {
+    if ($validator->fails()) {
       return response()->json([
         "message" => "Failed creating a new comment.",
         "errors" => $validator->errors()
@@ -51,7 +52,7 @@ class ProductReviewCommentController extends Controller {
 
     try {
       $comment = ProductReviewComment::create($validated);
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
       return response()->json([
         "message" => $e->getMessage()
       ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -101,6 +102,16 @@ class ProductReviewCommentController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function destroy($id) {
-    //
+    try {
+      ProductReviewComment::firstWhere("id", $id)->delete();
+    } catch (\Exception $e) {
+      return response()->json([
+        "error" => $e->getMessage()
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    return response()->json([
+      "message" => "Comment has been deleted."
+    ], Response::HTTP_OK);
   }
 }
