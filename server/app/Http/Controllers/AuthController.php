@@ -55,7 +55,7 @@ class AuthController extends Controller {
   }
 
   public function register(Request $request) {
-    $validator = Validator::make($request->all(), [
+    $validatedData = $request->validate([
       "first_name" => "string|required",
       "last_name" => "string|required",
       "username" => "string|required|unique:users,username",
@@ -67,14 +67,6 @@ class AuthController extends Controller {
       "registered_via" => "string"
     ]);
 
-    if ($validator->fails()) {
-      return response()->json([
-        "message" => "failed creation of new user",
-        "errors" => $validator->errors()
-      ], Response::HTTP_NOT_ACCEPTABLE);
-    }
-
-    $validatedData = $validator->validated();
     $validatedData["full_name"] = $validatedData["first_name"] . " " . $validatedData["last_name"];
     $validatedData["password"] = Hash::make($validatedData["password"]);
 

@@ -18,7 +18,7 @@ class ProductController extends Controller {
   public function index() {
     $products = Product::with("reviews")->get();
 
-    foreach($products as $product) {
+    foreach ($products as $product) {
       $product['discount'] = intval($product["discount"]);
       $product['total_sales'] = intval($product["total_sales"]);
       $product['stock'] = intval($product["stock"]);
@@ -44,7 +44,7 @@ class ProductController extends Controller {
         "products" => []
       ], Response::HTTP_OK);
     }
-    
+
     return response()->json([
       "message" => "Successfully fetched data",
       "products" => $products
@@ -76,15 +76,15 @@ class ProductController extends Controller {
     }
 
     try {
-      $filePath = $request->file("product_image")->storeAs("products/product_images/user_id_{$request->user()->id}", pathinfo($request->file("product_image")->getClientOriginalName(), PATHINFO_FILENAME)."_".Uuid::generate()->string.".".$request->file("product_image")->getClientOriginalExtension());
+      $filePath = $request->file("product_image")->storeAs("products/product_images/user_id_{$request->user()->id}", pathinfo($request->file("product_image")->getClientOriginalName(), PATHINFO_FILENAME) . "_" . Uuid::generate()->string . "." . $request->file("product_image")->getClientOriginalExtension());
       $validated["img_link"] = $filePath;
-      $product = Product::create($validated); 
-    } catch(\Exception $e) {
+      $product = Product::create($validated);
+    } catch (\Exception $e) {
       return response()->json([
         "error" => $e->getMessage()
       ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-    
+
     return response()->json([
       "message" => "Product was successfully created!",
       "product" => $product
@@ -103,9 +103,9 @@ class ProductController extends Controller {
     $product['discount'] = intval($product["discount"]);
     $product['total_sales'] = intval($product["total_sales"]);
     $product['stock'] = intval($product["stock"]);
-    
-    foreach($product["reviews"] as $review) {
-      $review['rating'] = intval($review["rating"]);  
+
+    foreach ($product["reviews"] as $review) {
+      $review['rating'] = intval($review["rating"]);
     }
 
     return response()->json([
@@ -129,12 +129,31 @@ class ProductController extends Controller {
       'stock' => 'numeric|min:1',
     ]);
 
-    $updatedProduct = Product::findOrFail($id);
-    $updatedProduct->update($request->all());
+    try {
+      $updatedProduct = Product::findOrFail($id);
+      $updatedProduct->update($request->all());
+
+      return response()->json([
+        "message" => "Product was successfully updated",
+        "product" => $updatedProduct
+      ], Response::HTTP_OK);
+    } catch (\Exception $e) {
+      return response()->json([
+        "message" => $e->getMessage()
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  public function updateProductPicture(Request $request, $id) {    
+    $validatedRequest = $request->validate([
+      "product_image" => 'required|mimes:png,jpg,jpeg|max:4096'
+    ]);
+
+    $product = Product::findOrFail($id);
+    $product->update($validatedRequest);
 
     return response()->json([
-      "message" => "Product was successfully updated",
-      "product" => $updatedProduct
+      "message" => "Successfully changed a profile picture"
     ], Response::HTTP_OK);
   }
 
@@ -146,7 +165,7 @@ class ProductController extends Controller {
    */
   public function destroy($id) {
     $product = Product::find($id);
-    if($product == null) {
+    if ($product == null) {
       return response()->json([
         "message" => "Product was not found."
       ], Response::HTTP_NOT_FOUND);

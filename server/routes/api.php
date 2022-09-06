@@ -42,6 +42,9 @@ Route::group(["middleware" => ["auth:sanctum"]], function () {
   Route::post("users/profile-picture", [UserController::class, "changeProfilePicture"]);// change profile picture
 });
 
+Route::put("/products/{id}", [ProductController::class, "update"]);
+Route::post("/products/picture/{id}", [ProductController::class, "updateProductPicture"]);
+
 //Categories
 Route::get("/categories", [CategoryController::class, "index"]);
 

@@ -8,7 +8,7 @@ import Loading from "../template/Loading";
 
 export default function RegistrationByGoogle() {
   const navigate = useNavigate();
-  const {cookies, toast, formatErrorRequest} = useHelperContext();
+  const {cookies, toast, toastUpdateSuccess, toastUpdateError} = useHelperContext();
   const [userInformation, setUserInformation] = useState(cookies.get("user_information"));
   const [isSigningUp, setIsSigningUp] = useState(false);
 
@@ -56,10 +56,7 @@ export default function RegistrationByGoogle() {
         }
       })
       .catch((exception) => {
-        console.log(exception)
-        const errors = formatErrorRequest(exception.response.data.errors);
-        toast.error(`<p>Failed creating user : </p>${errors}`)
-        console.log(exception.response.data.errors);
+        toast.error(exception.response.data.message);
       })
       .finally(() => {
         toggleIsSigningUp();

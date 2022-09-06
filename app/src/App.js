@@ -63,7 +63,7 @@ function App() {
         </ContextProvider>
       </Router>
 
-      <ToastContainer/>
+      <ToastContainer closeButton={true}/>
     </>
   );
 }

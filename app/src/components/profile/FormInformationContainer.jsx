@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, {useRef} from "react";
 import {useHelperContext, useUserContext} from "../../provider/ContextProvider";
-import {toast} from "react-toastify"
+import {toast} from "react-toastify";
 import "../../assets/css/FormInformationContainer.css";
 
 export default function FormInformationContainer({toggleIsEditing}) {
   const {authenticatedUser, setAuthenticatedUser} = useUserContext();
-  const {formatErrorRequest, cookies} = useHelperContext();
+  const {cookies, toastUpdateError, toastUpdateSuccess} = useHelperContext();
 
   const inputUsername = useRef(null);
   const inputEmail = useRef(null);
@@ -18,34 +18,33 @@ export default function FormInformationContainer({toggleIsEditing}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let response = await axios.put(
-        `/api/users/${authenticatedUser.id}`,
-        {
-          username: inputUsername.current.value,
-          email: inputEmail.current.value,
-          phone_number: inputPhoneNumber.current.value,
-          address: inputAddress.current.value,
-          first_name: inputFirstName.current.value,
-          last_name: inputLastName.current.value,
+    let response = axios.put(
+      `/api/users/${authenticatedUser.id}`,
+      {
+        username: inputUsername.current.value,
+        email: inputEmail.current.value,
+        phone_number: inputPhoneNumber.current.value,
+        address: inputAddress.current.value,
+        first_name: inputFirstName.current.value,
+        last_name: inputLastName.current.value,
+      },
+      {
+        headers: {
+          Authorization: cookies.get("Authorization"),
+          Accept: "application/json",
         },
-        {
-          headers: {
-            Authorization: cookies.get("Authorization"),
-            Accept: "application/json",
-          },
-        }
-      );
+      }
+    );
 
+    const id = toast.loading("Please wait...");
+
+    response.then((response) => {
+      toastUpdateSuccess(id, "Your profile has successfully been updated");
       setAuthenticatedUser(response.data.user);
-
-      toast.success(response.data.message);
-    } catch (exception) {
-      let errors = exception.response.data.errors;
-      let errorList = formatErrorRequest(errors);
-
-      toast.error(`<p>Update Failed :</p>${errorList}`)
-    }
+      toggleIsEditing();
+    }).catch((response) => {
+      toastUpdateError(id, response.response.data.message);
+    })
   };
 
   return (

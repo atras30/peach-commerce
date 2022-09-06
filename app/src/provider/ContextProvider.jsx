@@ -34,6 +34,14 @@ export default function ContextProvider({children}) {
   //misc
   const cookies = new Cookies();
 
+  function toastUpdateError(id, responseMessage) {
+    toast.update(id, {render: responseMessage, type: "error", isLoading: false, autoClose: 3000, closeOnClick: true});
+  }
+
+  function toastUpdateSuccess(id, responseMessage) {
+    toast.update(id, {render: responseMessage, type: "success", isLoading: false, autoClose: 3000, closeOnClick: true});
+  }
+
   async function handleLoginByGoogle(email) {
     const id = toast.loading("Loggin you in...");
 
@@ -228,7 +236,7 @@ export default function ContextProvider({children}) {
 
   return (
     <ShoppingCartContext.Provider value={{handleAddToCart}}>
-      <HelperContext.Provider value={{toast, cookies, formatErrorRequest}}>
+      <HelperContext.Provider value={{toast, toastUpdateError, toastUpdateSuccess, cookies, formatErrorRequest}}>
         <UserContext.Provider value={{authenticatedUser, setAuthenticatedUser, handleLogin, handleLoginByGoogle, handleLogout, getLoggedInUser, isLoginLoading}}>
           <MiddlewareContext.Provider value={setMiddleware}>{children}</MiddlewareContext.Provider>
         </UserContext.Provider>
